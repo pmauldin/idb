@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 
 class Navigation extends Component {
 	render() {
 		return (
 			<Navbar inverse collapseOnSelect>
 				<Navbar.Header>
-					<Navbar.Brand>
-						<a href="#">MarvelDB</a>
-					</Navbar.Brand>
 					<Navbar.Toggle />
 				</Navbar.Header>
 				<Navbar.Collapse>
 					<Nav>
-						<NavItem eventKey={1} href="/characters">Characters</NavItem>
-						<NavItem eventKey={2} href="/comics">Comics</NavItem>
-						<NavItem eventKey={3} href="/series">Series</NavItem>
-						<NavItem eventKey={4} href="/creators">Creators</NavItem>
-						<NavItem eventKey={5} href="/about">About</NavItem>
+						<IndexLinkContainer to="/">
+							<NavItem>MarvelDB</NavItem>
+						</IndexLinkContainer>
+						<LinkContainer to="/characters">
+							<NavItem>Characters</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/comics">
+							<NavItem>Comics</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/series">
+							<NavItem>Series</NavItem>
+						</LinkContainer>
+						<LinkContainer to="/creators">
+							<NavItem>Creators</NavItem>
+						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
