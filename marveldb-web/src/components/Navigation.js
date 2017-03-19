@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import '../css/Navigation.css';
 
 class Navigation extends Component {
 	render() {
@@ -8,12 +9,12 @@ class Navigation extends Component {
 			<Navbar inverse collapseOnSelect>
 				<Navbar.Header>
 					<Navbar.Toggle />
+					<Navbar.Brand>
+						<IndexLinkContainer to="/"><a>MarvelDB</a></IndexLinkContainer>
+					</Navbar.Brand>
 				</Navbar.Header>
 				<Navbar.Collapse>
 					<Nav>
-						<IndexLinkContainer to="/">
-							<NavItem>MarvelDB</NavItem>
-						</IndexLinkContainer>
 						<LinkContainer to="/characters">
 							<NavItem>Characters</NavItem>
 						</LinkContainer>

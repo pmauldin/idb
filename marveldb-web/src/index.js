@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import App from './App';
-import Home from './Home';
-import Characters from './Characters';
-import Comics from './Comics';
-import Series from './Series';
-import Creators from './Creators';
+import App from './components/App';
+import Home from './components/Home';
+import Characters from './components/Characters';
+import Comics from './components/Comics';
+import Series from './components/Series';
+import Creators from './components/Creators';
 import './index.css';
 
 ReactDOM.render ((
