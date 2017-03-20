@@ -1,0 +1,17 @@
+{
+	"id": "int", // response.data.results[i].id
+	"title": "string", // response.data.results[i].title
+	"issueNumber": "int", // response.data.results[i].issueNumber
+	"description": "string", // response.data.results[i].description
+	"format": "string", // response.data.results[i].format
+	"pageCount": "int", // response.data.results[i].pageCount
+	"printPrice": "float", // response.data.results[i].prices[x].price where type === "printPrice"
+	"digitalPrice": "float", // response.data.results[i].prices[x].price where type === "digitalPurchasePrice"
+	"dateReleased": "date", // response.data.results[i].dates[x].date where type === "onsaleDate"
+	"thumbnail": "URL", // response.data.results[i].thumbnail.path + response.data.results[i].thumbnail.path.extension
+	"images": "string", // response.data.results[i].images, convert to comma seperated string,
+	"details": "URL", // response.data.results[i].urls[x].url where type === "detail"
+	"series": "int", // Id of series this comic is a part of (if any). Converted from Converted from response.data.results[i].series.resourceURI (last part of URI)
+	"characters": ["int"], // List of ids of characters this comic includes. Converted from response.data.results[i].characters
+	"creators": ["int"], // List of ids of this comic's creators. Converted from response.data.results[i].creators
+}

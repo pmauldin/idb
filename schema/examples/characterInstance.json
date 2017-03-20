@@ -1,0 +1,13 @@
+{
+	"id": 1009610,
+	"name": "Spider-Man",
+	"description": "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
+	"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
+	"details": "http://marvel.com/characters/54/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+	"wiki": "http://marvel.com/universe/Spider-Man_(Peter_Parker)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+	"comics": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+	"comicAppearances": [6482], // subset for static, manual data
+	"numComicAppearances": 2922,
+	"seriesAppearances": [1987],  // subset for static, manual data
+	"numSeriesAppearances": 601
+}

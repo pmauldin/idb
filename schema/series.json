@@ -1,0 +1,18 @@
+{
+	"id": "int", // response.data.results[i].id
+	"title": "string", // response.data.results[i].title
+	"description": "string", // response.data.results[i].description
+	"startYear": "int", // response.data.results[i].startYear
+	"endYear": "int", // response.data.results[i].endYear
+	"rating": "string", // response.data.results[i].rating
+	"thumbnail": "URL", // response.data.results[i].thumbnail.path + response.data.results[i].thumbnail.path.extension
+	"details": "URL", // response.data.results[i].urls[x].url where type === "detail"
+	"predecessor": "int", // // Id of series that precedes this series (if any). Converted from Converted from response.data.results[i].previous.resourceURI (last part of URI)
+	"successor": "int", // // Id of series that succeedes this series (if any). Converted from Converted from response.data.results[i].next.resourceURI (last part of URI)
+	"comics": ["int"], // List of ids of comics in this series. Converted from Converted from response.data.results[i].comics
+	"numComics": "int", // response.data.results[i].comics.available
+	"characters": ["int"], // List of ids of characters this series includes. Converted from response.data.results[i].characters
+	"numCharacters": "int", // response.data.results[i].characters.available
+	"creators": ["int"], // List of ids of this series' creators. Converted from response.data.results[i].creators
+	"numCreators": "int" // response.data.results[i].creators.available
+}
