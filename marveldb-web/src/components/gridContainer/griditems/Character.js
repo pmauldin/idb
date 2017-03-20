@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { Image } from 'react-bootstrap';
+import gridItemUtils from './utils/gridItemUtils'
 import './styles/common.css';
 
 export default class Character extends Component {
 	render() {
 		return (
 			<div className="gridItem">
-				Name: {this.props.name}<br/>
-				Description: {(this.props.description || 'None').slice(0, 140)}<br/> {/*if too long, add ellipsis */}
+				<Image responsive className="gridThumbnail" src={this.props.thumbnail}/>
+				<strong>{this.props.name}</strong><br/>
+				<em>{gridItemUtils.truncateDescription(this.props.description)}</em><br/>
 				# Comic Appearances: {this.props.numComicAppearances}<br/>
 				# Of Series Appearances: {this.props.numSeriesAppearances}<br/>
 				<a href={this.props.wiki}>Wiki</a>

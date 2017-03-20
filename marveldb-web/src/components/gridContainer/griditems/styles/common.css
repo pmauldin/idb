@@ -3,5 +3,18 @@
     box-shadow: 0 0 10px #ddd;
     padding: 3%;
     margin-bottom: 10px;
-    min-height: 175px;
+    width: 100%;
+    min-height: 200px
+}
+
+.gridThumbnail {
+	max-width: 150px;
+	float: left;
+	margin-right: 5px;
+	height: 175px;
+}
+
+.marginlessGrid {
+	margin-left: 0%;
+	margin-right: 0%;
 }
