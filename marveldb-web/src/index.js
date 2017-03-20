@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/App';
-import Home from './components/Home';
-import Characters from './components/Characters';
-import Comics from './components/Comics';
-import Series from './components/Series';
-import Creators from './components/Creators';
+import Home from './components/pages/Home';
+import Characters from './components/pages/Characters';
+import Comics from './components/pages/Comics';
+import Series from './components/pages/Series';
+import Creators from './components/pages/Creators';
 import './index.css';
 
 ReactDOM.render ((
