@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LinkedGrid from './cards/LinkedGrid';
-import CharacterGridItem from '../gridContainer/griditems/Character';
+import CharacterGridItem from '../gridContainer/griditems/CharacterGridItem';
 import dataService from '../../utils/dataService';
 
 export default class CharacterDetails extends Component {
@@ -37,7 +37,7 @@ export default class CharacterDetails extends Component {
 
 		return (
 			<div>
-				<CharacterGridItem {...this.state.character} />
+				<CharacterGridItem inGrid={false} {...this.state.character} />
 				<LinkedGrid linkType="Comics" displayField="title" data={this.state.comics} />
 				<LinkedGrid linkType="Series" displayField="title" data={this.state.series} />
 			</div>

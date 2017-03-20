@@ -7,8 +7,8 @@ export default class GridContainer extends Component {
 		const results = this.props.results;
 
 		const gridItems = results.map(result => 
-			<Col key={result.id} xs={18} sm={4} md={4} lg={3}>
-				<GridItem {...result} />
+			<Col key={result.id} xs={12} sm={4} md={4} lg={4}>
+				<GridItem inGrid={true} {...result} />
 			</Col>
 		);
 		return (

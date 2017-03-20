@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import GridContainer from '../gridContainer/GridContainer';
-import ComicGridItem from '../gridContainer/griditems/Comic';
-import CreatorGridItem from '../gridContainer/griditems/Creator';
-import CharacterGridItem from '../gridContainer/griditems/Character';
-import SeriesGridItem from '../gridContainer/griditems/Series';
+import ComicGridItem from '../gridContainer/griditems/ComicGridItem';
+import CreatorGridItem from '../gridContainer/griditems/CreatorGridItem';
+import CharacterGridItem from '../gridContainer/griditems/CharacterGridItem';
+import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import SortingMenu from './menus/SortingMenu';
 import fields from './menus/SortingFields';
 import dataService from '../../utils/dataService';

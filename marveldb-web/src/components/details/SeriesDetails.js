@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LinkedGrid from './cards/LinkedGrid';
-import SeriesGridItem from '../gridContainer/griditems/Series';
+import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import dataService from '../../utils/dataService';
 
 export default class SeriesDetails extends Component {
@@ -37,7 +37,7 @@ export default class SeriesDetails extends Component {
 		}
 		return (
 			<div>
-				<SeriesGridItem {...this.state.series} />
+				<SeriesGridItem inGrid={false} {...this.state.series} />
 				<LinkedGrid linkType="Comics" displayField="title" data={this.state.comics} />
 				<LinkedGrid linkType="Characters" displayField="name" data={this.state.characters} />
 				<LinkedGrid linkType="Creators" displayField="fullName" data={this.state.creators} />
