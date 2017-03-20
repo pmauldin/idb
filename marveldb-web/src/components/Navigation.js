@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
-import '../css/Navigation.css';
+import './styles/Navigation.css';
 
 class Navigation extends Component {
 	render() {

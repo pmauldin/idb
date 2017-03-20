@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import GridContainer from '../gridContainer/GridContainer';
 
-class Characters extends Component {
+export default class Characters extends Component {
   render() {
     return (
-    	<span> Characters </span>
+    	<GridContainer type="character" />
     );
   }
-}
-
-export default Characters;
+};

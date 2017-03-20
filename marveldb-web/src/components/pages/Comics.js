@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
+import GridContainer from '../gridContainer/GridContainer';
 
-class Comics extends Component {
+export default class Comics extends Component {
   render() {
     return (
-    	<span> Comics </span>
+    	<GridContainer type="comic" />
     );
   }
-}
-
-export default Comics;
+};
