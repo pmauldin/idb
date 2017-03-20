@@ -57,7 +57,9 @@ const comics = [
 		"details": "http://marvel.com/comics/issue/6482/amazing_spider-man_1963_1?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"series": 1987,
 		"characters": [1009610],
-		"creators": [30]
+		"numCharacters": 1,
+		"creators": [30],
+		"numCreators": 4
 	},
 	{
 		"id": 55363,
@@ -74,7 +76,9 @@ const comics = [
 		"details": "http://marvel.com/comics/issue/55363/all-new_all-different_avengers_2015_10?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"series": 20443,
 		"characters": [1009368],
-		"creators": [119]
+		"numCharacters": 8,
+		"creators": [119],
+		"numCreators": 4
 	},
 	{
 		"id": 16904,
@@ -91,7 +95,9 @@ const comics = [
 		"details": "http://marvel.com/comics/issue/16904/amazing_spider-man_annual_1964_3?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"series": 2984,
 		"characters": [1009262],
-		"creators": [30, 305]
+		"numCharacters": 7,
+		"creators": [30, 305],
+		"numCreators": 7
 	}
 ];
 

@@ -7,8 +7,8 @@ export default class SortingMenu extends Component {
 		super(props);
 
 		this.state = {
-			fieldOptions: props.sortingFields.map((option) => <option
-				value={option.fieldName}>{option.displayName}</option>)
+			fieldOptions: props.sortingFields.map((option) =>
+				<option key={option.fieldName} value={option.fieldName}>{option.displayName}</option>)
 		};
 	}
 

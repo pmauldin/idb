@@ -13,5 +13,7 @@
 	"details": "URL", // response.data.results[i].urls[x].url where type === "detail"
 	"series": "int", // Id of series this comic is a part of (if any). Converted from Converted from response.data.results[i].series.resourceURI (last part of URI)
 	"characters": ["int"], // List of ids of characters this comic includes. Converted from response.data.results[i].characters
+	"numCharacters": "int", // response.data.results[i].characters.available
 	"creators": ["int"], // List of ids of this comic's creators. Converted from response.data.results[i].creators
+	"numCreators": "int", // response.data.results[i].creators.available
 }

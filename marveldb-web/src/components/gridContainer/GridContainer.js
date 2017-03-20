@@ -1,42 +1,22 @@
 import React, { Component } from 'react';
-import ComicGridItem from './griditems/Comic';
-import CreatorGridItem from './griditems/Creator';
-import CharacterGridItem from './griditems/Character';
-import SeriesGridItem from './griditems/Series';
-import SortingMenu from './menus/SortingMenu';
-import fields from './menus/SortingFields';
+import { Grid, Col, Row } from 'react-bootstrap';
 
 export default class GridContainer extends Component {
-	constructor(props) {
-		super(props);
-		switch (this.props.gridType) {
-			case "comic":
-				this.state = {'GridItem': ComicGridItem, 'SortingFields': fields.ComicFields};
-				break;
-			case "creator":
-				this.state = {'GridItem': CreatorGridItem, 'SortingFields': fields.CreatorFields};
-				break;
-			case "character":
-				this.state = {'GridItem': CharacterGridItem, 'SortingFields': fields.CharacterFields};
-				break;
-			case "series":
-				this.state = {'GridItem': SeriesGridItem, 'SortingFields': fields.SeriesFields};
-				break;
-			default:
-				console.error(`Given type ${this.props.gridType} is invalid.`);
-				break;
-		}
-	}
-
 	render() {
-		const GridItem = this.state.GridItem;
-		console.log('In GridContainer, SortingFields = ', this.state.SortingFields);
-		console.log('In GridContainer, GridItem = ', this.state.GridItem);
+		const GridItem = this.props.gridItem;
+		const results = this.props.results;
+
+		const gridItems = results.map(result => 
+			<Col key={result.id} xs={18} md={4} lg={2}>
+				<GridItem {...result} />
+			</Col>
+		);
 		return (
-			<div>
-				<SortingMenu sortingFields={this.state.SortingFields} />
-				<GridItem />
-			</div>
+			<Grid>
+				<Row>
+					{gridItems}
+				</Row>
+			</Grid>
 		);
 	}
 }

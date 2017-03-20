@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import GridContainer from '../gridContainer/GridContainer';
+import ResultsContainer from '../resultsContainer/ResultsContainer';
 
 export default class Series extends Component {
   render() {
     return (
-    	<GridContainer gridType="series" />
+    	<ResultsContainer resultsType="series" />
     );
   }
 }

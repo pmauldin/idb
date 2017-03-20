@@ -11,18 +11,18 @@ export default class DataService {
 	}
 
 	static getCharacters(id) {
-		return this.choose(data.characters, id);
+		return DataService.choose(data.characters, id);
 	}
 
 	static getComics(id) {
-		return this.choose(data.comics, id);
+		return DataService.choose(data.comics, id);
 	}
 
 	static getCreators(id) {
-		return this.choose(data.creators, id);
+		return DataService.choose(data.creators, id);
 	}
 
 	static getSeries(id) {
-		return this.choose(data.series, id);
+		return DataService.choose(data.series, id);
 	}
 }
