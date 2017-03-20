@@ -4,7 +4,7 @@ import GridContainer from '../gridContainer/GridContainer';
 export default class Comics extends Component {
   render() {
     return (
-    	<GridContainer type="comic" />
+    	<GridContainer gridType="comic" />
     );
   }
 };

@@ -3,11 +3,14 @@ import { Nav, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap
 import './styles/SortingMenu.css';
 
 export default class SortingMenu extends Component {
-	// constructor(props) {
-	// 	super(props);
+	constructor(props) {
+		super(props);
 
-	// 	// Take in enum of sortable fields
-	// }
+		this.state = {
+			fieldOptions: props.sortingFields.map((option) => <option
+				value={option.fieldName}>{option.displayName}</option>)
+		};
+	}
 
 	render() {
 		return (
@@ -16,10 +19,8 @@ export default class SortingMenu extends Component {
 					<Form inline>
 						<FormGroup className="sortMenuFormGroup" controlId="sortMenuSelect">
 							<ControlLabel>Sort By:</ControlLabel>
-							<FormControl className="sortMenuDropdown" componentClass="select" placeholder="title">
-								<option value="title">Title</option>
-								<option value="issueNumber">Issue Number</option>
-								<option value="pageCount">Page Count</option>
+							<FormControl className="sortMenuDropdown" componentClass="select" placeholder={this.state.fieldOptions[0].fieldName}>
+								{this.state.fieldOptions}
 							</FormControl>
 							<ControlLabel>Order:</ControlLabel>
 							<FormControl className="sortMenuDropdown" componentClass="select" placeholder="ascending">

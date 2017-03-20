@@ -4,7 +4,7 @@ import GridContainer from '../gridContainer/GridContainer';
 export default class Series extends Component {
   render() {
     return (
-    	<GridContainer type="series" />
+    	<GridContainer gridType="series" />
     );
   }
 }

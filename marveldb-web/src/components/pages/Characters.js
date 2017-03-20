@@ -4,7 +4,7 @@ import GridContainer from '../gridContainer/GridContainer';
 export default class Characters extends Component {
   render() {
     return (
-    	<GridContainer type="character" />
+    	<GridContainer gridType="character" />
     );
   }
 };
