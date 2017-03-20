@@ -2,27 +2,27 @@ import data from './data';
 
 export default class DataService {
 
-	static choose(collection, id) {
-		if (id === undefined) {
+	static choose(collection, ids) {
+		if (ids === undefined) {
 			return collection;
 		}
 
-		return collection.find(item => item.id === id);
+		return collection.filter(item => ids.includes(item.id));
 	}
 
-	static getCharacters(id) {
-		return DataService.choose(data.characters, id);
+	static getCharacters(ids) {
+		return DataService.choose(data.characters, ids);
 	}
 
-	static getComics(id) {
-		return DataService.choose(data.comics, id);
+	static getComics(ids) {
+		return DataService.choose(data.comics, ids);
 	}
 
-	static getCreators(id) {
-		return DataService.choose(data.creators, id);
+	static getCreators(ids) {
+		return DataService.choose(data.creators, ids);
 	}
 
-	static getSeries(id) {
-		return DataService.choose(data.series, id);
+	static getSeries(ids) {
+		return DataService.choose(data.series, ids);
 	}
 }
