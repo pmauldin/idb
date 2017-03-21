@@ -22,6 +22,7 @@ export default class CharacterGridItem extends Component {
 				{description}<br/>
 				# Comic Appearances: {this.props.numComicAppearances}<br/>
 				# Of Series Appearances: {this.props.numSeriesAppearances}<br/>
+				<a href={this.props.details}>Official Marvel Website</a><br/>
 				<a href={this.props.wiki}>Wiki</a>
 			</div>
 		);
