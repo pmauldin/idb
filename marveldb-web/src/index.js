@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './components/App';
 import Home from './components/pages/Home';
@@ -11,9 +13,13 @@ import CharacterDetails from './components/details/CharacterDetails';
 import ComicDetails from './components/details/ComicDetails';
 import CreatorDetails from './components/details/CreatorDetails';
 import SeriesDetails from './components/details/SeriesDetails';
+import reducer from './redux/reducers';
 import './index.css';
 
+let store = createStore(reducer);
+
 ReactDOM.render ((
+	<Provider store={store}>
 		<Router history={browserHistory}>
 			<Route path="/" component={App}>
 				<IndexRoute component={Home} />
@@ -27,5 +33,6 @@ ReactDOM.render ((
 				<Route path="/creators/:id" component={CreatorDetails} />
 			</Route>
 		</Router>
+	</Provider>
 	), document.getElementById('root')
 );

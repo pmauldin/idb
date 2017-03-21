@@ -19,11 +19,11 @@ export default class SortingMenu extends Component {
 					<Form inline>
 						<FormGroup className="sortMenuFormGroup" controlId="sortMenuSelect">
 							<ControlLabel>Sort By:</ControlLabel>
-							<FormControl className="sortMenuDropdown" componentClass="select" placeholder={this.state.fieldOptions[0].fieldName}>
+							<FormControl onClick={(event) => this.props.toggleSortField(event.target.value)} className="sortMenuDropdown" componentClass="select" placeholder={this.state.fieldOptions[0].fieldName}>
 								{this.state.fieldOptions}
 							</FormControl>
 							<ControlLabel>Order:</ControlLabel>
-							<FormControl className="sortMenuDropdown" componentClass="select" placeholder="ascending">
+							<FormControl onClick={this.props.toggleSortOrder} className="sortMenuDropdown" componentClass="select" placeholder="ascending">
 								<option value="ascending">Ascending</option>
 								<option value="descending">Descending</option>
 							</FormControl>
