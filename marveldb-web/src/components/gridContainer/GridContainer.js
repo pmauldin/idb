@@ -6,6 +6,14 @@ export default class GridContainer extends Component {
 		const GridItem = this.props.gridItem;
 		let data = this.props.data;
 
+		if (!data || data.length === 0) {
+			return (
+				<div>
+					No Results Found
+				</div>
+			)
+		}
+
 		// Sort the data when sortData changes
 		const field = this.props.sortData.field;
 		const order = this.props.sortData.order === "ascending" ? 1 : -1;
