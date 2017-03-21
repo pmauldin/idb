@@ -4,7 +4,7 @@ import ResultsContainer from '../resultsContainer/ResultsContainer';
 export default class Comics extends Component {
   render() {
     return (
-    	<ResultsContainer resultsType="comic" />
+    	<ResultsContainer resultsType="comics" />
     );
   }
 };

@@ -1,36 +1,18 @@
 import React, { Component } from 'react';
-import LinkedSeries from './cards/LinkedSeries';
+import { connect } from 'react-redux';
 import LinkedGrid from './cards/LinkedGrid';
+import LinkedSeries from './cards/LinkedSeries';
 import ComicGridItem from '../gridContainer/griditems/ComicGridItem';
-import dataService from '../../utils/dataService';
+import { LOAD_DETAILS } from '../../redux/actions';
 
-export default class ComicDetails extends Component {
+class ComicDetails extends Component {
 	constructor(props) {
 		super(props);
-		let state = {};
-
-		let comic = dataService.getComics([parseInt(props.params.id, 10)]);
-		if (comic !== undefined && comic.length > 0) {
-			comic = comic[0];
-
-			state = {
-				comic: comic,
-				characters: dataService.getCharacters(comic.characters),
-				creators: dataService.getCreators(comic.creators)
-			};
-
-			let series = dataService.getSeries([state.comic.series]);
-			if (series !== undefined && series.length > 0) state.series = series[0];
-		} else {
-			state = { notFound: true };
-		}
-
-		this.state = state;
+		this.props.loadDetails("comics", parseInt(props.params.id, 10));
 	}
 
 	render() {
-
-		if (this.state.notFound) {
+		if (this.props.data.comics.length === 0) {
 			// TODO Use NotFoundComponent
 			return (
 				<div>
@@ -41,11 +23,25 @@ export default class ComicDetails extends Component {
 
 		return (
 			<div>
-				<ComicGridItem inGrid={false} {...this.state.comic} />
-				<LinkedSeries series={this.state.series} />
-				<LinkedGrid linkType="Characters" displayField="name" data={this.state.characters} />
-				<LinkedGrid linkType="Creators" displayField="fullName" data={this.state.creators} />
+				<ComicGridItem inGrid={false} {...this.props.data.comics[0]} />
+				<LinkedSeries series={this.props.data.series} />
+				<LinkedGrid linkType="Characters" displayField="name" data={this.props.data.characters} />
+				<LinkedGrid linkType="Creators" displayField="fullName" data={this.props.data.creators} />
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(store) {
+	return {
+		data: store.details
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loadDetails: (resultsType, id) => dispatch({ type: LOAD_DETAILS, resultsType, id })
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ComicDetails);

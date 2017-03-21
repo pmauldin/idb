@@ -7,20 +7,19 @@ import CharacterGridItem from '../gridContainer/griditems/CharacterGridItem';
 import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import SortingMenu from './menus/SortingMenu';
 import fields from './menus/SortingFields';
-import dataService from '../../utils/dataService';
 import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, LOAD_DATA } from '../../redux/actions';
 
 class ResultsContainer extends Component {
 	constructor(props) {
 		super(props);
 		switch (this.props.resultsType) {
-			case "comic":
+			case "comics":
 				this.state = {'GridItem': ComicGridItem, 'SortingFields': fields.ComicFields};
 				break;
-			case "creator":
+			case "creators":
 				this.state = {'GridItem': CreatorGridItem, 'SortingFields': fields.CreatorFields};
 				break;
-			case "character":
+			case "characters":
 				this.state = {'GridItem': CharacterGridItem, 'SortingFields': fields.CharacterFields};
 				break;
 			case "series":
@@ -32,45 +31,30 @@ class ResultsContainer extends Component {
 		}
 
 		this.props.toggleSortField(this.state.SortingFields[0]);
-	}
-
-	// TODO: When we switch to Redux, this data will be populated via props/reducers
-	getResults(resultsType) {
-		switch (resultsType) {
-			case "comic":
-				return dataService.getComics;
-			case "creator":
-				return dataService.getCreators;
-			case "character":
-				return dataService.getCharacters;
-			case "series":
-				return dataService.getSeries;
-			default:
-				console.error(`Given type ${this.props.resultsType} is invalid.`);
-				break;
-		}
+		this.props.loadData(this.props.resultsType);
 	}
 
 	render() {
 		return (
 			<div>
 				<SortingMenu {...this.props} sortingFields={this.state.SortingFields} />
-				<GridContainer results={this.getResults(this.props.resultsType)()} gridItem={this.state.GridItem} />
+				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
 			</div>
 		);
 	}
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(store) {
 	return {
-		text: state.text
+		data: store.data
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
 		toggleSortField: (value) => dispatch({ type: CHANGE_SORT_FIELD, order: value }),
-		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, field: value })
+		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, field: value }),
+		loadData: (resultsType, ids) => dispatch({ type: LOAD_DATA, resultsType, ids })
 	};
 }
 

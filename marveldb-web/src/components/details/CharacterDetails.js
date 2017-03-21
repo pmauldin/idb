@@ -1,32 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import LinkedGrid from './cards/LinkedGrid';
 import CharacterGridItem from '../gridContainer/griditems/CharacterGridItem';
-import dataService from '../../utils/dataService';
+import { LOAD_DETAILS } from '../../redux/actions';
 
-export default class CharacterDetails extends Component {
+class CharacterDetails extends Component {
 	constructor(props) {
 		super(props);
-		let state = {};
-
-		let character = dataService.getCharacters([parseInt(props.params.id, 10)]);
-		if (character !== undefined && character.length > 0) {
-			character = character[0];
-
-			state = {
-				character: character,
-				comics: dataService.getComics(character.comicAppearances),
-				series: dataService.getSeries(character.seriesAppearances)
-			};
-		} else {
-			state = { notFound: true };
-		}
-
-		this.state = state;
+		this.props.loadDetails("characters", parseInt(props.params.id, 10));
 	}
 
 	render() {
-
-		if (this.state.notFound) {
+		if (this.props.data.characters.length === 0) {
 			// TODO Use NotFoundComponent
 			return (
 				<div>
@@ -37,10 +22,25 @@ export default class CharacterDetails extends Component {
 
 		return (
 			<div>
-				<CharacterGridItem inGrid={false} {...this.state.character} />
-				<LinkedGrid linkType="Comics" displayField="title" data={this.state.comics} />
-				<LinkedGrid linkType="Series" displayField="title" data={this.state.series} />
+				<CharacterGridItem inGrid={false} {...this.props.data.characters[0]} />
+				<LinkedGrid linkType="Comics" displayField="title" data={this.props.data.comics} />
+				<LinkedGrid linkType="Series" displayField="title" data={this.props.data.series} />
 			</div>
 		);
 	}
 }
+
+function mapStateToProps(store) {
+	return {
+		data: store.details
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		loadDetails: (resultsType, id) => dispatch({ type: LOAD_DETAILS, resultsType, id })
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CharacterDetails);
+
