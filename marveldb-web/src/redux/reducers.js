@@ -19,7 +19,7 @@ function loadData(resultsType, ids) {
 }
 
 function loadDetails(resultsType, id) {
-	var details, series;
+	let details, series;
 
 	switch (resultsType) {
 		case "characters": 
@@ -53,7 +53,7 @@ function loadDetails(resultsType, id) {
 				return {};
 			}
 
-			var creator = details.creators[0];
+			let creator = details.creators[0];
 			details.comics = dataService.getComics(creator.comics);
 			details.series = dataService.getSeries(creator.series);
 			return details;
@@ -115,9 +115,9 @@ function sort(state, action) {
 
 	switch (action.type) {
 		case CHANGE_SORT_FIELD:
-			return { ...state, order: state.field };
+			return { ...state, field: action.field };
 		case CHANGE_SORT_ORDER:
-			return { ...state, field: state.order }; // TODO Do the sorting
+			return { ...state, order: action.order };
 		default:
 			return state;
 	}
