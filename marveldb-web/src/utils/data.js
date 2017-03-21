@@ -8,7 +8,7 @@ const characters = [
 		"details": "http://marvel.com/characters/54/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"wiki": "http://marvel.com/universe/Spider-Man_(Peter_Parker)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"comics": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comicAppearances": [6482],
+		"comicAppearances": [6482, 16904],
 		"numComicAppearances": 2922,
 		"seriesAppearances": [1987],
 		"numSeriesAppearances": 601
@@ -94,7 +94,7 @@ const comics = [
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706c.jpg",
 		"details": "http://marvel.com/comics/issue/16904/amazing_spider-man_annual_1964_3?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"series": 2984,
-		"characters": [1009262],
+		"characters": [1009262, 1009610],
 		"numCharacters": 7,
 		"creators": [30, 305],
 		"numCreators": 7
@@ -107,9 +107,9 @@ const creators = [
 		"fullName": "Stan Lee",
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/9/d0/4bc37d9d8f541.jpg",
 		"details": "http://marvel.com/comics/creators/30/stan_lee?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comics": [6482],
+		"comics": [6482, 16904],
 		"numComics": 2880,
-		"series": [1987],
+		"series": [1987, 2984],
 		"numSeries": 673
 	},
 	{
@@ -184,7 +184,7 @@ const series = [
 		"successor": null,
 		"comics": [16904],
 		"numComics": 30,
-		"characters": [1009262],
+		"characters": [1009262, 1009610],
 		"numCharacters": 42,
 		"creators": [30, 305],
 		"numCreators": 140
