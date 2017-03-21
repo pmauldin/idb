@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, LOAD_DATA, LOAD_DETAILS } from './actions';
+import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, DATA_LOADED, LOAD_DETAILS } from './actions';
 import dataService from '../utils/dataService';
 
 function loadData(resultsType, ids) {
@@ -82,11 +82,10 @@ function data(state, action) {
 	}
 
 	switch (action.type) {
-		case LOAD_DATA:
+		case DATA_LOADED:
 			let resultsType = action.resultsType;
-			let ids = action.ids;
 			let data = {...state};
-			data[resultsType] = loadData(resultsType, ids);
+			data[resultsType] = action.data;
 			return {...state, ...data};
 		default:
 			return state;

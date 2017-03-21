@@ -7,14 +7,15 @@ import CharacterGridItem from '../gridContainer/griditems/CharacterGridItem';
 import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import Toolbar from './menus/Toolbar';
 import fields from './menus/SortingFields';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, LOAD_DATA } from '../../redux/actions';
+import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, DATA_LOADED } from '../../redux/actions';
+import dataService from '../../utils/dataService';
 
 class ResultsContainer extends Component {
 	constructor(props) {
 		super(props);
 		switch (this.props.resultsType) {
 			case "comics":
-				this.state = {'GridItem': ComicGridItem, 'SortingFields': fields.ComicFields};
+				this.state = {'GridItem': ComicGridItem, 'SortingFields': fields.ComicFields}; 
 				break;
 			case "creators":
 				this.state = {'GridItem': CreatorGridItem, 'SortingFields': fields.CreatorFields};
@@ -31,7 +32,10 @@ class ResultsContainer extends Component {
 		}
 
 		this.props.toggleSortField(this.state.SortingFields[0].fieldName);
-		this.props.loadData(this.props.resultsType);
+		dataService.getData(this.props.resultsType)
+			.then(data => {
+				this.props.dataLoaded(data, this.props.resultsType);
+			});
 	}
 
 	render() {
@@ -55,7 +59,7 @@ function mapDispatchToProps(dispatch) {
 	return {
 		toggleSortField: (value) => dispatch({ type: CHANGE_SORT_FIELD, field: value }),
 		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, order: value }),
-		loadData: (resultsType, ids) => dispatch({ type: LOAD_DATA, resultsType, ids })
+		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType })
 	};
 }
 
