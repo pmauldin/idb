@@ -13,8 +13,8 @@ const ComicFields = [
 
 const CharacterFields = [
 	constructField('name', 'Name'),
-	constructField('numComicAppearances', '# Comic Appearances'),
-	constructField('numSeriesAppearances', '# Series Appearances'),
+	constructField('numComic', '# Comic Appearances'),
+	constructField('numSeries', '# Series Appearances'),
 ];
 
 const SeriesFields = [

@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LinkedGrid from './cards/LinkedGrid';
 import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
-import { LOAD_DETAILS } from '../../redux/actions';
+import { DATA_LOADED } from '../../redux/actions';
+import detailsService from './detailsService';
 
 
 class SeriesDetails extends Component {
 	constructor(props) {
 		super(props);
-		this.props.loadDetails("series", parseInt(props.params.id, 10));
+		detailsService.loadDetails("series", parseInt(this.props.params.id, 10), ["characters", "comics", "creators"], this.props.dataLoaded);
 	}
 
 	render() {
@@ -34,13 +35,13 @@ class SeriesDetails extends Component {
 
 function mapStateToProps(store) {
 	return {
-		data: store.details
+		data: store.data
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		loadDetails: (resultsType, id) => dispatch({ type: LOAD_DETAILS, resultsType, id })
+		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType })
 	};
 }
 

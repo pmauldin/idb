@@ -5,9 +5,9 @@
 	"thumbnail": "URL", // response.data.results[i].thumbnail.path + response.data.results[i].thumbnail.path.extension
 	"details": "URL", // response.data.results[i].urls[x].url where type === "detail"
 	"wiki": "URL", // response.data.results[i].urls[x].url where type === "wiki"
-	"comics": "URL", // response.data.results[i].urls[x].url where type === "comiclink",
-	"comicAppearances": ["int"], // List of ids of comics this character appears in. Converted from response.data.results[i].comics
-	"numComicAppearances": "int", // response.data.results[i].comics.available
-	"seriesAppearances": ["int"], // List of ids of series this character appears in. Converted from response.data.results[i].series
-	"numSeriesAppearances": "int" // response.data.results[i].series.available
+	"comicsUrl": "URL", // response.data.results[i].urls[x].url where type === "comiclink",
+	"comics": ["int"], // List of ids of comics this character appears in. Converted from response.data.results[i].comics
+	"numComics": "int", // response.data.results[i].comics.available
+	"series": ["int"], // List of ids of series this character appears in. Converted from response.data.results[i].series
+	"numSeries": "int" // response.data.results[i].series.available
 }

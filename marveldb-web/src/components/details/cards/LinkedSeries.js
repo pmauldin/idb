@@ -5,10 +5,11 @@ export default class LinkedSeries extends Component {
 	render() {
 		let html;
 
-		if (this.props.series) {
+		if (this.props.series && this.props.series.length > 0) {
+			// TODO Link to Series
 			html = (
 				<div className="linkedSeriesCard">
-					{this.props.series.title || 'Not a part of a series.'}
+					{this.props.series[0].title}
 				</div>
 			);
 		} else {

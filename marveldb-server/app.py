@@ -1,9 +1,9 @@
 from flask import Flask, jsonify
 from data_machine import characters_data, comics_data, creators_data, series_data
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}});
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/api/characters', methods = ['GET'])
 def characters():
@@ -26,4 +26,4 @@ def series():
 	return jsonify(series_json)
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)

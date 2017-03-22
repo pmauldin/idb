@@ -9,10 +9,10 @@ export default class CharacterGridItem extends Component {
 		let name, description;
 		if (this.props.inGrid) {
 			name = <Link key={this.props.id} to={`/characters/${this.props.id}`}><strong>{this.props.name}</strong></Link>;
-			description = <em>{gridItemUtils.truncateDescription(this.props.description)}</em>
+			description = <em>{gridItemUtils.truncateDescription(this.props.description)}</em>;
 		} else {
-			name = <strong>{this.props.name}</strong>
-			description = <em>{this.props.description}</em>
+			name = <strong>{this.props.name}</strong>;
+			description = <em>{this.props.description}</em>;
 		}
 
 		return (
@@ -20,10 +20,11 @@ export default class CharacterGridItem extends Component {
 				<Image responsive className="gridThumbnail" src={this.props.thumbnail}/>
 				{name}<br/>
 				{description}<br/>
-				# Comic Appearances: {this.props.numComicAppearances}<br/>
-				# Of Series Appearances: {this.props.numSeriesAppearances}<br/>
+				# Comic Appearances: {this.props.numComics}<br/>
+				# Of Series Appearances: {this.props.numSeries}<br/>
 				<a href={this.props.details}>Official Marvel Website</a><br/>
-				<a href={this.props.wiki}>Wiki</a>
+				<a href={this.props.wiki}>Wiki</a><br/>
+				<a href={this.props.comicsUrl}>Comics</a>
 			</div>
 		);
 	}

@@ -22,6 +22,8 @@ export default class ComicGridItem extends Component {
 				{description}<br/>
 				<a href={this.props.details}>Official Marvel Website</a><br/>
 				Page Count: {this.props.pageCount}<br/>
+				Print Price: {this.props.printPrice ? `$${this.props.printPrice}` : "Not Available"}<br/>
+				Digital Price: {this.props.digitalPrice ? `$${this.props.digitalPrice}` : "Not Available"}<br/>
 				# Creators: {this.props.numCreators}<br/>
 				# Characters: {this.props.numCharacters}
 			</div>

@@ -9,11 +9,11 @@ characters = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
 		"details": "http://marvel.com/characters/54/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"wiki": "http://marvel.com/universe/Spider-Man_(Peter_Parker)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comics": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comicAppearances": [6482],
-		"numComicAppearances": 2922,
-		"seriesAppearances": [1987],
-		"numSeriesAppearances": 601
+		"comicsUrl": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+		"comics": [6482],
+		"numComics": 2922,
+		"series": [1987],
+		"numSeries": 601
 	},
 	{
 		"id": 1009368,
@@ -22,11 +22,11 @@ characters = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/9/c0/527bb7b37ff55.jpg",
 		"details": "http://marvel.com/comics/characters/1009368/iron_man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"wiki": "http://marvel.com/universe/Iron_Man_(Anthony_Stark)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comics": "http://marvel.com/comics/characters/1009368/iron_man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comicAppearances": [55363],
-		"numComicAppearances": 2205,
-		"seriesAppearances": [20443],
-		"numSeriesAppearances": 504
+		"comicsUrl": "http://marvel.com/comics/characters/1009368/iron_man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+		"comics": [55363],
+		"numComics": 2205,
+		"series": [20443],
+		"numSeries": 504
 	},
 	{
 		"id": 1009262,
@@ -35,11 +35,11 @@ characters = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/d/50/50febb79985ee.jpg",
 		"details": "http://marvel.com/comics/characters/1009262/daredevil?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"wiki": "http://marvel.com/universe/Daredevil_(Matthew_Murdock)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comics": "http://marvel.com/comics/characters/1009262/daredevil?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comicAppearances": [16904],
-		"numComicAppearances": 871,
-		"seriesAppearances": [2984],
-		"numSeriesAppearances": 184
+		"comicsUrl": "http://marvel.com/comics/characters/1009262/daredevil?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+		"comics": [16904],
+		"numComics": 871,
+		"series": [2984],
+		"numSeries": 184
 	}
 ]
 
@@ -57,7 +57,7 @@ comics = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800.jpg,http://i.annihil.us/u/prod/marvel/i/mg/b/e0/4bc380bd24fe2.jpg",
 		"details": "http://marvel.com/comics/issue/6482/amazing_spider-man_1963_1?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"series": 1987,
+		"series": [1987],
 		"characters": [1009610],
 		"numCharacters": 1,
 		"creators": [30],
@@ -76,7 +76,7 @@ comics = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/5743705117996.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/5743705117996.jpg",
 		"details": "http://marvel.com/comics/issue/55363/all-new_all-different_avengers_2015_10?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"series": 20443,
+		"series": [20443],
 		"characters": [1009368],
 		"numCharacters": 8,
 		"creators": [119],
@@ -95,7 +95,7 @@ comics = [
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706c.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706c.jpg",
 		"details": "http://marvel.com/comics/issue/16904/amazing_spider-man_annual_1964_3?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"series": 2984,
+		"series": [2984],
 		"characters": [1009262],
 		"numCharacters": 7,
 		"creators": [30, 305],

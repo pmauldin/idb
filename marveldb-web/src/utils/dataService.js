@@ -1,7 +1,6 @@
 import axios from 'axios'; 
 
-// const root = 'https://marveldb-162206.appspot.com';
-const root = "http://localhost:8080/api";
+const root = "http://marveldbs.me:8080/api";
 
 function getData(path, ids, callback) {
 	return new Promise((resolve, reject) => {
@@ -24,26 +23,6 @@ function filterData(collection, ids) {
 }
 
 export default class DataService {
-	static getCharacters(ids) {
-		const path = root + '/characters';
-		return getData(path, ids, filterData);
-	}
-
-	static getComics(ids) {
-		const path = root + '/comics';
-		return getData(path, ids, filterData);
-	}
-
-	static getCreators(ids) {
-		const path = root + '/creators';
-		return getData(path, ids, filterData);
-	}
-
-	static getSeries(ids) {
-		const path = root + '/series';
-		return getData(path, ids, filterData);
-	}
-
 	static getData(type, ids) {
 		return getData(root + '/' + type.toLowerCase(), ids, filterData);
 	}
