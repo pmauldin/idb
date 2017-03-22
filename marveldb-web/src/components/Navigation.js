@@ -28,6 +28,9 @@ class Navigation extends Component {
 						<LinkContainer to="/creators">
 							<NavItem>Creators</NavItem>
 						</LinkContainer>
+						<LinkContainer to="/about">
+							<NavItem>About</NavItem>
+						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>
