@@ -24,18 +24,12 @@ class Characters(db.Model):
     series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
     series = db.relationship('Series', backref=db.backref('characters', lazy='dynamic'))
 
-    # title = db.Column(db.String(255))
-    # author = db.Column(db.String(255))
-    # publishedDate = db.Column(db.String(255))
-    # imageUrl = db.Column(db.String(255))
-    # description = db.Column(db.String(4096))
-    # createdBy = db.Column(db.String(255))
-    # createdById = db.Column(db.String(255))
-
-    def __init__(self, character_name, comics, series):
+    def __init__(self, character_name, description, thumbnail, details, wiki, comic_appearances, 
+        num_comic_appearances, series_appearances, num_series_appearances):
         self.character_name = character_name
-        self.comics = comics
-        self.series = series
+        self.description = description
+        self.thumbnail = thumbnail
+        self.details = details
 
     # def __repr__(self):
     #     return '<Character %r>' % self.character_name
