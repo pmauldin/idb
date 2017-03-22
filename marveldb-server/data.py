@@ -10,9 +10,9 @@ characters = [
 		"details": "http://marvel.com/characters/54/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"wiki": "http://marvel.com/universe/Spider-Man_(Peter_Parker)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
 		"comicsUrl": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
-		"comics": [6482],
+		"comics": [6482,16904],
 		"numComics": 2922,
-		"series": [1987],
+		"series": [1987,2984],
 		"numSeries": 601
 	},
 	{
@@ -186,7 +186,7 @@ series = [
 		"successor": None,
 		"comics": [16904],
 		"numComics": 30,
-		"characters": [1009262],
+		"characters": [1009262,1009610],
 		"numCharacters": 42,
 		"creators": [30, 305],
 		"numCreators": 140
