@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import './styles/SortingMenu.css';
 
 export default class SortingMenu extends Component {
@@ -15,21 +15,19 @@ export default class SortingMenu extends Component {
 	render() {
 		return (
 			<div className="sortingMenuContainer">
-				<Nav className="sortingMenuNav">
-					<Form inline>
-						<FormGroup className="sortMenuFormGroup" controlId="sortMenuSelect">
-							<ControlLabel>Sort By:</ControlLabel>
-							<FormControl onChange={(event) => this.props.toggleSortField(event.target.value)} className="sortMenuDropdown" componentClass="select" placeholder={this.state.fieldOptions[0].fieldName}>
-								{this.state.fieldOptions}
-							</FormControl>
-							<ControlLabel>Order:</ControlLabel>
-							<FormControl onChange={(event) => this.props.toggleSortOrder(event.target.value)} className="sortMenuDropdown" componentClass="select" placeholder="ascending">
-								<option value="ascending">Ascending</option>
-								<option value="descending">Descending</option>
-							</FormControl>
-						</FormGroup>
-					</Form>
-				</Nav>
+				<Form inline>
+					<FormGroup className="sortMenuFormGroup" controlId="sortMenuSelect">
+						<ControlLabel>Sort By:</ControlLabel>
+						<FormControl onChange={(event) => this.props.toggleSortField(event.target.value)} className="sortMenuDropdown" componentClass="select" placeholder={this.state.fieldOptions[0].fieldName}>
+							{this.state.fieldOptions}
+						</FormControl>
+						<ControlLabel>Order:</ControlLabel>
+						<FormControl onChange={(event) => this.props.toggleSortOrder(event.target.value)} className="sortMenuDropdown" componentClass="select" placeholder="ascending">
+							<option value="ascending">Ascending</option>
+							<option value="descending">Descending</option>
+						</FormControl>
+					</FormGroup>
+				</Form>
 			</div>
 		);
 	}

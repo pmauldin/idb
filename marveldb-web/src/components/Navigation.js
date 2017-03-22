@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, } from 'react-bootstrap';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { Link } from 'react-router';
+import { LinkContainer } from 'react-router-bootstrap';
 import './styles/Navigation.css';
 
 class Navigation extends Component {
@@ -10,7 +11,7 @@ class Navigation extends Component {
 				<Navbar.Header>
 					<Navbar.Toggle />
 					<Navbar.Brand>
-						<IndexLinkContainer to="/"><a>MarvelDB</a></IndexLinkContainer>
+						<Link to="/">MarvelDB</Link>
 					</Navbar.Brand>
 				</Navbar.Header>
 				<Navbar.Collapse>

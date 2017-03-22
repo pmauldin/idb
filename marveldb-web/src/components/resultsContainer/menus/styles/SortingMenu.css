@@ -2,11 +2,8 @@
 	background-color: #A2A3A3;
 	border-bottom: 1px solid #ccc;
 	box-shadow: 0 0 10px #ddd;
-	margin-bottom: 1%;
-}
-
-.sortingMenuNav {
 	padding: 7px 0 7px 2.5%;
+	margin-bottom: 1%;
 }
 
 .sortMenuDropdown {
