@@ -1,11 +1,13 @@
 .linkedSeriesCard {
-    border: 1px solid lightgrey;
-    box-shadow: 0 0 10px #ddd;
+	text-align: center;
+    /*border: 1px solid lightgrey;*/
+    /*box-shadow: 0 0 10px #ddd;*/
     width: 100%;
 }
 
 .linkedGridCardContainer {
 	text-align: center;
+	font-weight: bold;
     width: 100%;
     padding: .5% 0;
 }
@@ -21,6 +23,7 @@
 }
 
 .relatedItem {
+	font-weight: normal;
 	width: 20%;
 	display: inline-block;
 	padding: 1%	2.5% 0 2.5%;
@@ -35,4 +38,8 @@
 	height: 150px;
 	margin: auto;
 	padding-bottom: 5px;
+}
+
+.detailsGridItem {
+	margin-bottom: 0;
 }

@@ -9,13 +9,13 @@ export default class LinkedSeries extends Component {
 		if (this.props.series && this.props.series.length > 0) {
 			html = (
 				<div className="linkedSeriesCard">
-					This Comic is a part of <Link to={`/series/${this.props.series[0].id}`} >{this.props.series[0].title}</Link>
+					This comic is a part of <Link to={`/series/${this.props.series[0].id}`} >{this.props.series[0].title}</Link>
 				</div>
 			);
 		} else {
 			html = (
-				<div>
-					This Comic is not a part of any series.
+				<div className="linkedSeriesCard">
+					This comic is not a part of any series.
 				</div>
 			)
 		}

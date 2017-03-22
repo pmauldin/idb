@@ -17,7 +17,7 @@ class ComicDetails extends Component {
 		if (this.props.data.comics.length === 0) {
 			// TODO Use NotFoundComponent
 			return (
-				<div>
+				<div style={{ textAlign: "center" }}>
 					404 Comic Not Found
 				</div>
 			);
@@ -25,8 +25,10 @@ class ComicDetails extends Component {
 
 		return (
 			<div>
-				<ComicGridItem className="detailsGridItem" inGrid={false} {...this.props.data.comics[0]} />
-				<LinkedSeries series={this.props.data.series} />
+				<div>
+					<ComicGridItem className="detailsGridItem" inGrid={false} {...this.props.data.comics[0]} />
+					<LinkedSeries series={this.props.data.series} />
+				</div>
 				<LinkedGrid linkType="Characters" displayField="name" data={this.props.data.characters} />
 				<LinkedGrid linkType="Creators" displayField="fullName" data={this.props.data.creators} />
 			</div>
