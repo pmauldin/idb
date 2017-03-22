@@ -13,7 +13,7 @@ const ComicFields = [
 
 const CharacterFields = [
 	constructField('name', 'Name'),
-	constructField('numComic', '# Comic Appearances'),
+	constructField('numComics', '# Comic Appearances'),
 	constructField('numSeries', '# Series Appearances'),
 ];
 
@@ -33,4 +33,3 @@ const CreatorFields = [
 ];
 
 export default { 'ComicFields': ComicFields, 'CharacterFields': CharacterFields, 'CreatorFields': CreatorFields, 'SeriesFields': SeriesFields };
-

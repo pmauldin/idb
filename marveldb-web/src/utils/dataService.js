@@ -9,7 +9,7 @@ function getData(path, ids, callback) {
 					return resolve(callback(response.data, ids));
 			})
 			.catch(error => {
-				console.log(error);
+				console.error(error);
 				reject(error);
 			});
 	});

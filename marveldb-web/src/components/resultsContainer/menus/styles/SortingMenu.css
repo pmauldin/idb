@@ -1,18 +1,5 @@
-.sortingMenuContainer {
-	background-color: #A2A3A3;
-	border-bottom: 1px solid #ccc;
-	box-shadow: 0 0 10px #ddd;
-	padding: 7px 0 7px 2.5%;
-	margin-bottom: 1%;
-}
-
 .sortMenuDropdown {
-	margin: 0% 1% 0% .5%;
+	margin: 0 1% 0 .5%;
 	width: 30% !important;
 	display: inline;
-}
-
-.sortMenuFormGroup {
-	width: 100%;
-	margin: 1% 0% !important;
 }

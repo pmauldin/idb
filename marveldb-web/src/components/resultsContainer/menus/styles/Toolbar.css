@@ -1,0 +1,18 @@
+.toolbarRow {
+	background-color: #A2A3A3;
+	border-bottom: 1px solid #ccc;
+	box-shadow: 0 0 10px #ddd;
+	padding: 7px 0 7px 2.5%;
+	margin: 0 0 1% 0;
+	width: 100%;
+}
+
+.toolbarGrid {
+	width: 100%;
+	padding: 0;
+}
+
+.toolbarFormGroup {
+	margin: 1% 0 !important;
+	width: 100%;
+}

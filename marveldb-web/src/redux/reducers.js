@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, DATA_LOADED } from './actions';
+import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, FILTER_BY_NAME, DATA_LOADED, RESET_STATE } from './actions';
 
 function data(state, action) {
 	if (!state) {
@@ -30,8 +30,22 @@ function sort(state, action) {
 		default:
 			return state;
 	}
+}
 
+function filter(state, action) {
+	if (!state) {
+		return {};
+	}
+
+	switch (action.type) {
+		case FILTER_BY_NAME:
+			return { ...state, value: action.value };
+		case RESET_STATE:
+			return {};
+		default:
+			return state;
+	}
 }
 
 
-export default combineReducers({ data, sort });
+export default combineReducers({ data, sort, filter });

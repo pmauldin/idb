@@ -11,9 +11,15 @@ export default class detailsService {
 						dataService.getData(relatedType, data[0][relatedType])
 							.then(relatedData => {
 								dataLoadedCallback(relatedData, relatedType);
+							})
+							.catch(error => {
+								console.error(error);
 							});
 					});
 				}
+			})
+			.catch(error => {
+				console.error(error);
 			});
 	}
 

@@ -1,30 +1,25 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import SortingMenu from './SortingMenu';
+import { Grid, Col, Row, Form } from 'react-bootstrap';
+import SortingMenu from './sorting/SortingMenu';
+import FilteringMenu from './filtering/FilteringMenu';
+import './styles/Toolbar.css';
 
-class Toolbar extends Component {
+export default class Toolbar extends Component {
 
 	render() {
 		return (
-			<SortingMenu {...this.props} />
+			<Form inline>
+				<Grid className="toolbarGrid">
+					<Row className="toolbarRow">
+						<Col xs={12} sm={12} md={6} lg={6}>
+							<SortingMenu {...this.props} />
+						</Col>
+						<Col xs={12} sm={12} md={6} lg={6}>
+							<FilteringMenu {...this.props} />
+						</Col>
+					</Row>
+				</Grid>
+			</Form>
 		);
 	}
 }
-
-// function mapStateToProps(store) {
-// 	return {
-// 		data: store.data
-// 	};
-// }
-//
-// function mapDispatchToProps(dispatch) {
-// 	return {
-// 		toggleSortField: (value) => dispatch({ type: CHANGE_SORT_FIELD, order: value }),
-// 		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, field: value }),
-// 		loadData: (resultsType, ids) => dispatch({ type: LOAD_DATA, resultsType, ids })
-// 	};
-// }
-
-Toolbar = connect()(Toolbar);
-
-export default Toolbar;
