@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-const root = "http://marveldbs.me:8080/api";
+const root = "http://marveldbs.me:80/api";
 
 function getData(path, ids, callback) {
 	return new Promise((resolve, reject) => {
