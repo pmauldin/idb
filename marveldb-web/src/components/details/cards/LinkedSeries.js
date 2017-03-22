@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import './styles/common.css';
+import '../styles/common.css';
 
 export default class LinkedSeries extends Component {
 	render() {

@@ -1,0 +1,38 @@
+.linkedSeriesCard {
+    border: 1px solid lightgrey;
+    box-shadow: 0 0 10px #ddd;
+    width: 100%;
+}
+
+.linkedGridCardContainer {
+	text-align: center;
+    width: 100%;
+    padding: .5% 0;
+}
+
+.linkedGridCard {
+    border: 1px solid lightgrey;
+    box-shadow: 0 0 10px #ddd;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    width: 90%;
+    margin: 0 5%;
+    height: 100%;
+}
+
+.relatedItem {
+	width: 20%;
+	display: inline-block;
+	padding: 1%	2.5% 0 2.5%;
+}
+
+.relatedItemThumbnailContainer {
+	float: top;
+}
+
+.relatedItemThumbnail {
+	max-width: 150px;
+	height: 150px;
+	margin: auto;
+	padding-bottom: 5px;
+}

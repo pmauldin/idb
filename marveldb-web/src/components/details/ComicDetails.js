@@ -5,6 +5,7 @@ import LinkedSeries from './cards/LinkedSeries';
 import ComicGridItem from '../gridContainer/griditems/ComicGridItem';
 import { DATA_LOADED } from '../../redux/actions';
 import detailsService from './detailsService';
+import './styles/common.css';
 
 class ComicDetails extends Component {
 	constructor(props) {
@@ -24,7 +25,7 @@ class ComicDetails extends Component {
 
 		return (
 			<div>
-				<ComicGridItem inGrid={false} {...this.props.data.comics[0]} />
+				<ComicGridItem className="detailsGridItem" inGrid={false} {...this.props.data.comics[0]} />
 				<LinkedSeries series={this.props.data.series} />
 				<LinkedGrid linkType="Characters" displayField="name" data={this.props.data.characters} />
 				<LinkedGrid linkType="Creators" displayField="fullName" data={this.props.data.creators} />
