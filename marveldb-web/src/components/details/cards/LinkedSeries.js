@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import './styles/common.css';
 
 export default class LinkedSeries extends Component {
@@ -6,10 +7,9 @@ export default class LinkedSeries extends Component {
 		let html;
 
 		if (this.props.series && this.props.series.length > 0) {
-			// TODO Link to Series
 			html = (
 				<div className="linkedSeriesCard">
-					{this.props.series[0].title}
+					This Comic is a part of <Link to={`/series/${this.props.series[0].id}`} >{this.props.series[0].title}</Link>
 				</div>
 			);
 		} else {
