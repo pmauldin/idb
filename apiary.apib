@@ -1,0 +1,129 @@
+FORMAT: 1A
+HOST: http://developer.marveldbs.me/api
+
+# MarvelDB
+
+MarvelDB is an API allowing users to retrieve information about their
+favorite characters, comics, creators, and series of the vast Marvel
+universe.
+
+More REST endpoints to come.
+
+## Characters [/characters]
+
+### List All Characters [GET]
+
+Returns a list of all the characters in the MarvelDBS database.
+Characters appear in comics and series but are not associated with
+creators.
+
+Filtering to come in the future.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1009610,
+                "name": "Spider-Man",
+                "description": "Bitten by a radioactive spider, high school student Peter Parker gained the speed, strength and powers of a spider. Adopting the name Spider-Man, Peter hoped to start a career using his new abilities. Taught that with great power comes great responsibility, Spidey has vowed to use his powers to help people.",
+                "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg",
+                "details": "http://marvel.com/characters/54/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "wiki": "http://marvel.com/universe/Spider-Man_(Peter_Parker)?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "comicsUrl": "http://marvel.com/comics/characters/1009610/spider-man?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "comics": [6482,16904],
+                "numComics": 2922,
+                "series": [1987,2984],
+                "numSeries": 601
+            }
+        ]
+
+## Comics [/comics]
+
+### List All Comics [GET]
+
+Returns a list of all the comics in the MarvelDBS database.
+Comics may be part of a series and contain characters. They also have
+creators.
+
+Filtering to come in the future.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 6482,
+                "title": "Amazing Spider-Man (1963) #1",
+                "issueNumber": 1,
+                "description": "Spider-Man, in one of his earliest adventures following Uncle Ben's death, must save a crew of astronauts aboard a malfunctioning space ship!",
+                "format": "Comic",
+                "pageCount": 36,
+                "printPrice": 0.12,
+                "digitalPrice": 1.99,
+                "dateReleased": "1963-03-10T00:00:00-0500",
+                "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800.jpg",
+                "images": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800.jpg,http://i.annihil.us/u/prod/marvel/i/mg/b/e0/4bc380bd24fe2.jpg",
+                "details": "http://marvel.com/comics/issue/6482/amazing_spider-man_1963_1?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "series": [1987],
+                "characters": [1009610],
+                "numCharacters": 1,
+                "creators": [30],
+                "numCreators": 4
+            }
+        ]
+            
+## Creators [/creators]
+
+### List All Creators [GET]
+
+Returns a list of all the creators in the MarvelDBS database.
+Creators are credited with their respective comics and series but not
+with characters.
+
+Filtering to come in the future.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 30,
+                "fullName": "Stan Lee",
+                "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/9/d0/4bc37d9d8f541.jpg",
+                "details": "http://marvel.com/comics/creators/30/stan_lee?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "comics": [6482],
+                "numComics": 2880,
+                "series": [1987],
+                "numSeries": 673
+            }
+        ]
+
+## Series [/series]
+
+### List All Series [GET]
+
+Returns a list of all the series in the MarvelDBS database.
+Series are contrived of comics and characters. They also have creators.
+
+Filtering to come in the future.
+            
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1987,
+                "title": "Amazing Spider-Man (1963 - 1998)",
+                "description": "The classic adventures of Spider-Man from the early days up until the 90's! Meet all of Spidey's deadly enemies, from the Green Goblin and Doctor Octopus to Venom and Carnage, plus see Peter Parker fall in love, face tragedy and triumph, and learn that with great power comes great responsibility.",
+                "startYear": 1963,
+                "endYear": 1998,
+                "rating": None,
+                "thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/6/30/519ba83268a2b.jpg",
+                "details": "http://marvel.com/comics/series/1987/amazing_spider-man_1963_-_1998?utm_campaign=apiRef&utm_source=8071724a7930e7ded76ba11c0ba98754",
+                "predecessor": 2987,
+                "successor": 454,
+                "comics": [6482],
+                "numComics": 441,
+                "characters": [1009610],
+                "numCharacters": 125,
+                "creators": [30],
+                "numCreators": 241
+            }
+        ]
