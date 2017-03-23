@@ -1,11 +1,9 @@
 from flask import Flask
-#from flask_sqlalchemy import SQLAlchemy, Base
 from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import insert
 from data import characters, comics, creators, series
-#db = SQLAlchemy()
 
 Base = declarative_base()
 
@@ -21,44 +19,6 @@ def create_one_direction_associative_table(base_list, table, secondary_list_key,
             # can't do it just yet because our databse 
             # is not connected
             # i.execute(row_dict)
-
-
-# a function used to not allow duplicate rows to
-# be inserted into database, can't use it just yet 
-# because our databse is not 
-# connected yet
-
-# source: https://bitbucket.org/zzzeek/sqlalchemy/wiki/UsageRecipes/UniqueObject
-
-# def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
-#     cache = getattr(session, '_unique_cache', None)
-#     if cache is None:
-#         session._unique_cache = cache = {}
-
-#     key = (cls, hashfunc(*arg, **kw))
-#     if key in cache:
-#         return cache[key]
-#     else:
-#         with session.no_autoflush:
-#             q = session.query(cls)
-#             q = queryfunc(q, *arg, **kw)
-#             obj = q.first()
-#             if not obj:
-#                 obj = constructor(*arg, **kw)
-#                 session.add(obj)
-#         cache[key] = obj
-#         return obj
-
-# example usage
-# widget = _unique(
-#             session,
-#             Widget,
-#             lambda name:name,
-#             lambda query, name:query.filter(Widget.name == name)
-#             Widget,
-#             (),
-#             {"name":"some name"}
-#             ) 
 
 def create_characters_comics_table(characters, comics) :
     # used for many to many bidirectional relationship between characters and comics
@@ -200,10 +160,6 @@ class Character(Base):
         result['numSeries'] = self.numSeries
 
         return result
-
-
-    # def __repr__(self):
-    #     return '<Character %r>' % self.character_name
 
 # [END model]
 
