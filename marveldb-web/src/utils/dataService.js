@@ -6,7 +6,7 @@ function getData(path, ids, callback) {
 	return new Promise((resolve, reject) => {
 		axios.get(path)
 			.then(response => {
-					return resolve(callback(response.data, ids));
+				return resolve(callback(response.data, ids));
 			})
 			.catch(error => {
 				console.error(error);
