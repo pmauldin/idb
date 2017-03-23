@@ -18,7 +18,7 @@
 # from io       import StringIO
 from unittest import main, TestCase
 
-from models import create_character, create_comic
+from models import create_character, create_comic, create_creator, create_series
 from data import characters, comics, creators, series
 
 # -----------
@@ -93,21 +93,62 @@ class TestModels (TestCase) :
     # ----
 
     def test_creators_1 (self) :
-        pass
+        realData = creators[0]
+        test = create_creator(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
+
     def test_creators_2 (self) :
-        pass
+        realData = creators[1]
+        test = create_creator(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
+
     def test_creators_3 (self) :
-        pass
+        realData = creators[2]
+        test = create_creator(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
+
     # ----
     # Series
     # ----
 
     def test_series_1 (self) :
-        pass
+        realData = series[0]
+        test = create_series(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
+
     def test_series_2 (self) :
-        pass
+        realData = series[1]
+        test = create_series(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
+
     def test_series_3 (self) :
-        pass
+        realData = series[2]
+        test = create_series(realData)
+        testData = test.getValues()
+        for attribute in realData.keys() :
+            # don't want to compare a relationship and a list
+            if not isinstance(realData[attribute], list) :
+                self.assertEqual(realData[attribute], testData[attribute])
 # ----
 # main
 # ----

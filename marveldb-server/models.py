@@ -315,7 +315,7 @@ def create_comic(comic) :
     return Comic(**comic_init_dict)
 
 # [START model]
-class Creators(Base):
+class Creator(Base):
     __tablename__ = 'creators'
 
     id = Column(Integer, primary_key=True)
@@ -358,6 +358,23 @@ class Creators(Base):
 
 # [END model]
 
+def create_creator(creator) : 
+    # get relationships needed to create to a comic
+    relationship_list = [comics_creators_table, creators_series_table]
+    relationship_key_list = ["comics_creators_table", "creators_series_table"]
+    relationship_list_index = 0
+    creator_init_dict = dict()
+    
+    for key, value in creator.items() :
+        if not isinstance(value, list) :
+            creator_init_dict[key] = value
+        else :
+            creator_init_dict[relationship_key_list[relationship_list_index]] = \
+            relationship_list[relationship_list_index]
+            relationship_list_index += 1
+
+    return Creator(**creator_init_dict)
+
 # [START model]
 class Series(Base):
     __tablename__ = 'series'
@@ -380,9 +397,8 @@ class Series(Base):
     numCreators = Column(Integer)
 
     def __init__(self, id, title, description, startYear, endYear, rating, 
-        thumbnail, details, predecessor, successor, comics_series_table, comics, numComics, 
-        characters_series_table, characters, numCharacters, creators_series_table, creators, 
-        numCreators):
+        thumbnail, details, predecessor, successor, comics_series_table, numComics, 
+        characters_series_table, numCharacters, creators_series_table, numCreators):
         self.id = id
         self.title = title
         self.description = description
@@ -412,19 +428,36 @@ class Series(Base):
         result['description'] = self.description
         result['startYear'] = self.startYear
         result['endYear'] = self.endYear
-        result['raiting'] = self.raiting
+        result['rating'] = self.rating
         result['thumbnail'] = self.thumbnail
         result['details'] = self.details
         result['predecessor'] = self.predecessor
         result['successor'] = self.successor
         result['comics'] = self.comics
-        result['numComics'] = self.comics
+        result['numComics'] = self.numComics
         result['characters'] = self.characters
         result['numCharacters'] = self.numCharacters
         result['creators'] = self.creators
         result['numCreators'] = self.numCreators
 
         return result
+
+def create_series(series) : 
+    # get relationships needed to create to a comic
+    relationship_list = [comics_series_table, characters_series_table, creators_series_table]
+    relationship_key_list = ["comics_series_table", "characters_series_table", "creators_series_table"]
+    relationship_list_index = 0
+    series_init_dict = dict()
+    
+    for key, value in series.items() :
+        if not isinstance(value, list) :
+            series_init_dict[key] = value
+        else :
+            series_init_dict[relationship_key_list[relationship_list_index]] = \
+            relationship_list[relationship_list_index]
+            relationship_list_index += 1
+
+    return Series(**series_init_dict)
     
 # [END model]
 
