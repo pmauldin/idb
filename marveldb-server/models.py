@@ -1,38 +1,132 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy, Base
+from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float
+from sqlalchemy.orm import relationship, backref
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.sql import insert
+from data import characters, comics, creators
+#db = SQLAlchemy()
 
-db = SQLAlchemy()
+Base = declarative_base()
+
+# need to figure out how to get rid of duplicates
+def create_one_direction_associative_table(base_list, table, secondary_list_key, id_key, left_id, right_id) :
+    i = insert(table)
+    for d in base_list :
+        id:int = d[id_key]
+        secondary_list:list[int] = d[secondary_list_key]
+        for element in secondary_list :
+            row_dict = {left_id: id, right_id: element}
+            i.insert(row_dict)
+    return table
+
+def create_characters_comics_table(characters, comics) :
+    # used for many to many bidirectional relationship between characters and comics
+    characters_comics_table = Table("characters_comics", Base.metadata,
+                                       Column("character_id", Integer, ForeignKey("character_id")),
+                                       Column("comic_id", Integer, ForeignKey("comic_id")))
+
+    # need to create the relationships in both directions so create the connections
+    # in one direction then the other
+    forward_table = create_one_direction_associative_table(characters, characters_comics_table, 
+                                             "comics", "id", "character_id", "comic_id")
+
+    return create_one_direction_associative_table(comics, forward_table, 
+                                    "characters", "id", "comic_id", "character_id")
+
+def create_characters_series_table(characters, series) :
+    # used for many to many bidirectional relationship between characters and series 
+    characters_series_table = Table("characters_series", Base.metadata,
+                                       Column("character_id", Integer, ForeignKey("character_id")),
+                                       Column("series_id", Integer, ForeignKey("series_id")))
+
+    # need to create the relationships in both directions so create the connections
+    # in one direction then the other
+    forward_table = create_one_direction_associative_table(characters, characters_series_table, 
+                                             "series", "id", "character_id", "series_id")
+
+    return create_one_direction_associative_table(series, forward_table, 
+                                    "characters", "id", "series_id", "character_id")
+
+def create_comics_series_table(comics, series) : 
+    # used for many to many bidirectional relationship between comics and series
+    comics_series_table = Table("comics_series", Base.metadata,
+                            Column("comic_id", Integer, ForeignKey("comic_id")),
+                            Column("series_id", Integer, ForeignKey("series_id")))
+
+    # need to create the relationships in both directions so create the connections
+    # in one direction then the other
+    forward_table = create_one_direction_associative_table(comics, comics_series_table, 
+                                             "series", "id", "comic_id", "series_id")
+
+    return create_one_direction_associative_table(series, forward_table, 
+                                    "comics", "id", "series_id", "comic_id")
+
+def create_comics_creators_table(comics, creators) : 
+    # used for many to many bidirectional relationship between comics and creators
+    comics_creators_table = Table("comics_creators", Base.metadata, 
+                        Column("comic_id", Integer, ForeignKey("comic_id")),
+                        Column("creator_id", Integer, ForeignKey("creator_id")))
+
+    # need to create the relationships in both directions so create the connections
+    # in one direction then the other
+    forward_table = create_one_direction_associative_table(comics, comics_creators_table, 
+                                             "creators", "id", "comic_id", "creator_id")
+
+    return create_one_direction_associative_table(creators, forward_table, 
+                                    "comics", "id", "creator_id", "comic_id")
+
+
+def create_creators_series_table(creators,series) : 
+    #used for many to many bidirectional relationship between creators and series
+    creators_series_table = Table("creators_series", Base.metadata,
+                                  Column("creator_id", Integer, ForeignKey("creator_id")),
+                                  Column("series_id", Integer, ForeignKey("series_id")))
+
+    # need to create the relationships in both directions so create the connections
+    # in one direction then the other
+    forward_table = create_one_direction_associative_table(creators, creators_series_table,  
+                                             "series", "id", "creator_id", "series_id")
+
+    return create_one_direction_associative_table(series, forward_table,
+                                    "creators", "id", "series_id", "creator_id")
+
+# create all the associative_tables
+characters_comics_table = create_characters_comics_table(characters, comics)
+characters_series_table = create_characters_series_table(characters, series)
+comics_series_table =  create_comics_series_table(comics, series) 
+comics_creators_table = create_comics_creators_table(comics, creators)
+creators_series_table = create_creators_series_table(creators,series)
+
 
 # [START model]
-class Characters(db.Model):
+class Characters(Base):
     __tablename__ = 'characters'
 
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255))
-    description = db.Column(db.String(255))
-    thumbnail = db.Column(db.String(255))
-    details = db.Column(db.String(255))
-    wiki = db.Column(db.String(255))
-    numComics = db.Column(db.Integer)
-    numSeries = db.Column(db.Integer)
-    
-    # comics_id = db.Column(db.Integer, db.ForeignKey('comics.id'))
-    comics = db.relationship('Comics', backref=db.backref('characters', lazy='dynamic'))
-    
-    # series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
-    series = db.relationship('Series', backref=db.backref('characters', lazy='dynamic'))
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255))
+    description = Column(String(1024))
+    thumbnail = Column(String(255))
+    details = Column(String(255))
+    wiki = Column(String(255))
+    comicsUrl = Column(String(255))
+    comics = None
+    numComics = Column(Integer)
+    series = None
+    numSeries = Column(Integer)
 
-    def __init__(self, id, name, description, thumbnail, details, wiki, 
-        comics, numComics, series, numSeries):
+    def __init__(self, id, name, description, thumbnail, details, wiki, comicsUrl, characters_comics_table, 
+                 numComics, characters_series_table, numSeries):
         self.id = id
         self.name = character_name
         self.description = description
         self.thumbnail = thumbnail
         self.details = details
         self.wiki = wiki
-        self.comics = comics
+        self.comicsUrl = comicsUrl
+        self.comics = relationship("Comics", secondary=characters_comics_table, back_populates="characters")
         self.numComics = numComics
-        self.series
+        self.series = relationship("Series", secondary=characters_series_table, back_populates="characters")
         self.numSeries = numSeries
 
     def getValues(self):
@@ -62,36 +156,30 @@ class Characters(db.Model):
 # [END model]
 
 # [START model]
-class Comics(db.Model):
+class Comics(Base):
     __tablename__ = 'comics'
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    issuenumber = db.column(db.Integer)
-    description = db.Column(db.String(255))
-    format = db.Column(db.String(255))
-    pageCount = db.Column(db.Integer)
-    printPrice = db.Column(db.Float)
-    digitalPrice = db.Column(db.Float)
-    dateReleased = db.Column(db.String(255))
-    thumbnail = db.Column(db.String(255))
-    images = db.Column(db.String(255))
-    details = db.Column(db.String(255))
-    numCharacters = db.Column(db.Integer)
-    numCreators = db.Column(db.Integer)
-    
-    # creator_id = db.Column(db.Integer, db.ForeignKey('creators.id'))
-    creators = db.relationship('Creators', backref=db.backref('comics', lazy='dynamic'))
-    
-    # chars_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
-    characters = db.relationship('Characters', backref=db.backref('comics', lazy='dynamic'))
-    
-    # series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
-    series = db.relationship('Series', backref=db.backref('comics', lazy='dynamic'))
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255))
+    issuenumber = Column(Integer)
+    description = Column(String(1024))
+    format = Column(String(255))
+    pageCount = Column(Integer)
+    printPrice = Column(Float)
+    digitalPrice = Column(Float)
+    dateReleased = Column(String(255))
+    thumbnail = Column(String(255))
+    images = Column(String(255))
+    details = Column(String(255))
+    series = None
+    characters = None
+    numCharacters = Column(Integer)
+    creators = None
+    numCreators = Column(Integer)
 
     def __init__(self, id, title, issuenumber, description, format, pageCount, printPrice, 
-        digitalPrice, dateReleased, thumbnail, images, details, series, characters, 
-        numCharacters, creators, numCreators):
+        digitalPrice, dateReleased, thumbnail, images, details, comics_series_table, characters_comics_table,
+        comics_creators, numCharacters, numCreators):
         self.id = id
         self.title = title
         self.issuenumber = issuenumber
@@ -104,78 +192,65 @@ class Comics(db.Model):
         self.thumbnail = thumbnail
         self.images = images
         self.details = details
-        self.series = series
-        self.characters = characters
+        self.series = relationship("Series", secondary=comics_series_table, back_populates="comics")
+        self.characters = relationship("Characters", secondary=characters_comics_table, back_populates="comics")
         self.numCharacters = numCharacters
-        self.creators = creators
+        self.creators = relationship("Creators", secondary=comics_creators_table, back_populates="comics")
         self.numCreators = numCreators
 
 # [END model]
 
 # [START model]
-class Creators(db.Model):
+class Creators(Base):
     __tablename__ = 'creators'
 
-    id = db.Column(db.Integer, primary_key=True)
-    fullName = db.Column(db.String(255))
-    thumbnail = db.Column(db.String(255))
-    details =  db.Column(db.String(255))
-    comics = db.Column(db.Integer)
-    numComics = db.Column(db.Integer)
-    series = db.Column(db.Integer)
-    numSeries = db.Column(db.Integer)
-    
-    # comics_id = db.Column(db.Integer, db.ForeignKey('comics.id'))
-    comics = db.relationship('Comics', backref=db.backref('creators', lazy='dynamic'))
-    
-    # series_id = db.Column(db.Integer, db.ForeignKey('series.id'))
-    series = db.relationship('Series', backref=db.backref('creators', lazy='dynamic'))
+    id = Column(Integer, primary_key=True)
+    fullName = Column(String(255))
+    thumbnail = Column(String(255))
+    details =  Column(String(255))
+    comics = None
+    numComics = Column(Integer)
+    series = None
+    numSeries = Column(Integer)
 
-    def __init__(self, id, fullName, thumbnail, details, comics, numComics, series, numSeries):
+    def __init__(self, id, fullName, thumbnail, details, comics_creators_table, creators_series_table, 
+                 numComics, numSeries):
         self.id = id
         self.fullName = fullName
         self.thumbnail = thumbnail
         self.details = details
-        self.comics = comics
+        self.comics = relationship("Comics", secondary=comics_creators_table, back_populates="creators")
         self.numComics = numComics
-        self.series = series
+        self.series = relationship("Series", secondary=creators_series_table, back_populates="creators")
         self.numSeries = numSeries
 
 # [END model]
 
 # [START model]
-class Series(db.Model):
+class Series(Base):
     __tablename__ = 'series'
 
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    description = db.Column(db.String(255))
-    startYear = db.Column(db.Integer)
-    endYear = db.Column(db.Integer)
+    id = Column(Integer, primary_key=True)
+    title = Column(String(255))
+    description = Column(String(255))
+    startYear = Column(Integer)
+    endYear = Column(Integer)
     rating = None
-    thumbnail = db.Column(db.String(255))
-    details = db.Column(db.String(255))
-    predecessor = db.Column(db.Integer)
-    successor = db.Column(db.Integer)
-    comics = db.Column(db.Integer)
-    numComics = db.Column(db.Integer)
-    characters = db.Column(db.Integer)
-    numCharacters = db.Column(db.Integer)
-    creators = db.Column(db.Integer)
-    numCreators = db.Column(db.Integer)
-    
-    # creator_id = db.Column(db.Integer, db.ForeignKey('creator.id'))
-    creator = db.relationship('Creators', backref=db.backref('series', lazy='dynamic'))
-    
-    # chars_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
-    characters = db.relationship('Characters', backref=db.backref('series', lazy='dynamic'))
-
-    # comics_id = db.Column(db.Integer, db.ForeignKey('comics.id'))
-    comics = db.relationship('Characters', backref=db.backref('series', lazy='dynamic'))
+    thumbnail = Column(String(255))
+    details = Column(String(255))
+    predecessor = Column(Integer)
+    successor = Column(Integer)
+    comics = None
+    numComics = Column(Integer)
+    characters = None
+    numCharacters = Column(Integer)
+    creators = None
+    numCreators = Column(Integer)
 
     def __init__(self, id, title, description, startYear, endYear, rating, 
-        thumbnail, details, predecessor, successor, comics, numComics, 
-        characters, numCharacters, creators, numCreators):
+        thumbnail, details, predecessor, successor, comics_series_table, comics, numComics, 
+        characters_series_table, characters, numCharacters, creators_series_table, creators, 
+        numCreators):
         self.id = id
         self.title = title
         self.description = description
@@ -186,11 +261,11 @@ class Series(db.Model):
         self.details = details
         self.predecessor = predecessor
         self.successor = successor
-        self.comics = comics
+        self.comics = relationship("Comics", secondary=comics_series_table, back_populates="series")
         self.numComics = numComics
-        self.characters = characters
+        self.characters = relationship("Characters", secondary=characters_series_table, back_populates="series")
         self.numCharacters = numCharacters
-        self.creators = creators
+        self.creators = relationship("Creators", secondary=creators_series_table, back_populates="series")
         self.numCreators = numCreators
     
 # [END model]
