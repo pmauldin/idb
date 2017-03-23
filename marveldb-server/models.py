@@ -4,12 +4,11 @@ from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import insert
-from data import characters, comics, creators
+from data import characters, comics, creators, series
 #db = SQLAlchemy()
 
 Base = declarative_base()
 
-# need to figure out how to get rid of duplicates
 def create_one_direction_associative_table(base_list, table, secondary_list_key, id_key, left_id, right_id) :
     i = insert(table)
     for d in base_list :
@@ -17,8 +16,49 @@ def create_one_direction_associative_table(base_list, table, secondary_list_key,
         secondary_list:list[int] = d[secondary_list_key]
         for element in secondary_list :
             row_dict = {left_id: id, right_id: element}
-            i.insert(row_dict)
-    return table
+
+            # this should enter row into databse
+            # can't do it just yet because our databse 
+            # is not connected
+            # i.execute(row_dict)
+
+
+# a function used to not allow duplicate rows to
+# be inserted into database, can't use it just yet 
+# because our databse is not 
+# connected yet
+
+# source: https://bitbucket.org/zzzeek/sqlalchemy/wiki/UsageRecipes/UniqueObject
+
+# def _unique(session, cls, hashfunc, queryfunc, constructor, arg, kw):
+#     cache = getattr(session, '_unique_cache', None)
+#     if cache is None:
+#         session._unique_cache = cache = {}
+
+#     key = (cls, hashfunc(*arg, **kw))
+#     if key in cache:
+#         return cache[key]
+#     else:
+#         with session.no_autoflush:
+#             q = session.query(cls)
+#             q = queryfunc(q, *arg, **kw)
+#             obj = q.first()
+#             if not obj:
+#                 obj = constructor(*arg, **kw)
+#                 session.add(obj)
+#         cache[key] = obj
+#         return obj
+
+# example usage
+# widget = _unique(
+#             session,
+#             Widget,
+#             lambda name:name,
+#             lambda query, name:query.filter(Widget.name == name)
+#             Widget,
+#             (),
+#             {"name":"some name"}
+#             ) 
 
 def create_characters_comics_table(characters, comics) :
     # used for many to many bidirectional relationship between characters and comics
@@ -28,11 +68,13 @@ def create_characters_comics_table(characters, comics) :
 
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
-    forward_table = create_one_direction_associative_table(characters, characters_comics_table, 
+    create_one_direction_associative_table(characters, characters_comics_table, 
                                              "comics", "id", "character_id", "comic_id")
 
-    return create_one_direction_associative_table(comics, forward_table, 
+    create_one_direction_associative_table(comics, characters_comics_table, 
                                     "characters", "id", "comic_id", "character_id")
+    # return the table schema
+    return characters_comics_table
 
 def create_characters_series_table(characters, series) :
     # used for many to many bidirectional relationship between characters and series 
@@ -42,11 +84,13 @@ def create_characters_series_table(characters, series) :
 
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
-    forward_table = create_one_direction_associative_table(characters, characters_series_table, 
+    create_one_direction_associative_table(characters, characters_series_table, 
                                              "series", "id", "character_id", "series_id")
 
-    return create_one_direction_associative_table(series, forward_table, 
+    create_one_direction_associative_table(series, characters_series_table, 
                                     "characters", "id", "series_id", "character_id")
+    #return the table schema
+    return characters_series_table
 
 def create_comics_series_table(comics, series) : 
     # used for many to many bidirectional relationship between comics and series
@@ -56,11 +100,13 @@ def create_comics_series_table(comics, series) :
 
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
-    forward_table = create_one_direction_associative_table(comics, comics_series_table, 
+    create_one_direction_associative_table(comics, comics_series_table, 
                                              "series", "id", "comic_id", "series_id")
 
-    return create_one_direction_associative_table(series, forward_table, 
+    create_one_direction_associative_table(series, comics_series_table, 
                                     "comics", "id", "series_id", "comic_id")
+
+    return comics_series_table
 
 def create_comics_creators_table(comics, creators) : 
     # used for many to many bidirectional relationship between comics and creators
@@ -70,11 +116,13 @@ def create_comics_creators_table(comics, creators) :
 
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
-    forward_table = create_one_direction_associative_table(comics, comics_creators_table, 
+    create_one_direction_associative_table(comics, comics_creators_table, 
                                              "creators", "id", "comic_id", "creator_id")
 
-    return create_one_direction_associative_table(creators, forward_table, 
+    create_one_direction_associative_table(creators, comics_creators_table, 
                                     "comics", "id", "creator_id", "comic_id")
+
+    return comics_creators_table
 
 
 def create_creators_series_table(creators,series) : 
@@ -85,11 +133,15 @@ def create_creators_series_table(creators,series) :
 
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
-    forward_table = create_one_direction_associative_table(creators, creators_series_table,  
+    create_one_direction_associative_table(creators, creators_series_table,  
                                              "series", "id", "creator_id", "series_id")
 
-    return create_one_direction_associative_table(series, forward_table,
+    create_one_direction_associative_table(series, creators_series_table,
                                     "creators", "id", "series_id", "creator_id")
+
+    # return the table schema
+    return creators_series_table
+
 
 # create all the associative_tables
 characters_comics_table = create_characters_comics_table(characters, comics)
@@ -98,9 +150,8 @@ comics_series_table =  create_comics_series_table(comics, series)
 comics_creators_table = create_comics_creators_table(comics, creators)
 creators_series_table = create_creators_series_table(creators,series)
 
-
 # [START model]
-class Characters(Base):
+class Character(Base):
     __tablename__ = 'characters'
 
     id = Column(Integer, primary_key=True)
@@ -118,7 +169,7 @@ class Characters(Base):
     def __init__(self, id, name, description, thumbnail, details, wiki, comicsUrl, characters_comics_table, 
                  numComics, characters_series_table, numSeries):
         self.id = id
-        self.name = character_name
+        self.name = name
         self.description = description
         self.thumbnail = thumbnail
         self.details = details
@@ -142,6 +193,7 @@ class Characters(Base):
         result['thumbnail'] = self.thumbnail
         result['details'] = self.details
         result['wiki'] = self.wiki
+        result['comicsUrl'] = self.comicsUrl
         result['comics'] = self.comics
         result['numComics'] = self.numComics
         result['series'] = self.series
@@ -155,13 +207,31 @@ class Characters(Base):
 
 # [END model]
 
+def create_character(character) :
+    # get relationships needed to create to a character
+    relationship_list = [characters_comics_table, characters_series_table]
+    relationship_key_list = ["characters_comics_table", "characters_series_table"]
+    relationship_list_index = 0
+    character_init_dict = dict()
+    
+    for key, value in character.items() :
+        if not isinstance(value, list) :
+            character_init_dict[key] = value
+        else :
+            character_init_dict[relationship_key_list[relationship_list_index]] = \
+            relationship_list[relationship_list_index]
+
+            relationship_list_index += 1
+
+    return Character(**character_init_dict)
+
 # [START model]
-class Comics(Base):
+class Comic(Base):
     __tablename__ = 'comics'
 
     id = Column(Integer, primary_key=True)
     title = Column(String(255))
-    issuenumber = Column(Integer)
+    issueNumber = Column(Integer)
     description = Column(String(1024))
     format = Column(String(255))
     pageCount = Column(Integer)
@@ -177,12 +247,12 @@ class Comics(Base):
     creators = None
     numCreators = Column(Integer)
 
-    def __init__(self, id, title, issuenumber, description, format, pageCount, printPrice, 
+    def __init__(self, id, title, issueNumber, description, format, pageCount, printPrice, 
         digitalPrice, dateReleased, thumbnail, images, details, comics_series_table, characters_comics_table,
-        comics_creators, numCharacters, numCreators):
+        numCharacters, comics_creators_table, numCreators):
         self.id = id
         self.title = title
-        self.issuenumber = issuenumber
+        self.issueNumber = issueNumber
         self.description = description
         self.format = format
         self.pageCount = pageCount
@@ -198,7 +268,51 @@ class Comics(Base):
         self.creators = relationship("Creators", secondary=comics_creators_table, back_populates="comics")
         self.numCreators = numCreators
 
+    def getValues(self):
+        """
+        This method is used for unit tests in tests.py
+        @return: Return a Dictionary of the attribute values
+        for this Character object
+        """
+        result = {}
+        result['id'] = self.id
+        result['title'] = self.title
+        result['issueNumber'] = self.issueNumber
+        result['description'] = self.description
+        result['format'] = self.format
+        result['pageCount'] = self.pageCount
+        result['printPrice'] = self.printPrice
+        result['digitalPrice'] = self.digitalPrice
+        result['dateReleased'] = self.dateReleased
+        result['thumbnail'] = self.thumbnail
+        result['images'] = self.images
+        result['details'] = self.details
+        result['series'] = self.series
+        result['characters'] = self.series
+        result['numCharacters'] = self.numCharacters
+        result['creators'] = self.creators
+        result['numCreators'] = self.numCreators
+
+        return result
+
 # [END model]
+
+def create_comic(comic) : 
+    # get relationships needed to create to a comic
+    relationship_list = [comics_series_table, characters_comics_table, comics_creators_table]
+    relationship_key_list = ["comics_series_table", "characters_comics_table", "comics_creators_table"]
+    relationship_list_index = 0
+    comic_init_dict = dict()
+    
+    for key, value in comic.items() :
+        if not isinstance(value, list) :
+            comic_init_dict[key] = value
+        else :
+            comic_init_dict[relationship_key_list[relationship_list_index]] = \
+            relationship_list[relationship_list_index]
+            relationship_list_index += 1
+
+    return Comic(**comic_init_dict)
 
 # [START model]
 class Creators(Base):
@@ -223,6 +337,24 @@ class Creators(Base):
         self.numComics = numComics
         self.series = relationship("Series", secondary=creators_series_table, back_populates="creators")
         self.numSeries = numSeries
+
+    def getValues(self):
+        """
+        This method is used for unit tests in tests.py
+        @return: Return a Dictionary of the attribute values
+        for this Character object
+        """
+        result = {}
+        result['id'] = self.id
+        result['fullName'] = self.fullName
+        result['thumbnail'] = self.thumbnail
+        result['details'] = self.details
+        result['comics'] = self.comics
+        result['numComics'] = self.numComics
+        result['series'] = self.series
+        result['numSeries'] = self.numSeries
+
+        return result
 
 # [END model]
 
@@ -267,6 +399,32 @@ class Series(Base):
         self.numCharacters = numCharacters
         self.creators = relationship("Creators", secondary=creators_series_table, back_populates="series")
         self.numCreators = numCreators
+
+    def getValues(self):
+        """
+        This method is used for unit tests in tests.py
+        @return: Return a Dictionary of the attribute values
+        for this Character object
+        """
+        result = {}
+        result['id'] = self.id
+        result['title'] = self.title
+        result['description'] = self.description
+        result['startYear'] = self.startYear
+        result['endYear'] = self.endYear
+        result['raiting'] = self.raiting
+        result['thumbnail'] = self.thumbnail
+        result['details'] = self.details
+        result['predecessor'] = self.predecessor
+        result['successor'] = self.successor
+        result['comics'] = self.comics
+        result['numComics'] = self.comics
+        result['characters'] = self.characters
+        result['numCharacters'] = self.numCharacters
+        result['creators'] = self.creators
+        result['numCreators'] = self.numCreators
+
+        return result
     
 # [END model]
 
