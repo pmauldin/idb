@@ -3,7 +3,7 @@
 FILES :=                              \
     IDB1.html                         \
     IDB1.log                          \
-    # IDB1.pdf                          \
+    IDB1.pdf                          \
     app/models.py                     \
     app/tests.py                      \
     .gitignore                        \
@@ -41,9 +41,6 @@ endif
 
 .pylintrc:
 	$(PYLINT) --disable=locally-disabled --reports=no --generate-rcfile > $@
-
-IDB1.html: app/models.py
-	pydoc3 -w IDB1
 
 IDB1.log:
 	git log > IDB1.log

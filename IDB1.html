@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module models</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>models</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/Users/charlesgong/Desktop/CLASS%20SHIT/Software%20Engineering/projects/idb/app/models.py">/Users/charlesgong/Desktop/CLASS SHIT/Software Engineering/projects/idb/app/models.py</a></font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial">sqlalchemy.ext.declarative.api.Base(<a href="builtins.html#object">builtins.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="models.html#Character">Character</a>
+</font></dt><dt><font face="helvetica, arial"><a href="models.html#Comic">Comic</a>
+</font></dt><dt><font face="helvetica, arial"><a href="models.html#Creator">Creator</a>
+</font></dt><dt><font face="helvetica, arial"><a href="models.html#Series">Series</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Character">class <strong>Character</strong></a>(sqlalchemy.ext.declarative.api.Base)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;most&nbsp;base&nbsp;type<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="models.html#Character">Character</a></dd>
+<dd>sqlalchemy.ext.declarative.api.Base</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Character-__init__"><strong>__init__</strong></a>(self, id, name, description, thumbnail, details, wiki, comicsUrl, characters_comics_table, numComics, characters_series_table, numSeries)</dt></dl>
+
+<dl><dt><a name="Character-getValues"><strong>getValues</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;used&nbsp;for&nbsp;unit&nbsp;tests&nbsp;in&nbsp;tests.py<br>
+@return:&nbsp;Return&nbsp;a&nbsp;Dictionary&nbsp;of&nbsp;the&nbsp;attribute&nbsp;values<br>
+for&nbsp;this&nbsp;<a href="#Character">Character</a>&nbsp;object</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>comicsUrl</strong></dt>
+</dl>
+<dl><dt><strong>description</strong></dt>
+</dl>
+<dl><dt><strong>details</strong></dt>
+</dl>
+<dl><dt><strong>id</strong></dt>
+</dl>
+<dl><dt><strong>name</strong></dt>
+</dl>
+<dl><dt><strong>numComics</strong></dt>
+</dl>
+<dl><dt><strong>numSeries</strong></dt>
+</dl>
+<dl><dt><strong>thumbnail</strong></dt>
+</dl>
+<dl><dt><strong>wiki</strong></dt>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x103c33f98; Character&gt;</dl>
+
+<dl><dt><strong>__table__</strong> = Table('characters', MetaData(bind=None), Column(...es', Integer(), table=&lt;characters&gt;), schema=None)</dl>
+
+<dl><dt><strong>__tablename__</strong> = 'characters'</dl>
+
+<dl><dt><strong>comics</strong> = None</dl>
+
+<dl><dt><strong>series</strong> = None</dl>
+
+<hr>
+Data descriptors inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Comic">class <strong>Comic</strong></a>(sqlalchemy.ext.declarative.api.Base)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;most&nbsp;base&nbsp;type<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="models.html#Comic">Comic</a></dd>
+<dd>sqlalchemy.ext.declarative.api.Base</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Comic-__init__"><strong>__init__</strong></a>(self, id, title, issueNumber, description, format, pageCount, printPrice, digitalPrice, dateReleased, thumbnail, images, details, comics_series_table, characters_comics_table, numCharacters, comics_creators_table, numCreators)</dt></dl>
+
+<dl><dt><a name="Comic-getValues"><strong>getValues</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;used&nbsp;for&nbsp;unit&nbsp;tests&nbsp;in&nbsp;tests.py<br>
+@return:&nbsp;Return&nbsp;a&nbsp;Dictionary&nbsp;of&nbsp;the&nbsp;attribute&nbsp;values<br>
+for&nbsp;this&nbsp;<a href="#Character">Character</a>&nbsp;object</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>dateReleased</strong></dt>
+</dl>
+<dl><dt><strong>description</strong></dt>
+</dl>
+<dl><dt><strong>details</strong></dt>
+</dl>
+<dl><dt><strong>digitalPrice</strong></dt>
+</dl>
+<dl><dt><strong>format</strong></dt>
+</dl>
+<dl><dt><strong>id</strong></dt>
+</dl>
+<dl><dt><strong>images</strong></dt>
+</dl>
+<dl><dt><strong>issueNumber</strong></dt>
+</dl>
+<dl><dt><strong>numCharacters</strong></dt>
+</dl>
+<dl><dt><strong>numCreators</strong></dt>
+</dl>
+<dl><dt><strong>pageCount</strong></dt>
+</dl>
+<dl><dt><strong>printPrice</strong></dt>
+</dl>
+<dl><dt><strong>thumbnail</strong></dt>
+</dl>
+<dl><dt><strong>title</strong></dt>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x103cae7b8; Comic&gt;</dl>
+
+<dl><dt><strong>__table__</strong> = Table('comics', MetaData(bind=None), Column('id'...eators', Integer(), table=&lt;comics&gt;), schema=None)</dl>
+
+<dl><dt><strong>__tablename__</strong> = 'comics'</dl>
+
+<dl><dt><strong>characters</strong> = None</dl>
+
+<dl><dt><strong>creators</strong> = None</dl>
+
+<dl><dt><strong>series</strong> = None</dl>
+
+<hr>
+Data descriptors inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Creator">class <strong>Creator</strong></a>(sqlalchemy.ext.declarative.api.Base)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;most&nbsp;base&nbsp;type<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="models.html#Creator">Creator</a></dd>
+<dd>sqlalchemy.ext.declarative.api.Base</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Creator-__init__"><strong>__init__</strong></a>(self, id, fullName, thumbnail, details, comics_creators_table, creators_series_table, numComics, numSeries)</dt></dl>
+
+<dl><dt><a name="Creator-getValues"><strong>getValues</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;used&nbsp;for&nbsp;unit&nbsp;tests&nbsp;in&nbsp;tests.py<br>
+@return:&nbsp;Return&nbsp;a&nbsp;Dictionary&nbsp;of&nbsp;the&nbsp;attribute&nbsp;values<br>
+for&nbsp;this&nbsp;<a href="#Character">Character</a>&nbsp;object</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>details</strong></dt>
+</dl>
+<dl><dt><strong>fullName</strong></dt>
+</dl>
+<dl><dt><strong>id</strong></dt>
+</dl>
+<dl><dt><strong>numComics</strong></dt>
+</dl>
+<dl><dt><strong>numSeries</strong></dt>
+</dl>
+<dl><dt><strong>thumbnail</strong></dt>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x103caec18; Creator&gt;</dl>
+
+<dl><dt><strong>__table__</strong> = Table('creators', MetaData(bind=None), Column('i...ries', Integer(), table=&lt;creators&gt;), schema=None)</dl>
+
+<dl><dt><strong>__tablename__</strong> = 'creators'</dl>
+
+<dl><dt><strong>comics</strong> = None</dl>
+
+<dl><dt><strong>series</strong> = None</dl>
+
+<hr>
+Data descriptors inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="Series">class <strong>Series</strong></a>(sqlalchemy.ext.declarative.api.Base)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>The&nbsp;most&nbsp;base&nbsp;type<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="models.html#Series">Series</a></dd>
+<dd>sqlalchemy.ext.declarative.api.Base</dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="Series-__init__"><strong>__init__</strong></a>(self, id, title, description, startYear, endYear, rating, thumbnail, details, predecessor, successor, comics_series_table, numComics, characters_series_table, numCharacters, creators_series_table, numCreators)</dt></dl>
+
+<dl><dt><a name="Series-getValues"><strong>getValues</strong></a>(self)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;used&nbsp;for&nbsp;unit&nbsp;tests&nbsp;in&nbsp;tests.py<br>
+@return:&nbsp;Return&nbsp;a&nbsp;Dictionary&nbsp;of&nbsp;the&nbsp;attribute&nbsp;values<br>
+for&nbsp;this&nbsp;<a href="#Character">Character</a>&nbsp;object</tt></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>description</strong></dt>
+</dl>
+<dl><dt><strong>details</strong></dt>
+</dl>
+<dl><dt><strong>endYear</strong></dt>
+</dl>
+<dl><dt><strong>id</strong></dt>
+</dl>
+<dl><dt><strong>numCharacters</strong></dt>
+</dl>
+<dl><dt><strong>numComics</strong></dt>
+</dl>
+<dl><dt><strong>numCreators</strong></dt>
+</dl>
+<dl><dt><strong>predecessor</strong></dt>
+</dl>
+<dl><dt><strong>startYear</strong></dt>
+</dl>
+<dl><dt><strong>successor</strong></dt>
+</dl>
+<dl><dt><strong>thumbnail</strong></dt>
+</dl>
+<dl><dt><strong>title</strong></dt>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>__mapper__</strong> = &lt;Mapper at 0x103cc73c8; Series&gt;</dl>
+
+<dl><dt><strong>__table__</strong> = Table('series', MetaData(bind=None), Column('id'...eators', Integer(), table=&lt;series&gt;), schema=None)</dl>
+
+<dl><dt><strong>__tablename__</strong> = 'series'</dl>
+
+<dl><dt><strong>characters</strong> = None</dl>
+
+<dl><dt><strong>comics</strong> = None</dl>
+
+<dl><dt><strong>creators</strong> = None</dl>
+
+<dl><dt><strong>rating</strong> = None</dl>
+
+<hr>
+Data descriptors inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from sqlalchemy.ext.declarative.api.Base:<br>
+<dl><dt><strong>metadata</strong> = MetaData(bind=None)</dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-create_character"><strong>create_character</strong></a>(character)</dt></dl>
+ <dl><dt><a name="-create_characters_comics_table"><strong>create_characters_comics_table</strong></a>(characters, comics)</dt></dl>
+ <dl><dt><a name="-create_characters_series_table"><strong>create_characters_series_table</strong></a>(characters, series)</dt></dl>
+ <dl><dt><a name="-create_comic"><strong>create_comic</strong></a>(comic)</dt></dl>
+ <dl><dt><a name="-create_comics_creators_table"><strong>create_comics_creators_table</strong></a>(comics, creators)</dt></dl>
+ <dl><dt><a name="-create_comics_series_table"><strong>create_comics_series_table</strong></a>(comics, series)</dt></dl>
+ <dl><dt><a name="-create_creator"><strong>create_creator</strong></a>(creator)</dt></dl>
+ <dl><dt><a name="-create_creators_series_table"><strong>create_creators_series_table</strong></a>(creators, series)</dt></dl>
+ <dl><dt><a name="-create_one_direction_associative_table"><strong>create_one_direction_associative_table</strong></a>(base_list, table, secondary_list_key, id_key, left_id, right_id)</dt></dl>
+ <dl><dt><a name="-create_series"><strong>create_series</strong></a>(series)</dt></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>characters</strong> = [{'comics': [6482, 16904], 'comicsUrl': 'http://marvel.com/comics/characters/1009610/spid...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'description': 'Bitten by a radioactive spider, high school stud...pidey has vowed to use his powers to help people.', 'details': 'http://marvel.com/characters/54/spider-man?utm_c...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'id': 1009610, 'name': 'Spider-Man', 'numComics': 2922, 'numSeries': 601, 'series': [1987, 2984], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/3/50/526548a343e4b.jpg', ...}, {'comics': [55363], 'comicsUrl': 'http://marvel.com/comics/characters/1009368/iron...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'description': 'Wounded, captured and forced to build a weapon b...make the world a safer, better place as Iron Man.', 'details': 'http://marvel.com/comics/characters/1009368/iron...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'id': 1009368, 'name': 'Iron Man', 'numComics': 2205, 'numSeries': 504, 'series': [20443], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/9/c0/527bb7b37ff55.jpg', ...}, {'comics': [16904], 'comicsUrl': 'http://marvel.com/comics/characters/1009262/dare...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'description': 'Abandoned by his mother, Matt Murdock was raised...eightened senses and became a formidable fighter.', 'details': 'http://marvel.com/comics/characters/1009262/dare...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'id': 1009262, 'name': 'Daredevil', 'numComics': 871, 'numSeries': 184, 'series': [2984], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/d/50/50febb79985ee.jpg', ...}]<br>
+<strong>characters_comics_table</strong> = Table('characters_comics', MetaData(bind=None), ...ic_id'), table=&lt;characters_comics&gt;), schema=None)<br>
+<strong>characters_series_table</strong> = Table('characters_series', MetaData(bind=None), ...es_id'), table=&lt;characters_series&gt;), schema=None)<br>
+<strong>comics</strong> = [{'characters': [1009610], 'creators': [30], 'dateReleased': '1963-03-10T00:00:00-0500', 'description': 'Spider-Man, in one of his earliest adventures fo...of astronauts aboard a malfunctioning space ship!', 'details': 'http://marvel.com/comics/issue/6482/amazing_spid...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'digitalPrice': 1.99, 'format': 'Comic', 'id': 6482, 'images': 'http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196...ihil.us/u/prod/marvel/i/mg/b/e0/4bc380bd24fe2.jpg', 'issueNumber': 1, ...}, {'characters': [1009368], 'creators': [119], 'dateReleased': '2016-06-01T00:00:00-0400', 'description': 'The Search for Nova’s father begins! The Avenger...d themselves trapped on a galactic prison planet!', 'details': 'http://marvel.com/comics/issue/55363/all-new_all...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'digitalPrice': 3.99, 'format': 'Comic', 'id': 55363, 'images': 'http://i.annihil.us/u/prod/marvel/i/mg/b/10/5743705117996.jpg', 'issueNumber': 10, ...}, {'characters': [1009262], 'creators': [30, 305], 'dateReleased': '1966-11-03T00:00:00-0500', 'description': None, 'details': 'http://marvel.com/comics/issue/16904/amazing_spi...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'digitalPrice': 1.99, 'format': 'Comic', 'id': 16904, 'images': 'http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706c.jpg', 'issueNumber': 3, ...}]<br>
+<strong>comics_creators_table</strong> = Table('comics_creators', MetaData(bind=None), Co...ator_id'), table=&lt;comics_creators&gt;), schema=None)<br>
+<strong>comics_series_table</strong> = Table('comics_series', MetaData(bind=None), Colu...series_id'), table=&lt;comics_series&gt;), schema=None)<br>
+<strong>creators</strong> = [{'comics': [6482], 'details': 'http://marvel.com/comics/creators/30/stan_lee?ut...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'fullName': 'Stan Lee', 'id': 30, 'numComics': 2880, 'numSeries': 673, 'series': [1987], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/9/d0/4bc37d9d8f541.jpg'}, {'comics': [6482], 'details': 'http://marvel.com/comics/creators/119/mark_waid?...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'fullName': 'Mark Waid', 'id': 119, 'numComics': 479, 'numSeries': 146, 'series': [20443], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/f/e0/5108156b0418d.jpg'}, {'comics': [16904], 'details': 'http://marvel.com/comics/creators/305/don_heck?u...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'fullName': 'Don Heck', 'id': 305, 'numComics': 503, 'numSeries': 187, 'series': [2984], 'thumbnail': 'http://i.annihil.us/u/prod/marvel/i/mg/c/00/4bc6b23923edb.jpg'}]<br>
+<strong>creators_series_table</strong> = Table('creators_series', MetaData(bind=None), Co...ries_id'), table=&lt;creators_series&gt;), schema=None)<br>
+<strong>series</strong> = [{'characters': [1009610], 'comics': [6482], 'creators': [30], 'description': 'The classic adventures of Spider-Man from the ea...that with great power comes great responsibility.', 'details': 'http://marvel.com/comics/series/1987/amazing_spi...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'endYear': 1998, 'id': 1987, 'numCharacters': 125, 'numComics': 441, 'numCreators': 241, ...}, {'characters': [1009368], 'comics': [55363], 'creators': [119], 'description': None, 'details': 'http://marvel.com/comics/series/20443/all-new_al...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'endYear': 2099, 'id': 20443, 'numCharacters': 10, 'numComics': 28, 'numCreators': 20, ...}, {'characters': [1009262, 1009610], 'comics': [16904], 'creators': [30, 305], 'description': None, 'details': 'http://marvel.com/comics/series/2984/amazing_spi...piRef&amp;utm_source=8071724a7930e7ded76ba11c0ba98754', 'endYear': 2009, 'id': 2984, 'numCharacters': 42, 'numComics': 30, 'numCreators': 140, ...}]</td></tr></table>
+</body></html>

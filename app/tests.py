@@ -38,7 +38,7 @@ class TestModels (TestCase) :
             # don't want to compare a relationship and a list
             if not isinstance(realData[attribute], list) :
                 self.assertEqual(realData[attribute], testData[attribute])
-        
+
 
     def test_characters_2 (self) :
         realData = characters[1]
