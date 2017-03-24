@@ -17,7 +17,7 @@ def create_one_direction_associative_table(base_list, table, secondary_list_key,
     i = insert(table)
     for d in base_list :
         id = d[id_key]
-        secondary_list:list[int] = d[secondary_list_key]
+        secondary_list = d[secondary_list_key]
         for element in secondary_list :
             row_dict = {left_id: id, right_id: element}
             assert(len(row_dict) >= 1)
