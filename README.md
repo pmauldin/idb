@@ -1,4 +1,4 @@
 # idb
 An Internet Database For Marvel Comics
 
-[![Build Status](https://travis-ci.com/tireymorris/collatz.svg?token=dsTWNzu4HyShPzjMpKAx&branch=master)](https://travis-ci.com/tireymorris/collatz)
+[![Build Status](https://travis-ci.org/pmauldin/idb.svg?branch=master)](https://travis-ci.org/pmauldin/idb)
