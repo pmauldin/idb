@@ -1,0 +1,437 @@
+commit e2d4863bdb016ffeab36e063e32b35de6f1a2e30
+Merge: 9798cb0 3409631
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 21:49:24 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit 9798cb0bc7e6b0189b0de912e2ddb2bfd321d305
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 21:49:19 2017 -0500
+
+    Finished technical report and about page
+
+commit 34096313e8b2f572cc09a0929f1ba33b8ca52abd
+Author: Tirey Morris <tireymorris@users.noreply.github.com>
+Date:   Thu Mar 23 21:12:26 2017 -0500
+
+    Added TravisCI build status to README.md
+
+commit ec8b6a5c537ad9b2e566214ca9d92fcf43967d6c
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 21:10:07 2017 -0500
+
+    Removed marveldb-web/README.md that create-react-app generated.
+
+commit 60fea1e2dd51c3d25dc36f7567f6d15b6d101636
+Author: Tirey Morris <tireymorris@users.noreply.github.com>
+Date:   Thu Mar 23 21:05:43 2017 -0500
+
+    Update README.md
+
+commit 7ee770b2e3d78067a5f8dd0fd707bdeda888de72
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 20:48:32 2017 -0500
+
+    Removed type annotations in app/tests.py and fixed minor formatting issues.
+
+commit 1e7dd464d70058727604ea78910845a85b4fb14a
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 20:44:02 2017 -0500
+
+    Updated makefile to run coverage only in app and still be platform-independent.
+
+commit a0dfe74e2ca07cdc5342d899c909413dbd9db438
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Mar 23 20:40:49 2017 -0500
+
+    added asserts to models.py and tests.py
+
+commit ce0012ef7ad10b851a5d17dc58c97892db5ad0a8
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 20:34:37 2017 -0500
+
+    added log file
+
+commit ececd3907a3e47d1db251e1feab2b21f9a54adca
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 20:23:18 2017 -0500
+
+    Coverage now running in makefile while omitting /usr (prevents the horribly lengthy output seen on Travis)
+
+commit b98f7cefe720a4892b883518bc5f78c587b9d738
+Merge: 6cdbf45 8eecf2b
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 20:20:49 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit 6cdbf45e10b7ed1e7d05373315acba431dc4ab5d
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Mar 23 20:20:22 2017 -0500
+
+    Updated makefile to get make test to pass. This should fix the build on TravisCI, barring any other unseen errors.
+
+commit 8eecf2b868429567d6de510e1a704c5b64b2a410
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 20:00:05 2017 -0500
+
+    Finished about page except for #commits stats (Resolves #22)
+
+commit 1549998dac31aed39246a70a4035e24ffef0529e
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 19:55:28 2017 -0500
+
+    added an ignore in the gitignore file
+
+commit 6882d1e578cd112c332c68f28875cbf2575d024d
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 19:35:03 2017 -0500
+
+    fixed makefile
+
+commit 50d90e7e64821b55e598d301396c40f7869a3a6c
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Mar 23 19:24:16 2017 -0500
+
+    got the correct relationship set up between comics and series
+
+commit 0913aee6c8e030a4dafc27c2dee280e0a3e4ade4
+Author: Casey Bigelow <Jefforey@wireless-10-148-152-74.public.utexas.edu>
+Date:   Thu Mar 23 19:17:48 2017 -0500
+
+    Fixed minor issues with UML diagram
+
+commit 30e6ba5947c968d0114e6742367d0f2ab3658304
+Author: Casey Bigelow <Jefforey@wireless-10-148-152-74.public.utexas.edu>
+Date:   Thu Mar 23 19:12:20 2017 -0500
+
+    Adding the UML diagram
+
+commit c2780f6978042446514926b4ea8aaeea6691c440
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 19:02:09 2017 -0500
+
+    About page member profiles finished
+
+commit f95e12729ab3656aab138c2bfd5472b7ad9fe473
+Author: Jorge Zapien <zapien256@utexas.edu>
+Date:   Thu Mar 23 18:58:35 2017 -0500
+
+    Cleaned models.py
+
+commit 8c8732cb625beeadeb74e5aea9f9faf1f761d9ba
+Merge: 3528818 c92e5bb
+Author: Jorge Zapien <zapien256@utexas.edu>
+Date:   Thu Mar 23 18:57:08 2017 -0500
+
+    Merge branch 'master' of https://github.com/pmauldin/idb
+
+commit 3528818d22550d41ad45eaaef96c943922b358d4
+Author: Jorge Zapien <zapien256@utexas.edu>
+Date:   Thu Mar 23 18:56:56 2017 -0500
+
+    Cleaned models.py
+
+commit c92e5bb80a3b1a34851eb4e85cc325103d4cc29c
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 18:38:48 2017 -0500
+
+    typo in makefile line 51
+
+commit f8fe56be214aa224365ea7bad1c9042c26d66f67
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 18:36:57 2017 -0500
+
+    made new directories
+
+commit f982d98cb3a4a38ef553a3c1a9ce20129d844829
+Merge: c4681b7 c237cb7
+Author: Jorge Zapien-Diaz <zapien256@utexas.edu>
+Date:   Thu Mar 23 17:31:41 2017 -0500
+
+    Merge branch 'master' into model-unit-tests
+
+commit c237cb7b94b3bd401671155584e3f680950d8c84
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 17:15:19 2017 -0500
+
+    Transferring API Description file from Apiary.io
+
+commit c4681b7886dc4e7b72ef31faa1e25765fb5c6199
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Mar 23 15:41:52 2017 -0500
+
+    unit tests for models.py done
+
+commit 5251e89107830e5d4c75307755b2625f441dd116
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Mar 23 15:15:21 2017 -0500
+
+    just need unit tests for the series model
+
+commit 0af26400625b5fca425a4b175cfed972bbac42db
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Mar 23 15:04:25 2017 -0500
+
+    changed readme file
+
+commit 5c6749c3746b07215b63c633d30dec7d3ca6f1db
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Mar 23 10:29:25 2017 -0500
+
+    Fixed indentation in dataService
+
+commit 13c7e7500ce870be0dac3dc0279639bd64c6b0bd
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Mar 23 04:14:33 2017 -0500
+
+    have classes set up nicely to represent models, just need to figure out how to create associative tables correctly for many to many relationships
+
+commit b6f0fb71554db6a9ee6577f2ade6433b1590728d
+Author: Charles <chlsgong@gmail.com>
+Date:   Wed Mar 22 21:30:32 2017 -0500
+
+    changed api url for getting resources
+
+commit 2de368bc36781742d4c80a321b654107102350c5
+Author: Jorge Zapien-Diaz <zapien256@utexas.edu>
+Date:   Wed Mar 22 19:12:15 2017 -0500
+
+    added tests.py with some unit tests
+
+commit 8254456d6898473c166705336121e7f98bf77e44
+Author: Jorge Zapien-Diaz <zapien256@utexas.edu>
+Date:   Wed Mar 22 17:51:22 2017 -0500
+
+    renamed model.py as models.py
+
+commit 600b33c131f60d7e76a1e9b30013cd56cca6826f
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 17:49:40 2017 -0500
+
+    Created initial about page and added routing
+
+commit ff10dea0bc2957bdb2cdd87b06a412ace75f53f0
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 17:30:45 2017 -0500
+
+    Finished styling comic details page (Resolves #21)
+
+commit 579f90b2cf4370c2ed8c27bde33622e2b02dc97e
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Wed Mar 22 17:15:28 2017 -0500
+
+    Styled details page (except Series for comic details.
+
+commit 68d607a0ec87c9473048caa96e62ba18aca3f853
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 16:36:46 2017 -0500
+
+    Updated static data a litle
+
+commit f75b09957affb7234f38e77fc52ed636847c2d70
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 15:50:54 2017 -0500
+
+    Fixed a few bugs and added simple results filtering (Resolves #23)
+
+commit 1443c252e228737efc5c7114c17ff5daa4ce5dfa
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 14:15:59 2017 -0500
+
+    Fixed some html/css errors
+
+commit 9f561f41860029dd242194225a46ff50178f5fcb
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 22 13:44:48 2017 -0500
+
+    Fixed the port for GCP Flask Server
+
+commit 0b2fe6bfad9ffde6e63e4b2bb10470b2d01e00a5
+Author: Jorge Zapien-Diaz <zapien256@utexas.edu>
+Date:   Tue Mar 21 21:06:40 2017 -0500
+
+    Halfway done with the models
+
+commit 49629a2be918cd6fcbc5bcdca077be02c9a7c779
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Tue Mar 21 19:34:32 2017 -0500
+
+    Added favicon (Resolves #24)
+
+commit 16734c1ab06180be40d029c51cb0b810a7296392
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Tue Mar 21 19:28:10 2017 -0500
+
+    Fixed a broken link from comic -> series
+
+commit bdbe2b7f804f7466dd7f3c140571144ae556cfa2
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Tue Mar 21 19:20:48 2017 -0500
+
+    Refactored details pages to load data from Flask server, and added a few more attributes to the comic grid item
+
+commit 2b4a91c65e10b4534a28da0d1cc04b0b4c739451
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Tue Mar 21 18:16:00 2017 -0500
+
+    Now hitting API on results page and correctly handling async actions
+
+commit 158d1e00a13e390ba988a23338a026b2cc1b5fcb
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Tue Mar 21 18:15:18 2017 -0500
+
+    Updated Flask server to allow CORS and changed API root to /api
+
+commit c9e34a2004b262b6fcb33a2fa56a88d4bd288d57
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Tue Mar 21 17:49:03 2017 -0500
+
+    Added handling for no data on results pages
+
+commit 42484523ecdeebc2eb296c0c1da8fddd0081da32
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Tue Mar 21 17:21:44 2017 -0500
+
+    Implemented sorting of results. Resolves #11
+
+commit 5eea73314fdd1c19ef411ddf24818cb7a59ebe10
+Author: Charles <chlsgong@gmail.com>
+Date:   Tue Mar 21 17:14:09 2017 -0500
+
+    added server code
+
+commit 4453cde7cab0b5f37d32ca2c5c9f98aeb9e8bee3
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 23:19:02 2017 -0500
+
+    Fixed static data
+
+commit bc14d507bb48ae3b804c7423594c9cdece1d36d6
+Merge: 456c3b3 01f2379
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 23:12:06 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit 456c3b314c86e21cd52d35b5f66ab5b043e2cb09
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 23:11:23 2017 -0500
+
+    Refactored all data management to be done completely with Redux.
+
+commit 01f2379b80a625d5b48c89f9cbff0986f8c48e0f
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 22:02:31 2017 -0500
+
+    Added Marvel Website link to character grid item
+
+commit 3412581e3b85fc7686ae18354b7520fb2a567090
+Merge: f27c417 2ba65ed
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 21:48:34 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit f27c417f930a2e2bdebf6d65ee32bd87f4376b31
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 21:48:26 2017 -0500
+
+    Added Redux to app
+
+commit 2ba65edb1bf1ae689492dff80d6441da4d50d66b
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 21:31:34 2017 -0500
+
+    Comic/Series/Character descriptions are no longer truncated in detail view.
+
+commit 4577ad49eca5255e43c89257c83903f5157ff4df
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 18:23:35 2017 -0500
+
+    Finished additional grid styling. (Resolves #13).
+
+commit 11d275fd8d1c6892b03945d5965a62a293840876
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 17:57:34 2017 -0500
+
+    Styled and formatted grid items/content.
+
+commit a87df2ee3448532326449288b94ea5c2902986e1
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 17:55:01 2017 -0500
+
+    Logic done for details page and linking instances. Need to work on styling
+
+commit 252a81687663d0910351a3fdce83565f0f6fbe9d
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Mon Mar 20 02:18:44 2017 -0500
+
+    Implemented MVP for grids with static content displayed.
+
+commit 03943925c2e77db630cf5aab8d39785a2e6c16aa
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Mon Mar 20 01:05:29 2017 -0500
+
+    Added service wrapper to get data (from hardcoded json for now)
+
+commit f52a5166fb7823a73e459fde9dfddf4669f76f60
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Sun Mar 19 23:59:42 2017 -0500
+
+    Added sorting components
+
+commit 3f17fb361c9981597f06c1cd4045eddeead57092
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Sun Mar 19 22:51:01 2017 -0500
+
+    Refactored project code again, added grid system, and added static sorting menu
+
+commit 53b34ee2ce720748dc820cb4295c993c93939784
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Sun Mar 19 20:31:10 2017 -0500
+
+    Refactored project structure and carousel code
+
+commit 74867d6218734ccc267be6051d71104d07d3d85c
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Sun Mar 19 19:11:50 2017 -0500
+
+    Defined schema for models, and added examples (resolves #18)
+
+commit 7df1ade5152e76ece78d47d74c3b25b7a22b32da
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Sun Mar 19 16:57:01 2017 -0500
+
+    Added carousel on home page, and fixed navbar responsiveness. (Resolves #8).
+
+commit a36d8fc5e481e0500a187660d61e474072d609b6
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Sun Mar 19 15:42:56 2017 -0500
+
+    Added routing and finished navbar (resolves #19)
+
+commit 15320464e849b9820a6250d45d55e928a22e5f31
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Sun Mar 19 14:05:24 2017 -0500
+
+    Designed component heirarchy and added skeleton components. (Resolves #16)
+
+commit b69b64ebccd3e389cce68b7f4431cafd3c5d4ce2
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Sun Mar 19 13:36:29 2017 -0500
+
+    Added react-bootstrap and updated index.html to include bootstrap CSS.
+
+commit 30f2e080847b283609025a0656bf0415b1986c52
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Sun Mar 19 13:09:37 2017 -0500
+
+    Added react project skeleton and updated .gitignore
+
+commit 53e666172b3b6d99e30d339603ef0e087e64a8fe
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Mar 8 16:40:18 2017 -0600
+
+    Initial commit
