@@ -1,0 +1,26 @@
+.nav-tabs > li {
+	width: 50%;
+	text-align: center;
+}
+
+.memberCard {
+	width: 100%;
+	min-height: 250px;
+	margin-top: 1%;
+}
+
+.aboutPicContainer {
+	height: 100%;
+	min-width: 350px;
+	float: left;
+	margin-right: 10px;
+}
+
+.aboutPic {
+	max-height: 250px;
+	float: right;
+}
+
+.aboutContainer {
+	padding-bottom: 5px;
+}
