@@ -10,8 +10,8 @@ Base = declarative_base()
 def create_one_direction_associative_table(base_list, table, secondary_list_key, id_key, left_id, right_id) :
     i = insert(table)
     for d in base_list :
-        id = d[id_key]
-        secondary_list = d[secondary_list_key]
+        id:int = d[id_key]
+        secondary_list:list[int] = d[secondary_list_key]
         for element in secondary_list :
             row_dict = {left_id: id, right_id: element}
 
@@ -52,22 +52,6 @@ def create_characters_series_table(characters, series) :
     #return the table schema
     return characters_series_table
 
-def create_comics_series_table(comics, series) : 
-    # used for many to many bidirectional relationship between comics and series
-    comics_series_table = Table("comics_series", Base.metadata,
-                            Column("comic_id", Integer, ForeignKey("comic_id")),
-                            Column("series_id", Integer, ForeignKey("series_id")))
-
-    # need to create the relationships in both directions so create the connections
-    # in one direction then the other
-    create_one_direction_associative_table(comics, comics_series_table, 
-                                             "series", "id", "comic_id", "series_id")
-
-    create_one_direction_associative_table(series, comics_series_table, 
-                                    "comics", "id", "series_id", "comic_id")
-
-    return comics_series_table
-
 def create_comics_creators_table(comics, creators) : 
     # used for many to many bidirectional relationship between comics and creators
     comics_creators_table = Table("comics_creators", Base.metadata, 
@@ -106,7 +90,6 @@ def create_creators_series_table(creators,series) :
 # create all the associative_tables
 characters_comics_table = create_characters_comics_table(characters, comics)
 characters_series_table = create_characters_series_table(characters, series)
-comics_series_table =  create_comics_series_table(comics, series) 
 comics_creators_table = create_comics_creators_table(comics, creators)
 creators_series_table = create_creators_series_table(creators,series)
 
@@ -121,9 +104,7 @@ class Character(Base):
     details = Column(String(255))
     wiki = Column(String(255))
     comicsUrl = Column(String(255))
-    comics = None
     numComics = Column(Integer)
-    series = None
     numSeries = Column(Integer)
 
     def __init__(self, id, name, description, thumbnail, details, wiki, comicsUrl, characters_comics_table, 
@@ -161,6 +142,10 @@ class Character(Base):
 
         return result
 
+
+    # def __repr__(self):
+    #     return '<Character %r>' % self.character_name
+
 # [END model]
 
 def create_character(character) :
@@ -197,14 +182,12 @@ class Comic(Base):
     thumbnail = Column(String(255))
     images = Column(String(255))
     details = Column(String(255))
-    series = None
-    characters = None
+    series = Column(Integer, ForeignKey('series.id'))
     numCharacters = Column(Integer)
-    creators = None
     numCreators = Column(Integer)
 
     def __init__(self, id, title, issueNumber, description, format, pageCount, printPrice, 
-        digitalPrice, dateReleased, thumbnail, images, details, comics_series_table, characters_comics_table,
+        digitalPrice, dateReleased, thumbnail, images, details, series, characters_comics_table,
         numCharacters, comics_creators_table, numCreators):
         self.id = id
         self.title = title
@@ -218,7 +201,7 @@ class Comic(Base):
         self.thumbnail = thumbnail
         self.images = images
         self.details = details
-        self.series = relationship("Series", secondary=comics_series_table, back_populates="comics")
+        self.series = series
         self.characters = relationship("Characters", secondary=characters_comics_table, back_populates="comics")
         self.numCharacters = numCharacters
         self.creators = relationship("Creators", secondary=comics_creators_table, back_populates="comics")
@@ -255,8 +238,8 @@ class Comic(Base):
 
 def create_comic(comic) : 
     # get relationships needed to create to a comic
-    relationship_list = [comics_series_table, characters_comics_table, comics_creators_table]
-    relationship_key_list = ["comics_series_table", "characters_comics_table", "comics_creators_table"]
+    relationship_list = [characters_comics_table, comics_creators_table]
+    relationship_key_list = ["characters_comics_table", "comics_creators_table"]
     relationship_list_index = 0
     comic_init_dict = dict()
     
@@ -278,9 +261,7 @@ class Creator(Base):
     fullName = Column(String(255))
     thumbnail = Column(String(255))
     details =  Column(String(255))
-    comics = None
     numComics = Column(Integer)
-    series = None
     numSeries = Column(Integer)
 
     def __init__(self, id, fullName, thumbnail, details, comics_creators_table, creators_series_table, 
@@ -340,20 +321,16 @@ class Series(Base):
     description = Column(String(255))
     startYear = Column(Integer)
     endYear = Column(Integer)
-    rating = None
     thumbnail = Column(String(255))
     details = Column(String(255))
     predecessor = Column(Integer)
     successor = Column(Integer)
-    comics = None
     numComics = Column(Integer)
-    characters = None
     numCharacters = Column(Integer)
-    creators = None
     numCreators = Column(Integer)
 
     def __init__(self, id, title, description, startYear, endYear, rating, 
-        thumbnail, details, predecessor, successor, comics_series_table, numComics, 
+        thumbnail, details, predecessor, successor, comics, numComics, 
         characters_series_table, numCharacters, creators_series_table, numCreators):
         self.id = id
         self.title = title
@@ -365,7 +342,7 @@ class Series(Base):
         self.details = details
         self.predecessor = predecessor
         self.successor = successor
-        self.comics = relationship("Comics", secondary=comics_series_table, back_populates="series")
+        self.comics = comics
         self.numComics = numComics
         self.characters = relationship("Characters", secondary=characters_series_table, back_populates="series")
         self.numCharacters = numCharacters
@@ -400,8 +377,9 @@ class Series(Base):
 
 def create_series(series) : 
     # get relationships needed to create to a comic
-    relationship_list = [comics_series_table, characters_series_table, creators_series_table]
-    relationship_key_list = ["comics_series_table", "characters_series_table", "creators_series_table"]
+    comics = relationship("Comic", backref="Series")
+    relationship_list = [comics, characters_series_table, creators_series_table]
+    relationship_key_list = ["comics", "characters_series_table", "creators_series_table"]
     relationship_list_index = 0
     series_init_dict = dict()
     
@@ -414,13 +392,3 @@ def create_series(series) :
             relationship_list_index += 1
 
     return Series(**series_init_dict)
-    
-# [END model]
-
-# class Char_Comics(db.Model):
-
-# class Char_Series(db.Model):
-
-# class Creators_Comics(db.Model):
-
-# class Creators_Series(db.Model):
