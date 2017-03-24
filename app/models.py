@@ -7,14 +7,20 @@ from data import characters, comics, creators, series
 
 Base = declarative_base()
 
+def check_args(*attrs) :
+    for v in attrs :
+        assert(v != None)
+
 def create_one_direction_associative_table(base_list, table, secondary_list_key, id_key, left_id, right_id) :
+    check_args(base_list, table, secondary_list_key, id_key, left_id, right_id)
+    assert(len(base_list) >= 1)
     i = insert(table)
     for d in base_list :
-        id:int = d[id_key]
-        secondary_list:list[int] = d[secondary_list_key]
+        id = d[id_key]
+        secondary_list = d[secondary_list_key]
         for element in secondary_list :
             row_dict = {left_id: id, right_id: element}
-
+            assert(len(row_dict) >= 1)
             # this should enter row into databse
             # can't do it just yet because our databse 
             # is not connected
@@ -25,7 +31,8 @@ def create_characters_comics_table(characters, comics) :
     characters_comics_table = Table("characters_comics", Base.metadata,
                                        Column("character_id", Integer, ForeignKey("character_id")),
                                        Column("comic_id", Integer, ForeignKey("comic_id")))
-
+    check_args(characters, comics)
+    assert(len(characters) >= 1 and len(comics) >= 1)
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
     create_one_direction_associative_table(characters, characters_comics_table, 
@@ -42,6 +49,8 @@ def create_characters_series_table(characters, series) :
                                        Column("character_id", Integer, ForeignKey("character_id")),
                                        Column("series_id", Integer, ForeignKey("series_id")))
 
+    check_args(characters, series)
+    assert(len(characters) >= 1 and len(series) >= 1)
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
     create_one_direction_associative_table(characters, characters_series_table, 
@@ -58,6 +67,8 @@ def create_comics_creators_table(comics, creators) :
                         Column("comic_id", Integer, ForeignKey("comic_id")),
                         Column("creator_id", Integer, ForeignKey("creator_id")))
 
+    check_args(comics, creators)
+    assert(len(comics) >= 1 and len(creators) >=1)
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
     create_one_direction_associative_table(comics, comics_creators_table, 
@@ -75,6 +86,8 @@ def create_creators_series_table(creators,series) :
                                   Column("creator_id", Integer, ForeignKey("creator_id")),
                                   Column("series_id", Integer, ForeignKey("series_id")))
 
+    check_args(creators, series)
+    assert(len(creators) >= 1 and len(series) >= 1)
     # need to create the relationships in both directions so create the connections
     # in one direction then the other
     create_one_direction_associative_table(creators, creators_series_table,  
@@ -150,6 +163,7 @@ class Character(Base):
 
 def create_character(character) :
     # get relationships needed to create to a character
+    check_args(character)
     relationship_list = [characters_comics_table, characters_series_table]
     relationship_key_list = ["characters_comics_table", "characters_series_table"]
     relationship_list_index = 0
@@ -189,6 +203,7 @@ class Comic(Base):
     def __init__(self, id, title, issueNumber, description, format, pageCount, printPrice, 
         digitalPrice, dateReleased, thumbnail, images, details, series, characters_comics_table,
         numCharacters, comics_creators_table, numCreators):
+
         self.id = id
         self.title = title
         self.issueNumber = issueNumber
@@ -238,6 +253,7 @@ class Comic(Base):
 
 def create_comic(comic) : 
     # get relationships needed to create to a comic
+    check_args(comic)
     relationship_list = [characters_comics_table, comics_creators_table]
     relationship_key_list = ["characters_comics_table", "comics_creators_table"]
     relationship_list_index = 0
@@ -297,6 +313,7 @@ class Creator(Base):
 
 def create_creator(creator) : 
     # get relationships needed to create to a comic
+    check_args(creator)
     relationship_list = [comics_creators_table, creators_series_table]
     relationship_key_list = ["comics_creators_table", "creators_series_table"]
     relationship_list_index = 0
@@ -377,6 +394,7 @@ class Series(Base):
 
 def create_series(series) : 
     # get relationships needed to create to a comic
+    check_args(series)
     comics = relationship("Comic", backref="Series")
     relationship_list = [comics, characters_series_table, creators_series_table]
     relationship_key_list = ["comics", "characters_series_table", "creators_series_table"]
