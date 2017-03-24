@@ -33,7 +33,7 @@ else ifeq ($(shell uname -p), unknown) # Docker
 else                                   # UTCS
     PYTHON   := python3.5
     PIP      := pip3.5
-    PYLINT   := pylint3.5
+    PYLINT   := pylint
     COVERAGE := coverage-3.5
     PYDOC    := pydoc3.5
     AUTOPEP8 := autopep8
@@ -47,9 +47,9 @@ IDB1.log:
 
 tests.tmp: app/models.py app/tests.py .pylintrc
 	-$(PYLINT) app/tests.py
-	$(COVERAGE) run    --branch app/tests.py >  app/tests.tmp 2>&1
-	$(COVERAGE) report -m                    >> app/tests.tmp
-	cat app/tests.tmp
+	-$(COVERAGE) run    --branch app/tests.py >  tests.tmp 2>&1
+	-$(COVERAGE) report -m                    >> tests.tmp
+	cat tests.tmp
 
 check:
 	@not_found=0;                                 \
@@ -74,7 +74,7 @@ clean:
 	rm -f  .coverage
 	rm -f  .pylintrc
 	rm -f  *.pyc
-	rm -f  IDB1.html
+	# rm -f  IDB1.html 
 	rm -f  IDB1.log
 	rm -f  app/tests.tmp
 	rm -rf __pycache__
