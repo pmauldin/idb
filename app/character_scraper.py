@@ -10,7 +10,7 @@ from string import ascii_lowercase
 # d7ddd341e81cf87ce24ba23e95706a62
 
 # marvel private api key
-# 3601339eb9cff1326f79213cbf2a1fc6333c39e6
+# private_key
 
 """
 id (int, optional): The unique ID of the character resource.,
@@ -131,7 +131,7 @@ if __name__ == '__main__':
 	con,meta = connect_to_marveldb("nano", "nano", "marveldb") # change username and password to your username and password
 	# for the database marveldb
 	public_key = "d7ddd341e81cf87ce24ba23e95706a62" # change public_key to your public key for marvel api
-	private_key = "3601339eb9cff1326f79213cbf2a1fc6333c39e6" # change private_key to your private key for marvel api
+	private_key = "private_key" # change private_key to your private key for marvel api
 	# messy_chars_dict = get_json_characters_dictionary_by_char_of_first_name(public_key, private_key, "a")
 	# chars_dict_list = create_character_table_dictionary(messy_chars_dict)
 	# if you don't have a characters table in your data base call this, you only want to call this one time
