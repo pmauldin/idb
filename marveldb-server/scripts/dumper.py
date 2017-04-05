@@ -4,7 +4,7 @@
 
 import sqlalchemy
 from sqlalchemy import Table, Column, Integer, Float, Date, String, ForeignKey
-from scraper import scrape_characters
+from scraper import scrape_characters, scrape_comics
 
 def connect(user, password, db, host='localhost', port=5432):
     '''Returns a connection and a metadata object'''
@@ -22,6 +22,7 @@ def connect(user, password, db, host='localhost', port=5432):
     return con, meta
 
 def create_tables(con, meta):
+	
 	characters = Table('characters', meta,
     	Column('id', Integer, primary_key = True),
     	Column('name', String),
@@ -59,9 +60,8 @@ def create_tables(con, meta):
     	Column('pageCount', Integer),
     	Column('printPrice', Float),
     	Column('digitalPrice', Float),
-    	Column('dateReleased', Date),
+    	Column('dateReleased', DateTimed),
     	Column('thumbnail', String),
-    	Column('images', String),
     	Column('details', String),
     	Column('series_id', Integer, ForeignKey('series.id'), nullable = False),
     	Column('numCharacters', Integer),
@@ -75,6 +75,12 @@ def create_tables(con, meta):
     	Column('details', String),
     	Column('numComics', Integer),
     	Column('numSeries', Integer)
+	)
+	
+	images = Table('images', meta,
+		Column('path', String, primary_key = True),
+		Column('extension', String),
+		Column('comic_id', Integer, ForeignKey('comics.id'), nullable = False)
 	)
 
 	meta.create_all(con)
@@ -109,16 +115,31 @@ def create_associations(con, meta):
 	meta.create_all(con)
 
 def insert_all_data(con, meta):
+	# insert characters data
 	total = 1485
 	limit = 100
 	offset = 0
 
-	# insert character data
+	chars_comics_data = {}
 	while offset < total:
 		print(offset)
-		char_data = scrape_characters(limit, offset)
-		insert(con, meta, 'characters', char_data)
+		chars_data, chars_comics_data = scrape_characters(limit, offset)
+		insert(con, meta, 'characters', chars_data)
 		offset += 100
+
+	# insert comics data
+	total = 39226
+	limit = 100
+	offset = 0
+
+	while offset < total:
+		print(offset)
+		comics_data, images_data = scrape_comics(limit, offset)
+		insert(con, meta, 'comics', comics_data)
+		insert(con, meta, 'images', images_data)
+		offset += 100
+
+	insert(con, meta, 'chars_comics', chars_comics_data)
 
 def insert(con, meta, table_name, values):
 	table = meta.tables[table_name]
