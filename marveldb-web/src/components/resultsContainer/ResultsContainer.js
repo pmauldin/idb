@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 import GridContainer from '../gridContainer/GridContainer';
 import ComicGridItem from '../gridContainer/griditems/ComicGridItem';
 import CreatorGridItem from '../gridContainer/griditems/CreatorGridItem';
@@ -8,7 +9,7 @@ import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import Toolbar from './menus/Toolbar';
 import sortFields from './menus/sorting/SortingFields';
 import filterFields from './menus/filtering/FilteringFields';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, FILTER_BY_NAME, DATA_LOADED, RESET_STATE } from '../../redux/actions';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, RESET_STATE } from '../../redux/actions';
 import dataService from '../../utils/dataService';
 
 class ResultsContainer extends Component {
@@ -33,8 +34,31 @@ class ResultsContainer extends Component {
 		}
 
 		this.props.resetState();
-		this.props.toggleSortField(this.state.sortingFields[0].fieldName);
-		dataService.getData(this.props.resultsType)
+		this.props.sortOptionsUpdated({field: this.state.sortingFields[0].fieldName, order: 'asc'});
+		this.loadData();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (!isEqual(this.props.sortOptions, nextProps.sortOptions)) {
+			this.loadData({ sortOptions: nextProps.sortOptions, filterOptions: nextProps.filterOptions });
+		}
+
+		if (!isEqual(this.props.filterOptions, nextProps.filterOptions)) {
+			this.loadData({ sortOptions: nextProps.sortOptions, filterOptions: nextProps.filterOptions });
+		}
+	}
+
+	render() {
+		return (
+			<div>
+				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filteringFields={this.state.filteringFields} />
+				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
+			</div>
+		);
+	}
+
+	loadData(requestOptions) {
+		dataService.getData(this.props.resultsType, requestOptions)
 			.then(data => {
 				this.props.dataLoaded(data, this.props.resultsType);
 			})
@@ -42,30 +66,21 @@ class ResultsContainer extends Component {
 				console.error(error);
 			});
 	}
-
-	render() {
-		return (
-			<div>
-				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filteringFields={this.state.filteringFields} />
-				<GridContainer {...this.props} data={this.props.data[this.props.resultsType]} filteringFields={this.state.filteringFields} gridItem={this.state.GridItem} />
-			</div>
-		);
-	}
 }
+
 
 function mapStateToProps(store) {
 	return {
 		data: store.data,
-		sortData: store.sort,
-		filterData: store.filter
+		sortOptions: store.sort,
+		filterOptions: store.filter
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		toggleSortField: (value) => dispatch({ type: CHANGE_SORT_FIELD, field: value }),
-		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, order: value }),
-		filterByName: (value) => dispatch({ type: FILTER_BY_NAME, value }),
+		sortOptionsUpdated: (value) => dispatch({type: UPDATE_SORT_OPTIONS, value}),
+		filterOptionsUpdated: (value) => dispatch({type: UPDATE_FILTER_OPTIONS, value}),
 		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType }),
 		resetState: () => dispatch({ type: RESET_STATE })
 	};

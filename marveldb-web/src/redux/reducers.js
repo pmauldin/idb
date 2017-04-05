@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, FILTER_BY_NAME, DATA_LOADED, RESET_STATE } from './actions';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, RESET_STATE } from './actions';
 
 function data(state, action) {
 	if (!state) {
@@ -18,15 +18,14 @@ function data(state, action) {
 }
 
 function sort(state, action) {
+
 	if (!state) {
-		return { order: "ascending" };
+		return { order: "asc" };
 	}
 
 	switch (action.type) {
-		case CHANGE_SORT_FIELD:
-			return { ...state, field: action.field };
-		case CHANGE_SORT_ORDER:
-			return { ...state, order: action.order };
+		case UPDATE_SORT_OPTIONS:
+			return { ...state, ...action.value};
 		default:
 			return state;
 	}
@@ -38,8 +37,8 @@ function filter(state, action) {
 	}
 
 	switch (action.type) {
-		case FILTER_BY_NAME:
-			return { ...state, value: action.value };
+		case UPDATE_FILTER_OPTIONS:
+			return { ...state, ...action};
 		case RESET_STATE:
 			return {};
 		default:
