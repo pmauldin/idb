@@ -500,25 +500,25 @@ def count_chars():
 	SQL = 'SELECT COUNT(*) FROM characters'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'characterCount': results[0][0]}
+	return results[0][0]
 
 def count_comics():
 	SQL = 'SELECT COUNT(*) FROM comics'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'comicsCount': results[0][0]}
+	return results[0][0]
 
 def count_creators():
 	SQL = 'SELECT COUNT(*) FROM creators'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'creatorsCount': results[0][0]}
+	return results[0][0]
 
 def count_series():
 	SQL = 'SELECT COUNT(*) FROM series'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'seriesCount': results[0][0]}
+	return results[0][0]
 
 def build_where_clause(filters):
 	clause = ''
