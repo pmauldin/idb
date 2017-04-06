@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Button, OverlayTrigger, Popover, FormControl } from 'react-bootstrap';
 import debounce from 'lodash/debounce';
 import '../styles/FilteringMenu.css';
 import '../styles/Toolbar.css';
+
 
 export default class FilteringMenu extends Component {
 	constructor(props) {
@@ -13,13 +14,19 @@ export default class FilteringMenu extends Component {
 
 		let filterElements = props.filters.map((filter) =>
 			<div key={filter.displayString} className="filterOption">
-				<ControlLabel>{filter.displayString + ':'}</ControlLabel>
+				<div className="filterLabel">{filter.displayString + ':'}</div>
 				<FormControl id={filter.displayString} onChange={this.debounceEvent} min="0" type="number" />
 			</div>);
 
+		const popover = (
+			<Popover id="popover-positioned-bottom" title="Filtering Options" className="filterPopover">
+				{filterElements}
+			</Popover>
+		);
+
 		this.state = {
 			activeFilters: [],
-			filterElements
+			popover
 		};
 
 	}
@@ -28,6 +35,14 @@ export default class FilteringMenu extends Component {
 		let { id, value } = filterElement;
 
 		let activeFilters = this.state.activeFilters;
+
+		if (!value || value.length === 0) {
+			activeFilters = activeFilters.filter(filter => filter.displayString !== id);
+			this.props.filtersUpdated(activeFilters);
+			this.setState({activeFilters});
+			return;
+		}
+
 		let filter = activeFilters.find(filter => filter.displayString === id);
 
 		if (!filter) {
@@ -52,9 +67,9 @@ export default class FilteringMenu extends Component {
 
 	render() {
 		return (
-			<FormGroup className="toolbarFormGroup" >
-				{this.state.filterElements}
-			</FormGroup>
+			<OverlayTrigger trigger="focus" placement="bottom" overlay={this.state.popover}>
+				<Button className="filterButton">Filter</Button>
+			</OverlayTrigger>
 		);
 	}
 };

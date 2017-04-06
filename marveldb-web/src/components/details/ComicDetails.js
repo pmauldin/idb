@@ -15,7 +15,6 @@ class ComicDetails extends Component {
 
 	render() {
 		if (this.props.data.comics.length === 0) {
-			// TODO Use NotFoundComponent
 			return (
 				<div style={{ textAlign: "center" }}>
 					404 Comic Not Found

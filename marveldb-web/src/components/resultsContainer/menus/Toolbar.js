@@ -12,10 +12,10 @@ export default class Toolbar extends Component {
 				<Grid className="toolbarGrid">
 					<Row className="toolbarRow">
 						<Col xs={12} sm={12} md={6} lg={6}>
-							<SortingMenu {...this.props} />
+							<FilteringMenu {...this.props} />
 						</Col>
 						<Col xs={12} sm={12} md={6} lg={6}>
-							<FilteringMenu {...this.props} />
+							<SortingMenu {...this.props} />
 						</Col>
 					</Row>
 				</Grid>

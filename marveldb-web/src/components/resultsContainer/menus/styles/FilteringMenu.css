@@ -1,4 +1,23 @@
+.filterPopover {
+	width: 350px;
+	max-width: 100%;
+}
+
+.filterButton {
+
+}
+
+.filterOption {
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+.filterLabel {
+	width: 65%;
+	float: left;
+}
+
 .filterOption > input {
-	width: 5% !important;
-	margin-left: 10px;
+	width: 30%;
+	margin-left: 5%;
 }

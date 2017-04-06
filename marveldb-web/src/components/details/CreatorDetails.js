@@ -14,7 +14,6 @@ class CreatorDetails extends Component {
 
 	render() {
 		if (this.props.data.creators.length === 0) {
-			// TODO Use NotFoundComponent
 			return (
 				<div>
 					404 Creator Not Found
