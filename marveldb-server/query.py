@@ -25,7 +25,7 @@ def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	SQL = 'SELECT * \
 			FROM characters c \
-			ORDER BY {} {} \
+			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
 	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
@@ -74,15 +74,14 @@ def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 def query_chars(where_args, order_by_args, limit_args):	
 	response_data = []
 
-	col, val = where_args
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \
-			FROM characters c \
-			WHERE {} = {} \
-			ORDER BY {} {}'			
-	SQL = SQL.format(col, val, att, seq)
+	SQL = 'SELECT * FROM characters c \
+			WHERE ' + build_where_clause(where_args) + \
+			' ORDER BY "{}" {} \
+			LIMIT {} OFFSET {}'			
+	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
 	char_results = con.execute(query).fetchall()
 
@@ -134,7 +133,7 @@ def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	SQL = 'SELECT * \
 			FROM comics c \
-			ORDER BY {} {} \
+			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
 	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
@@ -190,15 +189,15 @@ def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 def query_comics(where_args, order_by_args, limit_args):	
 	response_data = []
 
-	col, val = where_args
 	att, seq = order_by_args
 	lim, off = limit_args
 
 	SQL = 'SELECT * \
 			FROM comics c \
-			WHERE {} = {} \
-			ORDER BY {} {}'
-	SQL = SQL.format(col, val, att, seq)
+			WHERE ' + build_where_clause(where_args) + \
+			' ORDER BY "{}" {} \
+			LIMIT {} OFFSET {}'			
+	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
 	comics_results = con.execute(query).fetchall()
 
@@ -257,7 +256,7 @@ def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	SQL = 'SELECT * \
 			FROM creators c \
-			ORDER BY {} {} \
+			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
 	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
@@ -304,15 +303,15 @@ def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 def query_creators(where_args, order_by_args, limit_args):	
 	response_data = []
 
-	col, val = where_args
 	att, seq = order_by_args
 	lim, off = limit_args
 
 	SQL = 'SELECT * \
 			FROM creators c \
-			WHERE {} = {} \
-			ORDER BY {} {}'
-	SQL = SQL.format(col, val, att, seq)
+			WHERE ' + build_where_clause(where_args) + \
+			' ORDER BY "{}" {} \
+			LIMIT {} OFFSET {}'			
+	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
 	creator_results = con.execute(query).fetchall()
 
@@ -362,7 +361,7 @@ def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	SQL = 'SELECT * \
 			FROM series s \
-			ORDER BY {} {} \
+			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
 	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
@@ -428,15 +427,15 @@ def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 def query_series(where_args, order_by_args, limit_args):	
 	response_data = []
 
-	col, val = where_args
 	att, seq = order_by_args
 	lim, off = limit_args
 
 	SQL = 'SELECT * \
 			FROM series s \
-			WHERE {} = {} \
-			ORDER BY {} {}'
-	SQL = SQL.format(col, val, att, seq)
+			WHERE ' + build_where_clause(where_args) + \
+			' ORDER BY "{}" {} \
+			LIMIT {} OFFSET {}'			
+	SQL = SQL.format(att, seq, lim, off)
 	query = text(SQL)
 	series_results = con.execute(query).fetchall()
 
@@ -501,26 +500,64 @@ def count_chars():
 	SQL = 'SELECT COUNT(*) FROM characters'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'characterCount':  results[0][0]}
+	return {'characterCount': results[0][0]}
 
 def count_comics():
 	SQL = 'SELECT COUNT(*) FROM comics'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'comicsCount':  results[0][0]}
+	return {'comicsCount': results[0][0]}
 
 def count_creators():
 	SQL = 'SELECT COUNT(*) FROM creators'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'creatorsCount':  results[0][0]}
+	return {'creatorsCount': results[0][0]}
 
 def count_series():
 	SQL = 'SELECT COUNT(*) FROM series'
 	query = text(SQL)
 	results = con.execute(query).fetchall()
-	return {'seriesCount':  results[0][0]}
+	return {'seriesCount': results[0][0]}
+
+def build_where_clause(filters):
+	clause = ''
+
+	if len(filters) > 0:
+		f = filters[0]
+		col = f['field']
+		comp = f['comparator']
+		val = f['val']
+		vtype = f['type']
+
+		if vtype == 's':
+			conjunction = '"{}" {} \'{}\''
+		elif vtype == 'n':
+			conjunction = '"{}" {} {}'
+
+		conjunction = conjunction.format(col, comp, val)
+		clause += conjunction
+
+	for f in filters[1:]:
+		col = f['field']
+		comp = f['comparator']
+		val = f['val']
+		vtype = f['type']
+		if vtype == 's':
+			conjunction = ' AND "{}" {} \'{}\''
+		elif vtype == 'n':
+			conjunction = ' AND "{}" {} {}'
+		conjunction = conjunction.format(col, comp, val)
+		clause += conjunction
+
+	return clause
 
 if __name__ == '__main__':
 	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
-	count_chars()
+	# count_chars()
+	b = 'SELECT a FROM s WHERE '
+	filters = [{'field': 'c1', 'comparator': '=', 'val': 'tree', 'type': 's'},
+				{'field': 'c2', 'comparator': '<=', 'val': 'foo', 'type': 's'},
+				{'field': 'c3', 'comparator': '>', 'val': '5', 'type': 'n'}]
+	print(build_where_clause(b, filters))
+

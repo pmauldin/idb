@@ -8,10 +8,6 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 @app.route('/api/characters', methods = ['GET'])
 def characters():
-	# char_json = query_chars(('id', '1009262'), ('id', 'DESC'), ('10', '0'))
-	# char_json = query_all_chars()
-	# char_json = characters_data()
-
 	char_json = {}
 
 	pagination = request.args['pagination']
@@ -25,10 +21,7 @@ def characters():
 	if not filter_options:
 		char_json = query_all_chars((att, seq), (lim, off))
 	else:
-		filters = []
-		for option in filter_options:
-			filters.append((option['field'], option['value']))
-		char_json = query_chars(filters, (att, seq), (lim, off))
+		char_json = query_chars(filter_options, (att, seq), (lim, off))
 
 	return jsonify(char_json)
 
@@ -38,8 +31,21 @@ def characters_count():
 
 @app.route('/api/comics', methods = ['GET'])
 def comics():
-	comics_json = query_all_comics()
-	# comics_json = comics_data()
+	comics_json = {}
+
+	pagination = request.args['pagination']
+	lim = pagination['size']
+	off = pagination['page']
+	sort_options = request.args['sortOptions']
+	att = sort_options['value']
+	seq = sort_options['order']
+	filter_options = request.args['filterOptions']
+
+	if not filter_options:
+		comics_json = query_all_comics((att, seq), (lim, off))
+	else:
+		comics_json = query_comics(filter_options, (att, seq), (lim, off))
+
 	return jsonify(comics_json)
 
 @app.route('/api/comics/count', methods = ['GET'])
@@ -48,9 +54,21 @@ def comics_count():
 
 @app.route('/api/creators', methods = ['GET'])
 def creators():
-	creators_json = query_creators(('id', '30'), ('id', 'DESC'), ('10', '0'))
-	# creators_json = query_all_creators()
-	# creators_json = creators_data()
+	creators_json = {}
+
+	pagination = request.args['pagination']
+	lim = pagination['size']
+	off = pagination['page']
+	sort_options = request.args['sortOptions']
+	att = sort_options['value']
+	seq = sort_options['order']
+	filter_options = request.args['filterOptions']
+
+	if not filter_options:
+		creators_json = query_all_creators((att, seq), (lim, off))
+	else:
+		creators_json = query_creators(filter_options, (att, seq), (lim, off))
+
 	return jsonify(creators_json)
 
 @app.route('/api/creators/count', methods = ['GET'])
@@ -59,8 +77,21 @@ def creators_count():
 
 @app.route('/api/series', methods = ['GET'])
 def series():
-	series_json = query_series(('id', '20443'), ('id', 'DESC'), ('10', '0'))
-	# series_json = series_data()
+	series_json = {}
+
+	pagination = request.args['pagination']
+	lim = pagination['size']
+	off = pagination['page']
+	sort_options = request.args['sortOptions']
+	att = sort_options['value']
+	seq = sort_options['order']
+	filter_options = request.args['filterOptions']
+
+	if not filter_options:
+		series_json = query_all_series((att, seq), (lim, off))
+	else:
+		series_json = query_series(filter_options, (att, seq), (lim, off))
+
 	return jsonify(series_json)
 
 @app.route('/api/series/count', methods = ['GET'])
