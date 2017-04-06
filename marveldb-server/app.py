@@ -1,3 +1,4 @@
+import json
 from flask import Flask, jsonify, request
 from data_machine import characters_data, comics_data, creators_data, series_data
 from flask_cors import CORS
@@ -10,13 +11,13 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def characters():
 	char_json = {}
 
-	pagination = request.args['pagination']
-	lim = pagination['size']
+	pagination = json.loads(request.args['pagination'])
+	lim = pagination['pageSize']
 	off = pagination['page']
-	sort_options = request.args['sortOptions']
-	att = sort_options['value']
+	sort_options = json.loads(request.args['sortOptions'])
+	att = sort_options['field']
 	seq = sort_options['order']
-	filter_options = request.args['filterOptions']
+	filter_options = json.loads(request.args['filterOptions'])
 
 	if not filter_options:
 		char_json = query_all_chars((att, seq), (lim, off))
@@ -33,13 +34,13 @@ def characters_count():
 def comics():
 	comics_json = {}
 
-	pagination = request.args['pagination']
-	lim = pagination['size']
+	pagination = json.loads(request.args['pagination'])
+	lim = pagination['pageSize']
 	off = pagination['page']
-	sort_options = request.args['sortOptions']
-	att = sort_options['value']
+	sort_options = json.loads(request.args['sortOptions'])
+	att = sort_options['field']
 	seq = sort_options['order']
-	filter_options = request.args['filterOptions']
+	filter_options = json.loads(request.args['filterOptions'])
 
 	if not filter_options:
 		comics_json = query_all_comics((att, seq), (lim, off))
@@ -56,13 +57,13 @@ def comics_count():
 def creators():
 	creators_json = {}
 
-	pagination = request.args['pagination']
-	lim = pagination['size']
+	pagination = json.loads(request.args['pagination'])
+	lim = pagination['pageSize']
 	off = pagination['page']
-	sort_options = request.args['sortOptions']
-	att = sort_options['value']
+	sort_options = json.loads(request.args['sortOptions'])
+	att = sort_options['field']
 	seq = sort_options['order']
-	filter_options = request.args['filterOptions']
+	filter_options = json.loads(request.args['filterOptions'])
 
 	if not filter_options:
 		creators_json = query_all_creators((att, seq), (lim, off))
@@ -79,14 +80,14 @@ def creators_count():
 def series():
 	series_json = {}
 
-	pagination = request.args['pagination']
-	lim = pagination['size']
+	pagination = json.loads(request.args['pagination'])
+	lim = pagination['pageSize']
 	off = pagination['page']
-	sort_options = request.args['sortOptions']
-	att = sort_options['value']
+	sort_options = json.loads(request.args['sortOptions'])
+	att = sort_options['field']
 	seq = sort_options['order']
-	filter_options = request.args['filterOptions']
-
+	filter_options = json.loads(request.args['filterOptions'])
+	
 	if not filter_options:
 		series_json = query_all_series((att, seq), (lim, off))
 	else:

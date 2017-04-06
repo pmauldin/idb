@@ -2,7 +2,7 @@
 import sqlalchemy
 from sqlalchemy.sql import text
 
-def connect(user, password, db, host='localhost', port=5432):
+def connect(user, password, db, host='104.155.158.51', port=5432):
     # postgresql://user:pass@localhost:5432/marveldb
     url = 'postgresql://{}:{}@{}:{}/{}'
     url = url.format(user, password, host, port, db)
@@ -528,13 +528,7 @@ def build_where_clause(filters):
 		col = f['field']
 		comp = f['comparator']
 		val = f['val']
-		vtype = f['type']
-
-		if vtype == 's':
-			conjunction = '"{}" {} \'{}\''
-		elif vtype == 'n':
-			conjunction = '"{}" {} {}'
-
+		conjunction = '"{}" {} {}'
 		conjunction = conjunction.format(col, comp, val)
 		clause += conjunction
 
@@ -542,11 +536,7 @@ def build_where_clause(filters):
 		col = f['field']
 		comp = f['comparator']
 		val = f['val']
-		vtype = f['type']
-		if vtype == 's':
-			conjunction = ' AND "{}" {} \'{}\''
-		elif vtype == 'n':
-			conjunction = ' AND "{}" {} {}'
+		conjunction = ' AND "{}" {} {}'
 		conjunction = conjunction.format(col, comp, val)
 		clause += conjunction
 
