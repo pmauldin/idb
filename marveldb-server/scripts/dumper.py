@@ -4,7 +4,8 @@
 
 import sqlalchemy
 from sqlalchemy import Table, Column, Integer, Float, Date, String, ForeignKey
-from scraper import scrape_characters, scrape_comics
+from sqlalchemy.dialects.postgresql import insert
+from scraper import scrape_characters, scrape_comics, scrape_series
 
 def connect(user, password, db, host='localhost', port=5432):
     '''Returns a connection and a metadata object'''
@@ -116,34 +117,45 @@ def create_associations(con, meta):
 
 def insert_all_data(con, meta):
 	# insert characters data
-	total = 1485
-	limit = 100
-	offset = 0
+	# total = 1485
+	# limit = 100
+	# offset = 0
 
-	chars_comics_data = {}
-	while offset < total:
-		print(offset)
-		chars_data, chars_comics_data = scrape_characters(limit, offset)
-		insert(con, meta, 'characters', chars_data)
-		offset += 100
+	# while offset < total:
+	# 	print(offset)
+	# 	chars_data = scrape_characters(0, limit, offset)
+	# 	insert(con, meta, 'characters', chars_data)
+	# 	offset += 100
+
+	# insert series data
+	# total = 9243
+	# limit = 100
+	# offset = 8005
+
+	# while offset < total:
+	# 	print(offset)
+	# 	series_data = scrape_series(limit, offset)
+	# 	insert(con, meta, 'series', series_data)
+	# 	offset += 100
 
 	# insert comics data
 	total = 39226
 	limit = 100
-	offset = 0
+	offset = 3303
 
 	while offset < total:
 		print(offset)
-		comics_data, images_data = scrape_comics(limit, offset)
+		comics_data = scrape_comics(limit, offset)
 		insert(con, meta, 'comics', comics_data)
-		insert(con, meta, 'images', images_data)
 		offset += 100
-
-	insert(con, meta, 'chars_comics', chars_comics_data)
 
 def insert(con, meta, table_name, values):
 	table = meta.tables[table_name]
-	con.execute(table.insert(), values)
+	if table_name == 'comics':
+		insert_clause = sqlalchemy.dialects.postgresql.insert(table).values(values).on_conflict_do_nothing(index_elements=['id'])
+		con.execute(insert_clause)
+	else:
+		con.execute(table.insert(), values)
 
 def main():
 	con, meta = connect('charles', 'Charles', 'marveldb')
