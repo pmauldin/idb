@@ -111,6 +111,35 @@ def create_series_comics_table(meta, con) :
     meta.create_all(con)
     return series_comics
 
+def get_characters_table(meta, con) :
+    return Table("characters", meta, autoload=True, autoload_with=con)
+
+def get_comics_table(meta, con) :
+    return Table("comics", meta, autoload=True, autoload_with=con)
+
+def get_creators_table(meta, con) :
+    return Table("creators", meta, autoload=True, autoload_with=con)
+
+def get_series_table(meta, con) :
+    return Table("series", meta, autoload=True, autoload_with=con)
+
+def get_comics_characters_table(meta, con) :
+    return Table("comics_characters", meta, autoload=True, autoload_with=con)
+
+def get_creators_series_table(meta, con) :
+    return Table("creators_series", meta, autoload=True, autoload_with=con)
+
+def get_creators_comics_table(meta, con) :
+    return Table("creators_comics", meta, autoload=True, autoload_with=con)
+
+def get_series_characters_table(meta, con) :
+    return Table("series_characters", meta, autoload=True, autoload_with=con)
+
+def get_series_comics_table(meta, con) :
+    return Table("series_comics", meta, autoload=True, autoload_with=con)
+
+
+
 # https://suhas.org/sqlalchemy-tutorial
 def connect_to_marveldb(user, password, db, host='localhost', port=5432) :
     '''Returns a connection and a metadata object'''
