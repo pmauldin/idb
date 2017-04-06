@@ -51,7 +51,7 @@ def comics():
 
 @app.route('/api/comics/count', methods = ['GET'])
 def comics_count():
-	return jsonify(count_comics())
+	return count_comics()
 
 @app.route('/api/creators', methods = ['GET'])
 def creators():
@@ -74,7 +74,7 @@ def creators():
 
 @app.route('/api/creators/count', methods = ['GET'])
 def creators_count():
-	return jsonify(count_creators())
+	return count_creators()
 
 @app.route('/api/series', methods = ['GET'])
 def series():
@@ -97,7 +97,7 @@ def series():
 
 @app.route('/api/series/count', methods = ['GET'])
 def series_count():
-	return jsonify(count_series())
+	return count_series()
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
