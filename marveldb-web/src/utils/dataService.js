@@ -34,10 +34,11 @@ function filterData(data, requestOptions, ids) {
 		data.sort((a, b) => order * (a[field] !== b[field] ? a[field] < b[field] ? -1 : 1 : 0));
 
 		// Filter the data whenever the filter is updated
-		const value = requestOptions.filterOptions.value;
-		if (value && value.length > 0) {
-			data = data.filter((item) => item[this.state.filteringFields.name.field].toLowerCase().includes(value.toLowerCase()));
-		}
+		// const value = requestOptions.filterOptions.value;
+		// if (value && value.length > 0) {
+		// 	data = data.filter((item) => item[this.state.filteringFields.name.field].toLowerCase().includes(value.toLowerCase()));
+		// }
+		console.log(requestOptions.filters)
 	}
 
 	return data;
@@ -45,7 +46,6 @@ function filterData(data, requestOptions, ids) {
 
 export default class DataService {
 	static getData(type, requestOptions, ids) {
-		console.log(requestOptions);
 		return getData(root + '/' + type.toLowerCase(), requestOptions, ids, filterData);
 	}
 }

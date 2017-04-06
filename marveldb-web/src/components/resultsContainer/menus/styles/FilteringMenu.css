@@ -1,4 +1,4 @@
-.filterNameTextbox {
-	width: 60%;
-	display: inline;
+.filterOption > input {
+	width: 5% !important;
+	margin-left: 10px;
 }

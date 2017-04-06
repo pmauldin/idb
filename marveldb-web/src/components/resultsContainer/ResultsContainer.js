@@ -17,16 +17,16 @@ class ResultsContainer extends Component {
 		super(props);
 		switch (this.props.resultsType) {
 			case "comics":
-				this.state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filteringFields: filterFields.comics };
+				this.state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filters: filterFields.ComicFilters };
 				break;
 			case "creators":
-				this.state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filteringFields: filterFields.creators};
+				this.state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filters: filterFields.CreatorFilters};
 				break;
 			case "characters":
-				this.state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filteringFields: filterFields.characters};
+				this.state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filters: filterFields.CharacterFilters};
 				break;
 			case "series":
-				this.state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filteringFields: filterFields.series};
+				this.state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filters: filterFields.SeriesFilters};
 				break;
 			default:
 				console.error(`Given type ${this.props.resultsType} is invalid.`);
@@ -40,18 +40,18 @@ class ResultsContainer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (!isEqual(this.props.sortOptions, nextProps.sortOptions)) {
-			this.loadData({ sortOptions: nextProps.sortOptions, filterOptions: nextProps.filterOptions });
+			this.loadData({ sortOptions: nextProps.sortOptions, filters: nextProps.filterOptions.filters });
 		}
 
-		if (!isEqual(this.props.filterOptions, nextProps.filterOptions)) {
-			this.loadData({ sortOptions: nextProps.sortOptions, filterOptions: nextProps.filterOptions });
+		if (!isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters)) {
+			this.loadData({ sortOptions: nextProps.sortOptions, filters: nextProps.filterOptions.filters });
 		}
 	}
 
 	render() {
 		return (
 			<div>
-				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filteringFields={this.state.filteringFields} />
+				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filters={this.state.filters} />
 				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
 			</div>
 		);
@@ -80,7 +80,7 @@ function mapStateToProps(store) {
 function mapDispatchToProps(dispatch) {
 	return {
 		sortOptionsUpdated: (value) => dispatch({type: UPDATE_SORT_OPTIONS, value}),
-		filterOptionsUpdated: (value) => dispatch({type: UPDATE_FILTER_OPTIONS, value}),
+		filtersUpdated: (value) => dispatch({type: UPDATE_FILTER_OPTIONS, value}),
 		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType }),
 		resetState: () => dispatch({ type: RESET_STATE })
 	};

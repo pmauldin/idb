@@ -25,12 +25,14 @@ export default class SortingMenu extends Component {
 	}
 
 	onSortFieldChange(event) {
+		event.preventDefault();
 		let sortingOptions = {...this.state.sortingOptions, field: event.target.value};
 		this.props.sortOptionsUpdated(sortingOptions);
 		this.setState({sortingOptions});
 	}
 
 	onSortOrderChange(event) {
+		event.preventDefault();
 		let sortingOptions = {...this.state.sortingOptions, order: event.target.value};
 		this.props.sortOptionsUpdated(sortingOptions);
 		this.setState({sortingOptions});

@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import map from 'lodash/map';
+import clone from 'lodash/clone';
 import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, RESET_STATE } from './actions';
 
 function data(state, action) {
@@ -18,7 +20,6 @@ function data(state, action) {
 }
 
 function sort(state, action) {
-
 	if (!state) {
 		return { order: "asc" };
 	}
@@ -38,7 +39,7 @@ function filter(state, action) {
 
 	switch (action.type) {
 		case UPDATE_FILTER_OPTIONS:
-			return { ...state, ...action};
+			return { ...state, filters: map(action.value, clone)};
 		case RESET_STATE:
 			return {};
 		default:

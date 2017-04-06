@@ -14,9 +14,9 @@ export default class Toolbar extends Component {
 						<Col xs={12} sm={12} md={6} lg={6}>
 							<SortingMenu {...this.props} />
 						</Col>
-						{/*<Col xs={12} sm={12} md={6} lg={6}>*/}
-							{/*<FilteringMenu {...this.props} />*/}
-						{/*</Col>*/}
+						<Col xs={12} sm={12} md={6} lg={6}>
+							<FilteringMenu {...this.props} />
+						</Col>
 					</Row>
 				</Grid>
 			</Form>

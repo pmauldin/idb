@@ -1,6 +1,18 @@
-export default {
-	characters: { name: { field: "name", display: "Name" }},
-	comics: { name: { field: "title", display: "Title" }},
-	creators: { name: { field: "fullName", display: "Name" }},
-	series: { name: { field: "title", display: "Title" }}
-};
+function constructFilter (field, displayString, operator) {
+	return {field, displayString, operator};
+}
+
+const ComicFilters = [
+	constructFilter('issueNumber', 'Issue', '=')
+];
+
+const CharacterFilters = [
+];
+
+const SeriesFilters = [
+];
+
+const CreatorFilters = [
+];
+
+export default {  ComicFilters, CharacterFilters, CreatorFilters, SeriesFilters };
