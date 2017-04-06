@@ -3,8 +3,8 @@
 	max-width: 100%;
 }
 
-.filterButton {
-
+.filterButtonWrapper {
+	top: 5px;
 }
 
 .filterOption {
@@ -20,4 +20,8 @@
 .filterOption > input {
 	width: 30%;
 	margin-left: 5%;
+}
+
+.filterButton {
+	width: 100%;
 }

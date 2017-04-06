@@ -9,49 +9,61 @@ import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import Toolbar from './menus/Toolbar';
 import sortFields from './menus/sorting/SortingFields';
 import filterFields from './menus/filtering/FilteringFields';
-import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, RESET_STATE } from '../../redux/actions';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, PAGINATION_UPDATED, RESET_STATE } from '../../redux/actions';
 import dataService from '../../utils/dataService';
 
 class ResultsContainer extends Component {
 	constructor(props) {
 		super(props);
+		let state = {};
 		switch (this.props.resultsType) {
 			case "comics":
-				this.state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filters: filterFields.ComicFilters };
+				state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filters: filterFields.ComicFilters };
 				break;
 			case "creators":
-				this.state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filters: filterFields.CreatorFilters};
+				state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filters: filterFields.CreatorFilters};
 				break;
 			case "characters":
-				this.state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filters: filterFields.CharacterFilters};
+				state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filters: filterFields.CharacterFilters};
 				break;
 			case "series":
-				this.state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filters: filterFields.SeriesFilters};
+				state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filters: filterFields.SeriesFilters};
 				break;
 			default:
 				console.error(`Given type ${this.props.resultsType} is invalid.`);
 				break;
 		}
 
+		dataService.getCount(this.props.resultsType)
+			.then(count => {
+				state.count = count;
+			})
+			.catch(error => console.error(error));
+
+		this.state = state;
 		this.props.resetState();
 		this.props.sortOptionsUpdated({field: this.state.sortingFields[0].fieldName, order: 'asc'});
 		this.loadData();
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!isEqual(this.props.sortOptions, nextProps.sortOptions)) {
-			this.loadData({ sortOptions: nextProps.sortOptions, filters: nextProps.filterOptions.filters });
-		}
+		let shouldReload = !(isEqual(this.props.sortOptions, nextProps.sortOptions) &&
+			isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters) &&
+			isEqual(this.props.pagination, nextProps.pagination));
 
-		if (!isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters)) {
-			this.loadData({ sortOptions: nextProps.sortOptions, filters: nextProps.filterOptions.filters });
+		if (shouldReload) {
+			this.loadData({
+				sortOptions: nextProps.sortOptions,
+				filters: nextProps.filterOptions.filters,
+				pagination: nextProps.pagination
+			});
 		}
 	}
 
 	render() {
 		return (
 			<div>
-				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filters={this.state.filters} />
+				<Toolbar {...this.props} count={this.state.count} sortingFields={this.state.sortingFields} filters={this.state.filters} />
 				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
 			</div>
 		);
@@ -73,7 +85,8 @@ function mapStateToProps(store) {
 	return {
 		data: store.data,
 		sortOptions: store.sort,
-		filterOptions: store.filter
+		filterOptions: store.filter,
+		pagination: store.pagination
 	};
 }
 
@@ -81,6 +94,7 @@ function mapDispatchToProps(dispatch) {
 	return {
 		sortOptionsUpdated: (value) => dispatch({type: UPDATE_SORT_OPTIONS, value}),
 		filtersUpdated: (value) => dispatch({type: UPDATE_FILTER_OPTIONS, value}),
+		paginationUpdated: (value) => dispatch({type: PAGINATION_UPDATED, value}),
 		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType }),
 		resetState: () => dispatch({ type: RESET_STATE })
 	};

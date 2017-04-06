@@ -7,7 +7,10 @@ function getData(path, requestOptions, ids, callback) {
 	return new Promise((resolve, reject) => {
 		axios.get(path)
 			.then(response => {
-				return resolve(callback(response.data, requestOptions, ids));
+				if (callback) {
+					return resolve(callback(response.data, requestOptions, ids));
+				}
+				return resolve(response.data);
 			})
 			.catch(error => {
 				console.error(error);
@@ -45,6 +48,13 @@ function filterData(data, requestOptions, ids) {
 }
 
 export default class DataService {
+	static getCount(type) {
+		return new Promise((resolve, reject) => {
+			return resolve(600);
+		});
+		// return getData(root + '/' + type.toLowerCase() + '/count');
+	}
+
 	static getData(type, requestOptions, ids) {
 		return getData(root + '/' + type.toLowerCase(), requestOptions, ids, filterData);
 	}
