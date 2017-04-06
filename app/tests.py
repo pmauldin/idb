@@ -17,10 +17,14 @@
 
 # from io       import StringIO
 from unittest import main, TestCase
-
-from models import create_character, create_comic, create_creator, create_series,\
-Character, Comic, Series, Creator
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from models import *
 from data import characters, comics, creators, series
+
+db = Base
+db.create_all()
+db.commit()
 
 # -----------
 # TestModels
@@ -41,7 +45,6 @@ class TestModels (TestCase) :
             # don't want to compare a relationship and a list
             if not isinstance(realData[attribute], list) :
                 self.assertEqual(realData[attribute], testData[attribute])
-
 
     def test_characters_2 (self) :
         realData = characters[1]
@@ -64,6 +67,30 @@ class TestModels (TestCase) :
             # don't want to compare a relationship and a list
             if not isinstance(realData[attribute], list) :
                 self.assertEqual(realData[attribute], testData[attribute])
+
+    def test_character_query_1(self):
+        """Test querying the database by attribute using simple keywords"""
+        
+        realData = characters[0]
+        assert len(realData) == 11
+        test = create_character(realData)
+        assert isinstance(test, Character)
+        
+        db.session.add(test)
+        db.session.commit()
+
+        character = db.session.query(Character).filter_by(name=realData["name"]).first()
+        self.assertEqual(character.id, realData["id"])
+        self.assertEqual(character.name, realData["name"])
+        self.assertEqual(character.description, realData["description"])
+        self.assertEqual(character.thumbnail, realData["thumbnail"])
+        self.assertEqual(character.details, realData["details"])
+        self.assertEqual(character.wiki, realData["wiki"])
+        self.assertEqual(character.comicsUrl, realData["comicsURL"])
+        print(character.comics)
+        #self.assertEqual(company.description, realData["description"])
+        db.session.delete(test)
+        db.session.commit()
 
     # ----
     # Comics

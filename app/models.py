@@ -4,7 +4,10 @@ from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.sql import insert
 from data import characters, comics, creators, series
+from flask_sqlalchemy import SQLAlchemy
 
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.sqlite3'
 Base = declarative_base()
 
 def check_args(*attrs) :
