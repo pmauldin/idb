@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/About.css';
-import { Image } from 'react-bootstrap';
+import { Image, Button } from 'react-bootstrap';
+import { Link } from 'react-router';
 
 export default class AboutUs extends Component {
 	constructor(props) {
@@ -139,7 +140,8 @@ export default class AboutUs extends Component {
 				<div className="aboutHeader">
 					Tools
 				</div>
-				For a full rundown of the tools used in this project, refer to the "Technical Report" tab at the top of this page.
+				For a full rundown of the tools used in this project, refer to the "Technical Report" tab at the top of this page.<br/>
+				<Link to="/tests"><Button>Run Unit Tests</Button></Link>
 			</div>
 		)
 	}

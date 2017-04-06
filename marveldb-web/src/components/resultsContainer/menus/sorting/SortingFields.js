@@ -1,5 +1,5 @@
 function constructField (fieldName, displayName) {
-	return {'fieldName': fieldName, 'displayName': displayName};
+	return { fieldName, displayName};
 }
 
 const ComicFields = [
@@ -32,4 +32,4 @@ const CreatorFields = [
 	constructField('numSeries', '# Series Contributed To'),
 ];
 
-export default { 'ComicFields': ComicFields, 'CharacterFields': CharacterFields, 'CreatorFields': CreatorFields, 'SeriesFields': SeriesFields };
+export default { ComicFields, CharacterFields, CreatorFields, SeriesFields };

@@ -14,7 +14,6 @@ class SeriesDetails extends Component {
 
 	render() {
 		if (this.props.data.series.length === 0) {
-			// TODO Use NotFoundComponent
 			return (
 				<div>
 					404 Series Not Found

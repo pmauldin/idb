@@ -14,7 +14,6 @@ class CharacterDetails extends Component {
 
 	render() {
 		if (this.props.data.characters.length === 0) {
-			// TODO Use NotFoundComponent
 			return (
 				<div>
 					404 Character Not Found

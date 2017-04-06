@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 import GridContainer from '../gridContainer/GridContainer';
 import ComicGridItem from '../gridContainer/griditems/ComicGridItem';
 import CreatorGridItem from '../gridContainer/griditems/CreatorGridItem';
@@ -8,33 +9,68 @@ import SeriesGridItem from '../gridContainer/griditems/SeriesGridItem';
 import Toolbar from './menus/Toolbar';
 import sortFields from './menus/sorting/SortingFields';
 import filterFields from './menus/filtering/FilteringFields';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, FILTER_BY_NAME, DATA_LOADED, RESET_STATE } from '../../redux/actions';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, DATA_LOADED, PAGINATION_UPDATED, RESET_STATE } from '../../redux/actions';
 import dataService from '../../utils/dataService';
 
 class ResultsContainer extends Component {
 	constructor(props) {
 		super(props);
+		let state = {};
 		switch (this.props.resultsType) {
 			case "comics":
-				this.state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filteringFields: filterFields.comics };
+				state = {GridItem: ComicGridItem, sortingFields: sortFields.ComicFields, filters: filterFields.ComicFilters };
 				break;
 			case "creators":
-				this.state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filteringFields: filterFields.creators};
+				state = {GridItem: CreatorGridItem, sortingFields: sortFields.CreatorFields, filters: filterFields.CreatorFilters};
 				break;
 			case "characters":
-				this.state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filteringFields: filterFields.characters};
+				state = {GridItem: CharacterGridItem, sortingFields: sortFields.CharacterFields, filters: filterFields.CharacterFilters};
 				break;
 			case "series":
-				this.state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filteringFields: filterFields.series};
+				state = {GridItem: SeriesGridItem, sortingFields: sortFields.SeriesFields, filters: filterFields.SeriesFilters};
 				break;
 			default:
 				console.error(`Given type ${this.props.resultsType} is invalid.`);
 				break;
 		}
 
+		dataService.getCount(this.props.resultsType)
+			.then(count => {
+				state.count = count;
+			})
+			.catch(error => console.error(error));
+
+		this.state = state;
 		this.props.resetState();
-		this.props.toggleSortField(this.state.sortingFields[0].fieldName);
-		dataService.getData(this.props.resultsType)
+		this.props.sortOptionsUpdated({field: this.state.sortingFields[0].fieldName, order: 'asc'});
+		this.loadData();
+	}
+
+	componentWillReceiveProps(nextProps) {
+		let shouldReload = !(isEqual(this.props.sortOptions, nextProps.sortOptions) &&
+			isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters) &&
+			isEqual(this.props.pagination, nextProps.pagination));
+
+		if (shouldReload) {
+			this.loadData({
+				sortOptions: nextProps.sortOptions,
+				filters: nextProps.filterOptions.filters,
+				pagination: nextProps.pagination
+			});
+		}
+	}
+
+	render() {
+		return (
+			<div>
+				<Toolbar {...this.props} count={this.state.count} sortingFields={this.state.sortingFields} filters={this.state.filters} />
+				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
+			</div>
+		);
+	}
+
+	loadData(requestOptions) {
+		dataService.getData(this.props.resultsType, requestOptions)
 			.then(data => {
 				this.props.dataLoaded(data, this.props.resultsType);
 			})
@@ -42,30 +78,23 @@ class ResultsContainer extends Component {
 				console.error(error);
 			});
 	}
-
-	render() {
-		return (
-			<div>
-				<Toolbar {...this.props} sortingFields={this.state.sortingFields} filteringFields={this.state.filteringFields} />
-				<GridContainer {...this.props} data={this.props.data[this.props.resultsType]} filteringFields={this.state.filteringFields} gridItem={this.state.GridItem} />
-			</div>
-		);
-	}
 }
+
 
 function mapStateToProps(store) {
 	return {
 		data: store.data,
-		sortData: store.sort,
-		filterData: store.filter
+		sortOptions: store.sort,
+		filterOptions: store.filter,
+		pagination: store.pagination
 	};
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		toggleSortField: (value) => dispatch({ type: CHANGE_SORT_FIELD, field: value }),
-		toggleSortOrder: (value) => dispatch({ type: CHANGE_SORT_ORDER, order: value }),
-		filterByName: (value) => dispatch({ type: FILTER_BY_NAME, value }),
+		sortOptionsUpdated: (value) => dispatch({type: UPDATE_SORT_OPTIONS, value}),
+		filtersUpdated: (value) => dispatch({type: UPDATE_FILTER_OPTIONS, value}),
+		paginationUpdated: (value) => dispatch({type: PAGINATION_UPDATED, value}),
 		dataLoaded: (data, resultsType) => dispatch({ type: DATA_LOADED, data, resultsType }),
 		resetState: () => dispatch({ type: RESET_STATE })
 	};

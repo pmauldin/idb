@@ -1,5 +1,5 @@
-export const CHANGE_SORT_FIELD = "change_sort_field";
-export const CHANGE_SORT_ORDER = "change_sort_order";
-export const FILTER_BY_NAME = "filter_by_name";
+export const UPDATE_SORT_OPTIONS = "update_sort_options";
+export const UPDATE_FILTER_OPTIONS = "update_filter_options";
+export const PAGINATION_UPDATED = "pagination_updated";
 export const DATA_LOADED = "data_loaded";
 export const RESET_STATE = "reset_state";

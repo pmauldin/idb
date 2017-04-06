@@ -1,4 +1,28 @@
-.filterNameTextbox {
-	width: 60%;
-	display: inline;
+.filterPopover {
+	width: 350px;
+	max-width: 100%;
+}
+
+.filterButtonWrapper {
+	top: 5px;
+}
+
+.filterOption {
+	padding-bottom: 10px;
+	width: 100%;
+}
+
+.filterLabel {
+	width: 65%;
+	float: left;
+}
+
+.filterOption > input {
+	width: 30%;
+	margin-left: 5%;
+}
+
+.filterButton {
+	width: 100%;
+	border-radius: 0;
 }

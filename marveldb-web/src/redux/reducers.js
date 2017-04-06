@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import { CHANGE_SORT_FIELD, CHANGE_SORT_ORDER, FILTER_BY_NAME, DATA_LOADED, RESET_STATE } from './actions';
+import map from 'lodash/map';
+import clone from 'lodash/clone';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, PAGINATION_UPDATED, DATA_LOADED, RESET_STATE } from './actions';
 
 function data(state, action) {
 	if (!state) {
@@ -19,14 +21,12 @@ function data(state, action) {
 
 function sort(state, action) {
 	if (!state) {
-		return { order: "ascending" };
+		return { order: "asc" };
 	}
 
 	switch (action.type) {
-		case CHANGE_SORT_FIELD:
-			return { ...state, field: action.field };
-		case CHANGE_SORT_ORDER:
-			return { ...state, order: action.order };
+		case UPDATE_SORT_OPTIONS:
+			return { ...state, ...action.value};
 		default:
 			return state;
 	}
@@ -38,8 +38,8 @@ function filter(state, action) {
 	}
 
 	switch (action.type) {
-		case FILTER_BY_NAME:
-			return { ...state, value: action.value };
+		case UPDATE_FILTER_OPTIONS:
+			return { ...state, filters: map(action.value, clone)};
 		case RESET_STATE:
 			return {};
 		default:
@@ -47,5 +47,18 @@ function filter(state, action) {
 	}
 }
 
+function pagination(state, action) {
+	if (!state) {
+		return { page: 0, pageSize: 20 };
+	}
 
-export default combineReducers({ data, sort, filter });
+	switch (action.type) {
+		case PAGINATION_UPDATED:
+			return { ...state, ...action.value};
+		default:
+			return state;
+	}
+}
+
+
+export default combineReducers({ data, sort, filter, pagination });
