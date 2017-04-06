@@ -15,9 +15,9 @@ def connect(user, password, db, host='localhost', port=5432):
 
     return con, meta
 
-def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+con, meta = connect('charlesgong', 'Charles', 'marveldb')
+
+def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -71,9 +71,7 @@ def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	return response_data
 
-def query_chars(where_args, order_by_args, limit_args):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_chars(where_args, order_by_args, limit_args):	
 	response_data = []
 
 	col, val = where_args
@@ -128,9 +126,7 @@ def query_chars(where_args, order_by_args, limit_args):
 
 	return response_data
 
-def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -191,9 +187,7 @@ def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	return response_data
 
-def query_comics(where_args, order_by_args, limit_args):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_comics(where_args, order_by_args, limit_args):	
 	response_data = []
 
 	col, val = where_args
@@ -255,9 +249,7 @@ def query_comics(where_args, order_by_args, limit_args):
 
 	return response_data
 
-def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -309,9 +301,7 @@ def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	return response_data
 
-def query_creators(where_args, order_by_args, limit_args):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_creators(where_args, order_by_args, limit_args):	
 	response_data = []
 
 	col, val = where_args
@@ -364,9 +354,7 @@ def query_creators(where_args, order_by_args, limit_args):
 
 	return response_data
 
-def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -437,9 +425,7 @@ def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 
 	return response_data
 
-def query_series(where_args, order_by_args, limit_args):
-	con, meta = connect('charlesgong', 'Charles', 'marveldb')
-	
+def query_series(where_args, order_by_args, limit_args):	
 	response_data = []
 
 	col, val = where_args
@@ -512,13 +498,29 @@ def query_series(where_args, order_by_args, limit_args):
 	return response_data
 
 def count_chars():
+	SQL = 'SELECT COUNT(*) FROM characters'
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+	return {'characterCount':  results[0][0]}
 
 def count_comics():
+	SQL = 'SELECT COUNT(*) FROM comics'
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+	return {'comicsCount':  results[0][0]}
 
 def count_creators():
+	SQL = 'SELECT COUNT(*) FROM creators'
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+	return {'creatorsCount':  results[0][0]}
 
 def count_series():
+	SQL = 'SELECT COUNT(*) FROM series'
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+	return {'seriesCount':  results[0][0]}
 
 if __name__ == '__main__':
-	result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
-	
+	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
+	count_chars()
