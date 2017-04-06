@@ -29,7 +29,6 @@ function filterData(data, requestOptions, ids) {
 		data = data.filter(item => ids.includes(item.id));
 	}
 
-
 	if (requestOptions) {
 		// Sort the data whenever sortData changes
 		const field = requestOptions.sortOptions.field;
@@ -48,6 +47,10 @@ function filterData(data, requestOptions, ids) {
 }
 
 export default class DataService {
+	static getTestOutput() {
+		return getData(root + '/tests');
+	}
+
 	static getCount(type) {
 		return new Promise((resolve, reject) => {
 			return resolve(600);
