@@ -27,7 +27,7 @@ def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 			FROM characters c \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	char_results = con.execute(query).fetchall()
 
@@ -77,15 +77,19 @@ def query_chars(where_args, order_by_args, limit_args):
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * FROM characters c \
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
+			FROM characters c \
 			WHERE ' + build_where_clause(where_args) + \
 			' ORDER BY "{}" {} \
-			LIMIT {} OFFSET {}'			
-	SQL = SQL.format(att, seq, lim, off)
+			LIMIT {} OFFSET {}'	
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	char_results = con.execute(query).fetchall()
 
+	count = 0
 	for row in char_results:
+		count = row['totalrows']
+
 		SQL = 'SELECT comic_id \
 			FROM comics_characters cc \
 			WHERE cc.character_id = {} \
@@ -123,7 +127,12 @@ def query_chars(where_args, order_by_args, limit_args):
 
 		response_data.append(char_data)
 
-	return response_data
+	response_json = {
+		'count': count,
+		'data': response_data 
+	}
+
+	return response_json
 
 def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
@@ -135,7 +144,7 @@ def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 			FROM comics c \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	comics_results = con.execute(query).fetchall()
 
@@ -192,16 +201,19 @@ def query_comics(where_args, order_by_args, limit_args):
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
 			FROM comics c \
 			WHERE ' + build_where_clause(where_args) + \
 			' ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'			
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	comics_results = con.execute(query).fetchall()
 
+	count = 0
 	for row in comics_results:
+		count = row['count']
+
 		SQL = 'SELECT character_id \
 			FROM comics_characters cc \
 			WHERE cc.comic_id = {} \
@@ -246,6 +258,11 @@ def query_comics(where_args, order_by_args, limit_args):
 
 		response_data.append(comic_data)
 
+	response_json = {
+		'countReturned': count,
+		'data': response_data 
+	}
+
 	return response_data
 
 def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
@@ -258,7 +275,7 @@ def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 			FROM creators c \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	creator_results = con.execute(query).fetchall()
 
@@ -306,16 +323,19 @@ def query_creators(where_args, order_by_args, limit_args):
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
 			FROM creators c \
 			WHERE ' + build_where_clause(where_args) + \
 			' ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'			
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	creator_results = con.execute(query).fetchall()
 
+	count = 0
 	for row in creator_results:
+		count = row['count']
+
 		SQL = 'SELECT comic_id \
 			FROM creators_comics cc \
 			WHERE cc.creator_id = {} \
@@ -351,6 +371,11 @@ def query_creators(where_args, order_by_args, limit_args):
 
 		response_data.append(creator_data)
 
+	response_json = {
+		'countReturned': count,
+		'data': response_data 
+	}
+
 	return response_data
 
 def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
@@ -363,7 +388,7 @@ def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 			FROM series s \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	series_results = con.execute(query).fetchall()
 
@@ -430,16 +455,19 @@ def query_series(where_args, order_by_args, limit_args):
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
 			FROM series s \
 			WHERE ' + build_where_clause(where_args) + \
 			' ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'			
-	SQL = SQL.format(att, seq, lim, off)
+	SQL = SQL.format(att, seq, lim, off * lim)
 	query = text(SQL)
 	series_results = con.execute(query).fetchall()
 
+	count = 0
 	for row in series_results:
+		count = row['totalrows']
+
 		SQL = 'SELECT comic_id \
 			FROM series_comics cs \
 			WHERE cs.series_id = {} \
@@ -494,7 +522,12 @@ def query_series(where_args, order_by_args, limit_args):
 
 		response_data.append(series_data)
 
-	return response_data
+	response_json = {
+		'countReturned': count,
+		'data': response_data 
+	}
+
+	return response_json
 
 def count_chars():
 	SQL = 'SELECT COUNT(*) FROM characters'
@@ -545,9 +578,9 @@ def build_where_clause(filters):
 if __name__ == '__main__':
 	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
 	# count_chars()
-	b = 'SELECT a FROM s WHERE '
-	filters = [{'field': 'c1', 'comparator': '=', 'val': 'tree', 'type': 's'},
-				{'field': 'c2', 'comparator': '<=', 'val': 'foo', 'type': 's'},
-				{'field': 'c3', 'comparator': '>', 'val': '5', 'type': 'n'}]
-	print(build_where_clause(b, filters))
+	# b = 'SELECT a FROM s WHERE '
+	# filters = [{'field': 'c1', 'comparator': '=', 'val': 'tree', 'type': 's'},
+	# 			{'field': 'c2', 'comparator': '<=', 'val': 'foo', 'type': 's'},
+	# 			{'field': 'c3', 'comparator': '>', 'val': '5', 'type': 'n'}]
+	# print(build_where_clause(b, filters))
 
