@@ -180,7 +180,6 @@ class TestModels (TestCase) :
                 
         for key in realData.keys() :
             if not isinstance(realData[key], list) :
-                print(key, "|", rowDict[key])
                 self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_creators_2 (self) :

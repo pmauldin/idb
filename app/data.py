@@ -52,7 +52,7 @@ comics = [
 		"format": "Comic",
 		"pageCount": 36,
 		"printPrice": 0.12,
-		"digitalPrice": None, #1.99
+		"digitalPrice": 1.99,
 		"dateReleased": "1963-03-10T00:00:00-0500",
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/d/40/5196582d03800jpg, http://i.annihil.us/u/prod/marvel/i/mg/b/e0/4bc380bd24fe2jpg, ",
@@ -71,7 +71,7 @@ comics = [
 		"format": "Comic",
 		"pageCount": 32,
 		"printPrice": 3.99,
-		"digitalPrice": None, #3.99
+		"digitalPrice": 3.99,
 		"dateReleased": "2016-06-01T00:00:00-0400",
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/5743705117996.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/b/10/5743705117996jpg, ",
@@ -90,7 +90,7 @@ comics = [
 		"format": "Comic",
 		"pageCount": 68,
 		"printPrice": 0.0,
-		"digitalPrice": None, #1.99
+		"digitalPrice": 1.99,
 		"dateReleased": "1966-11-03T00:00:00-0500",
 		"thumbnail": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706c.jpg",
 		"images": "http://i.annihil.us/u/prod/marvel/i/mg/3/20/56d721c41706cjpg, ",
