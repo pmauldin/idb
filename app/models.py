@@ -141,7 +141,7 @@ def get_series_comics_table(meta, con) :
 
 
 # https://suhas.org/sqlalchemy-tutorial
-def connect_to_marveldb(user, password, db, host='localhost', port=5432) :
+def connect(user, password, db='marveldb', host='localhost', port=5432) :
     '''Returns a connection and a metadata object'''
     # We connect with the help of the PostgreSQL URL
     # postgresql://federer:grandestslam@localhost:5432/tennis
