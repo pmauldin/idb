@@ -1,8 +1,8 @@
 import sqlalchemy
-from sqlalchemy import Table, Column, Integer, Float, String, Date, ForeignKey
+from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
 
 
-def create_characters_table(meta, con) :
+def create_characters_table(meta, con):  # pragma: no cover
     characters = Table("characters", meta,
                        Column("id", Integer, primary_key=True),
                        Column("name", String),
@@ -16,7 +16,8 @@ def create_characters_table(meta, con) :
     meta.create_all(con)
     return characters
 
-def create_comics_table(meta, con) :
+
+def create_comics_table(meta, con):  # pragma: no cover
     comics = Table("comics", meta,
                    Column("id", Integer, primary_key=True),
                    Column("title", String),
@@ -32,13 +33,14 @@ def create_comics_table(meta, con) :
                    Column("details", String),
                    Column("series_id", Integer, ForeignKey("series.id")),
                    Column("numCreators", Integer),
-                   Column("numCharacters", Integer)) 
-                       
+                   Column("numCharacters", Integer))
+
     meta.create_all(con)
 
     return comics
 
-def create_creators_table(meta, con) :
+
+def create_creators_table(meta, con): # pragma: no cover
     comics = Table("creators", meta,
                    Column("id", Integer, primary_key=True),
                    Column("fullName", String),
@@ -46,11 +48,12 @@ def create_creators_table(meta, con) :
                    Column("details", String),
                    Column("numComics", Integer),
                    Column("numSeries", Integer))
-                       
+
     meta.create_all(con)
     return comics
 
-def create_series_table(meta, con) :
+
+def create_series_table(meta, con): # pragma: no cover
     comics = Table("series", meta,
                    Column("id", Integer, primary_key=True),
                    Column("title", String),
@@ -65,11 +68,12 @@ def create_series_table(meta, con) :
                    Column("numComics", Integer),
                    Column("numCharacters", Integer),
                    Column("numCreators", Integer))
-                       
+
     meta.create_all(con)
     return comics
 
-def create_comics_characters_table(meta, con) :
+
+def create_comics_characters_table(meta, con): # pragma: no cover
     comics_characters = Table("comics_characters", meta,
                               Column("id", Integer, primary_key=True),
                               Column("comic_id", Integer, ForeignKey("comics.id")),
@@ -77,8 +81,9 @@ def create_comics_characters_table(meta, con) :
     meta.create_all(con)
     return comics_characters
 
-def create_creators_series_table(meta, con) :
-    creators_series = Table("creators_series", meta, 
+
+def create_creators_series_table(meta, con): # pragma: no cover
+    creators_series = Table("creators_series", meta,
                             Column("id", Integer, primary_key=True),
                             Column("creator_id", Integer, ForeignKey("creators.id")),
                             Column("series_id", Integer, ForeignKey("series.id")))
@@ -86,7 +91,8 @@ def create_creators_series_table(meta, con) :
     meta.create_all(con)
     return creators_series
 
-def create_creators_comics_table(meta, con) :
+
+def create_creators_comics_table(meta, con): # pragma: no cover
     creators_comics = Table("creators_comics", meta,
                             Column("id", Integer, primary_key=True),
                             Column("creator_id", Integer, ForeignKey("creators.id")),
@@ -95,7 +101,8 @@ def create_creators_comics_table(meta, con) :
     meta.create_all(con)
     return creators_comics
 
-def create_series_characters_table(meta, con) :
+
+def create_series_characters_table(meta, con): # pragma: no cover
     series_characters = Table("series_characters", meta,
                               Column("id", Integer, primary_key=True),
                               Column("series_id", Integer, ForeignKey("series.id")),
@@ -103,7 +110,8 @@ def create_series_characters_table(meta, con) :
     meta.create_all(con)
     return series_characters
 
-def create_series_comics_table(meta, con) :
+
+def create_series_comics_table(meta, con): # pragma: no cover
     series_comics = Table("series_comics", meta,
                           Column("id", Integer, primary_key=True),
                           Column("series_id", Integer, ForeignKey("series.id")),
@@ -111,37 +119,45 @@ def create_series_comics_table(meta, con) :
     meta.create_all(con)
     return series_comics
 
-def get_characters_table(meta, con) :
+
+def get_characters_table(meta, con):
     return Table("characters", meta, autoload=True, autoload_with=con)
 
-def get_comics_table(meta, con) :
+
+def get_comics_table(meta, con):
     return Table("comics", meta, autoload=True, autoload_with=con)
 
-def get_creators_table(meta, con) :
+
+def get_creators_table(meta, con):
     return Table("creators", meta, autoload=True, autoload_with=con)
 
-def get_series_table(meta, con) :
+
+def get_series_table(meta, con):
     return Table("series", meta, autoload=True, autoload_with=con)
 
-def get_comics_characters_table(meta, con) :
+
+def get_comics_characters_table(meta, con): # pragma: no cover
     return Table("comics_characters", meta, autoload=True, autoload_with=con)
 
-def get_creators_series_table(meta, con) :
+
+def get_creators_series_table(meta, con): # pragma: no cover
     return Table("creators_series", meta, autoload=True, autoload_with=con)
 
-def get_creators_comics_table(meta, con) :
+
+def get_creators_comics_table(meta, con): # pragma: no cover
     return Table("creators_comics", meta, autoload=True, autoload_with=con)
 
-def get_series_characters_table(meta, con) :
+
+def get_series_characters_table(meta, con): # pragma: no cover
     return Table("series_characters", meta, autoload=True, autoload_with=con)
 
-def get_series_comics_table(meta, con) :
+
+def get_series_comics_table(meta, con):
     return Table("series_comics", meta, autoload=True, autoload_with=con)
 
 
-
 # https://suhas.org/sqlalchemy-tutorial
-def connect(user, password, db='marveldb', host='localhost', port=5432) :
+def connect(user, password, db='marveldb', host='104.155.158.51', port=5432):
     '''Returns a connection and a metadata object'''
     # We connect with the help of the PostgreSQL URL
     # postgresql://federer:grandestslam@localhost:5432/tennis
@@ -153,10 +169,8 @@ def connect(user, password, db='marveldb', host='localhost', port=5432) :
 
     # We then bind the connection to MetaData()
     meta = sqlalchemy.MetaData(bind=con, reflect=True)
-    print("connected to marveldb")
-    print("connection: ", con)
-    print("meta: ", meta)
+    # print("connected to marveldb")
+    # print("connection: ", con)
+    # print("meta: ", meta)
 
     return con, meta
-
-

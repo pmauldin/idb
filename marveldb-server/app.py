@@ -1,6 +1,5 @@
 import json
 from flask import Flask, jsonify, request
-from data_machine import characters_data, comics_data, creators_data, series_data
 from flask_cors import CORS
 from query import *
 
@@ -98,6 +97,16 @@ def series():
 @app.route('/api/series/count', methods = ['GET'])
 def series_count():
 	return jsonify(count_series())
+
+@app.route('/api/tests', methods = ['GET'])
+def run_tests():
+	from subprocess import PIPE, run
+
+	command = ['make', 'tests.tmp']
+	result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, cwd="/home/chlsgong/idb")
+	output = str(result.stdout)
+
+	return jsonify(output)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)

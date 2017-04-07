@@ -1,1 +1,16 @@
-/bin/sh: 1: coverage-3.5: not found
+............
+----------------------------------------------------------------------
+Ran 12 tests in 1.553s
+
+OK
+connected to marveldb
+connection:  Engine(postgresql://charlesgong:***@104.155.158.51:5432/marveldb)
+meta:  MetaData(bind=Engine(postgresql://charlesgong:***@104.155.158.51:5432/marveldb))
+<class 'sqlalchemy.sql.base.ImmutableColumnCollection'>
+Name            Stmts   Miss Branch BrPart  Cover   Missing
+-----------------------------------------------------------
+app/data.py         4      0      0      0   100%
+app/models.py      21      0      0      0   100%
+app/tests.py      182      0     80      1    99%   275->exit
+-----------------------------------------------------------
+TOTAL             207      0     80      1    99%
