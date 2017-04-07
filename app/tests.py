@@ -15,18 +15,18 @@
 # imports
 # -------
 
-# from io       import StringIO
 from unittest import main, TestCase
 
-from models import create_character, create_comic, create_creator, create_series,\
-Character, Comic, Series, Creator
+from models import *
 from data import characters, comics, creators, series
+import sqlalchemy
 
 # -----------
 # TestModels
 # -----------
 
 class TestModels (TestCase) :
+    
     # ----
     # Characters
     # ----
@@ -34,36 +34,50 @@ class TestModels (TestCase) :
     def test_characters_1 (self) :
         realData = characters[0]
         assert len(realData) == 11
-        test = create_character(realData)
-        assert isinstance(test, Character)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
-
+        
+        characters_table = get_characters_table(meta, con)
+        select_clause = characters_table.select(characters_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in characters_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_characters_2 (self) :
         realData = characters[1]
         assert len(realData) == 11
-        test = create_character(realData)
-        assert isinstance(test, Character)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        characters_table = get_characters_table(meta, con)
+        select_clause = characters_table.select(characters_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in characters_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_characters_3 (self) :
         realData = characters[2]
         assert len(realData) == 11
-        test = create_character(realData)
-        assert isinstance(test, Character)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        characters_table = get_characters_table(meta, con)
+        select_clause = characters_table.select(characters_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in characters_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     # ----
     # Comics
@@ -72,35 +86,82 @@ class TestModels (TestCase) :
     def test_comics_1 (self) :
         realData = comics[0]
         assert len(realData) == 17
-        test = create_comic(realData)
-        assert isinstance(test, Comic)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        comics_table = get_comics_table(meta, con)
+        select_clause = comics_table.select(comics_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in comics_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+
+        # Get Association Table for Series_Comics
+        series_comics_table = get_series_comics_table(meta, con)
+        select_clause = series_comics_table.select(series_comics_table.c.comic_id == realData["id"])
+        rows2 = select_clause.execute()
+        row2 = rows2.fetchone()
+                        
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                if key == "series_id":
+                    # Compare series_id in the database with that of the sampled data
+                    self.assertEqual(realData["series_id"], row2[1])
+                else:
+                    self.assertEqual(str(realData[key]), rowDict[key])
+
 
     def test_comics_2 (self) :
         realData = comics[1]
         assert len(realData) == 17
-        test = create_comic(realData)
-        assert isinstance(test, Comic)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        comics_table = get_comics_table(meta, con)
+        select_clause = comics_table.select(comics_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in comics_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+
+        # Get Association Table for Series_Comics
+        series_comics_table = get_series_comics_table(meta, con)
+        select_clause = series_comics_table.select(series_comics_table.c.comic_id == realData["id"])
+        rows2 = select_clause.execute()
+        row2 = rows2.fetchone()
+                        
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                if key == "series_id":
+                    # Compare series_id in the database with that of the sampled data
+                    self.assertEqual(realData["series_id"], row2[1])
+                else:
+                    self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_comics_3 (self) :
         realData = comics[2]
         assert len(realData) == 17
-        test = create_comic(realData)
-        assert isinstance(test, Comic)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        comics_table = get_comics_table(meta, con)
+        select_clause = comics_table.select(comics_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in comics_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+
+        # Get Association Table for Series_Comics
+        series_comics_table = get_series_comics_table(meta, con)
+        select_clause = series_comics_table.select(series_comics_table.c.comic_id == realData["id"])
+        rows2 = select_clause.execute()
+        row2 = rows2.fetchone()
+                        
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                if key == "series_id":
+                    # Compare series_id in the database with that of the sampled data
+                    self.assertEqual(realData["series_id"], row2[1])
+                else:
+                    self.assertEqual(str(realData[key]), rowDict[key])
+
     # ----
     # Creators
     # ----
@@ -108,35 +169,50 @@ class TestModels (TestCase) :
     def test_creators_1 (self) :
         realData = creators[0]
         assert len(realData) == 8
-        test = create_creator(realData)
-        assert isinstance(test, Creator)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        creators_table = get_creators_table(meta, con)
+        select_clause = creators_table.select(creators_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in creators_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_creators_2 (self) :
         realData = creators[1]
         assert len(realData) == 8
-        test = create_creator(realData)
-        assert isinstance(test, Creator)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        creators_table = get_creators_table(meta, con)
+        select_clause = creators_table.select(creators_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in creators_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_creators_3 (self) :
         realData = creators[2]
         assert len(realData) == 8
-        test = create_creator(realData)
-        assert isinstance(test, Creator)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        creators_table = get_creators_table(meta, con)
+        select_clause = creators_table.select(creators_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in creators_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     # ----
     # Series
@@ -145,38 +221,55 @@ class TestModels (TestCase) :
     def test_series_1 (self) :
         realData = series[0]
         assert len(realData) == 16
-        test = create_series(realData)
-        assert isinstance(test, Series)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        series_table = get_series_table(meta, con)
+        select_clause = series_table.select(series_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in series_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_series_2 (self) :
         realData = series[1]
         assert len(realData) == 16
-        test = create_series(realData)
-        assert isinstance(test, Series)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        series_table = get_series_table(meta, con)
+        select_clause = series_table.select(series_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in series_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
 
     def test_series_3 (self) :
         realData = series[2]
         assert len(realData) == 16
-        test = create_series(realData)
-        assert isinstance(test, Series)
-        testData = test.getValues()
-        for attribute in realData :
-            # don't want to compare a relationship and a list
-            if not isinstance(realData[attribute], list) :
-                self.assertEqual(realData[attribute], testData[attribute])
+        
+        series_table = get_series_table(meta, con)
+        select_clause = series_table.select(series_table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in series_table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+                
+        for key in realData.keys() :
+            if not isinstance(realData[key], list) :
+                self.assertEqual(str(realData[key]), rowDict[key])
+
 # ----
 # main
 # ----
 
-if __name__ == "__main__" : #pragma: no cover
+if __name__ == '__main__':
+    con, meta = connect("jorge", "hummer256")
     main()

@@ -1,412 +1,162 @@
-from flask import Flask
-from sqlalchemy import Table, Column, ForeignKey, Integer, String, Float
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.sql import insert
-from data import characters, comics, creators, series
-
-Base = declarative_base()
-
-def check_args(*attrs) :
-    for v in attrs :
-        assert(v != None)
-
-def create_one_direction_associative_table(base_list, table, secondary_list_key, id_key, left_id, right_id) :
-    check_args(base_list, table, secondary_list_key, id_key, left_id, right_id)
-    assert(len(base_list) >= 1)
-    i = insert(table)
-    for d in base_list :
-        id = d[id_key]
-        secondary_list = d[secondary_list_key]
-        for element in secondary_list :
-            row_dict = {left_id: id, right_id: element}
-            assert(len(row_dict) >= 1)
-            # this should enter row into databse
-            # can't do it just yet because our databse 
-            # is not connected
-            # i.execute(row_dict)
-
-def create_characters_comics_table(characters, comics) :
-    # used for many to many bidirectional relationship between characters and comics
-    characters_comics_table = Table("characters_comics", Base.metadata,
-                                       Column("character_id", Integer, ForeignKey("character_id")),
-                                       Column("comic_id", Integer, ForeignKey("comic_id")))
-    check_args(characters, comics)
-    assert(len(characters) >= 1 and len(comics) >= 1)
-    # need to create the relationships in both directions so create the connections
-    # in one direction then the other
-    create_one_direction_associative_table(characters, characters_comics_table, 
-                                             "comics", "id", "character_id", "comic_id")
-
-    create_one_direction_associative_table(comics, characters_comics_table, 
-                                    "characters", "id", "comic_id", "character_id")
-    # return the table schema
-    return characters_comics_table
-
-def create_characters_series_table(characters, series) :
-    # used for many to many bidirectional relationship between characters and series 
-    characters_series_table = Table("characters_series", Base.metadata,
-                                       Column("character_id", Integer, ForeignKey("character_id")),
-                                       Column("series_id", Integer, ForeignKey("series_id")))
-
-    check_args(characters, series)
-    assert(len(characters) >= 1 and len(series) >= 1)
-    # need to create the relationships in both directions so create the connections
-    # in one direction then the other
-    create_one_direction_associative_table(characters, characters_series_table, 
-                                             "series", "id", "character_id", "series_id")
-
-    create_one_direction_associative_table(series, characters_series_table, 
-                                    "characters", "id", "series_id", "character_id")
-    #return the table schema
-    return characters_series_table
-
-def create_comics_creators_table(comics, creators) : 
-    # used for many to many bidirectional relationship between comics and creators
-    comics_creators_table = Table("comics_creators", Base.metadata, 
-                        Column("comic_id", Integer, ForeignKey("comic_id")),
-                        Column("creator_id", Integer, ForeignKey("creator_id")))
-
-    check_args(comics, creators)
-    assert(len(comics) >= 1 and len(creators) >=1)
-    # need to create the relationships in both directions so create the connections
-    # in one direction then the other
-    create_one_direction_associative_table(comics, comics_creators_table, 
-                                             "creators", "id", "comic_id", "creator_id")
-
-    create_one_direction_associative_table(creators, comics_creators_table, 
-                                    "comics", "id", "creator_id", "comic_id")
-
-    return comics_creators_table
+import sqlalchemy
+from sqlalchemy import Table, Column, Integer, Float, String, Date, ForeignKey
 
 
-def create_creators_series_table(creators,series) : 
-    #used for many to many bidirectional relationship between creators and series
-    creators_series_table = Table("creators_series", Base.metadata,
-                                  Column("creator_id", Integer, ForeignKey("creator_id")),
-                                  Column("series_id", Integer, ForeignKey("series_id")))
+def create_characters_table(meta, con) :
+    characters = Table("characters", meta,
+                       Column("id", Integer, primary_key=True),
+                       Column("name", String),
+                       Column("description", String),
+                       Column("thumbnail", String),
+                       Column("details", String),
+                       Column("wiki", String),
+                       Column("comicsUrl", String),
+                       Column("numComics", Integer),
+                       Column("numSeries", Integer))
+    meta.create_all(con)
+    return characters
 
-    check_args(creators, series)
-    assert(len(creators) >= 1 and len(series) >= 1)
-    # need to create the relationships in both directions so create the connections
-    # in one direction then the other
-    create_one_direction_associative_table(creators, creators_series_table,  
-                                             "series", "id", "creator_id", "series_id")
+def create_comics_table(meta, con) :
+    comics = Table("comics", meta,
+                   Column("id", Integer, primary_key=True),
+                   Column("title", String),
+                   Column("issueNumber", Integer),
+                   Column("description", String),
+                   Column("format", String),
+                   Column("pageCount", Integer),
+                   Column("printPrice", Float),
+                   Column("digitalPrice", Float),
+                   Column("dateReleased", String),
+                   Column("thumbnail", String),
+                   Column("images", String),
+                   Column("details", String),
+                   Column("series_id", Integer, ForeignKey("series.id")),
+                   Column("numCreators", Integer),
+                   Column("numCharacters", Integer)) 
+                       
+    meta.create_all(con)
 
-    create_one_direction_associative_table(series, creators_series_table,
-                                    "creators", "id", "series_id", "creator_id")
+    return comics
 
-    # return the table schema
-    return creators_series_table
+def create_creators_table(meta, con) :
+    comics = Table("creators", meta,
+                   Column("id", Integer, primary_key=True),
+                   Column("fullName", String),
+                   Column("thumbnail", String),
+                   Column("details", String),
+                   Column("numComics", Integer),
+                   Column("numSeries", Integer))
+                       
+    meta.create_all(con)
+    return comics
+
+def create_series_table(meta, con) :
+    comics = Table("series", meta,
+                   Column("id", Integer, primary_key=True),
+                   Column("title", String),
+                   Column("description", String),
+                   Column("startYear", Integer),
+                   Column("endYear", Integer),
+                   Column("rating", String),
+                   Column("thumbnail", String),
+                   Column("details", String),
+                   Column("predecessor", Integer),
+                   Column("successor", Integer),
+                   Column("numComics", Integer),
+                   Column("numCharacters", Integer),
+                   Column("numCreators", Integer))
+                       
+    meta.create_all(con)
+    return comics
+
+def create_comics_characters_table(meta, con) :
+    comics_characters = Table("comics_characters", meta,
+                              Column("id", Integer, primary_key=True),
+                              Column("comic_id", Integer, ForeignKey("comics.id")),
+                              Column("character_id", Integer, ForeignKey("characters.id")))
+    meta.create_all(con)
+    return comics_characters
+
+def create_creators_series_table(meta, con) :
+    creators_series = Table("creators_series", meta, 
+                            Column("id", Integer, primary_key=True),
+                            Column("creator_id", Integer, ForeignKey("creators.id")),
+                            Column("series_id", Integer, ForeignKey("series.id")))
+
+    meta.create_all(con)
+    return creators_series
+
+def create_creators_comics_table(meta, con) :
+    creators_comics = Table("creators_comics", meta,
+                            Column("id", Integer, primary_key=True),
+                            Column("creator_id", Integer, ForeignKey("creators.id")),
+                            Column("comic_id", Integer, ForeignKey("comics.id")))
+
+    meta.create_all(con)
+    return creators_comics
+
+def create_series_characters_table(meta, con) :
+    series_characters = Table("series_characters", meta,
+                              Column("id", Integer, primary_key=True),
+                              Column("series_id", Integer, ForeignKey("series.id")),
+                              Column("character_id", Integer, ForeignKey("characters.id")))
+    meta.create_all(con)
+    return series_characters
+
+def create_series_comics_table(meta, con) :
+    series_comics = Table("series_comics", meta,
+                          Column("id", Integer, primary_key=True),
+                          Column("series_id", Integer, ForeignKey("series.id")),
+                          Column("comic_id", Integer, ForeignKey("comics.id")))
+    meta.create_all(con)
+    return series_comics
+
+def get_characters_table(meta, con) :
+    return Table("characters", meta, autoload=True, autoload_with=con)
+
+def get_comics_table(meta, con) :
+    return Table("comics", meta, autoload=True, autoload_with=con)
+
+def get_creators_table(meta, con) :
+    return Table("creators", meta, autoload=True, autoload_with=con)
+
+def get_series_table(meta, con) :
+    return Table("series", meta, autoload=True, autoload_with=con)
+
+def get_comics_characters_table(meta, con) :
+    return Table("comics_characters", meta, autoload=True, autoload_with=con)
+
+def get_creators_series_table(meta, con) :
+    return Table("creators_series", meta, autoload=True, autoload_with=con)
+
+def get_creators_comics_table(meta, con) :
+    return Table("creators_comics", meta, autoload=True, autoload_with=con)
+
+def get_series_characters_table(meta, con) :
+    return Table("series_characters", meta, autoload=True, autoload_with=con)
+
+def get_series_comics_table(meta, con) :
+    return Table("series_comics", meta, autoload=True, autoload_with=con)
 
 
-# create all the associative_tables
-characters_comics_table = create_characters_comics_table(characters, comics)
-characters_series_table = create_characters_series_table(characters, series)
-comics_creators_table = create_comics_creators_table(comics, creators)
-creators_series_table = create_creators_series_table(creators,series)
 
-# [START model]
-class Character(Base):
-    __tablename__ = 'characters'
+# https://suhas.org/sqlalchemy-tutorial
+def connect(user, password, db='marveldb', host='localhost', port=5432) :
+    '''Returns a connection and a metadata object'''
+    # We connect with the help of the PostgreSQL URL
+    # postgresql://federer:grandestslam@localhost:5432/tennis
+    url = 'postgresql://{}:{}@{}:{}/{}'
+    url = url.format(user, password, host, port, db)
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(255))
-    description = Column(String(1024))
-    thumbnail = Column(String(255))
-    details = Column(String(255))
-    wiki = Column(String(255))
-    comicsUrl = Column(String(255))
-    numComics = Column(Integer)
-    numSeries = Column(Integer)
+    # The return value of create_engine() is our connection object
+    con = sqlalchemy.create_engine(url, client_encoding='utf8')
 
-    def __init__(self, id, name, description, thumbnail, details, wiki, comicsUrl, characters_comics_table, 
-                 numComics, characters_series_table, numSeries):
-        self.id = id
-        self.name = name
-        self.description = description
-        self.thumbnail = thumbnail
-        self.details = details
-        self.wiki = wiki
-        self.comicsUrl = comicsUrl
-        self.comics = relationship("Comics", secondary=characters_comics_table, back_populates="characters")
-        self.numComics = numComics
-        self.series = relationship("Series", secondary=characters_series_table, back_populates="characters")
-        self.numSeries = numSeries
+    # We then bind the connection to MetaData()
+    meta = sqlalchemy.MetaData(bind=con, reflect=True)
+    print("connected to marveldb")
+    print("connection: ", con)
+    print("meta: ", meta)
 
-    def getValues(self):
-        """
-        This method is used for unit tests in tests.py
-        @return: Return a Dictionary of the attribute values
-        for this Character object
-        """
-        result = {}
-        result['id'] = self.id
-        result['name'] = self.name
-        result['description'] = self.description
-        result['thumbnail'] = self.thumbnail
-        result['details'] = self.details
-        result['wiki'] = self.wiki
-        result['comicsUrl'] = self.comicsUrl
-        result['comics'] = self.comics
-        result['numComics'] = self.numComics
-        result['series'] = self.series
-        result['numSeries'] = self.numSeries
-
-        return result
+    return con, meta
 
 
-    # def __repr__(self):
-    #     return '<Character %r>' % self.character_name
-
-# [END model]
-
-def create_character(character) :
-    # get relationships needed to create to a character
-    check_args(character)
-    relationship_list = [characters_comics_table, characters_series_table]
-    relationship_key_list = ["characters_comics_table", "characters_series_table"]
-    relationship_list_index = 0
-    character_init_dict = dict()
-    
-    for key, value in character.items() :
-        if not isinstance(value, list) :
-            character_init_dict[key] = value
-        else :
-            character_init_dict[relationship_key_list[relationship_list_index]] = \
-            relationship_list[relationship_list_index]
-
-            relationship_list_index += 1
-
-    return Character(**character_init_dict)
-
-# [START model]
-class Comic(Base):
-    __tablename__ = 'comics'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String(255))
-    issueNumber = Column(Integer)
-    description = Column(String(1024))
-    format = Column(String(255))
-    pageCount = Column(Integer)
-    printPrice = Column(Float)
-    digitalPrice = Column(Float)
-    dateReleased = Column(String(255))
-    thumbnail = Column(String(255))
-    images = Column(String(255))
-    details = Column(String(255))
-    series = Column(Integer, ForeignKey('series.id'))
-    numCharacters = Column(Integer)
-    numCreators = Column(Integer)
-
-    def __init__(self, id, title, issueNumber, description, format, pageCount, printPrice, 
-        digitalPrice, dateReleased, thumbnail, images, details, series, characters_comics_table,
-        numCharacters, comics_creators_table, numCreators):
-
-        self.id = id
-        self.title = title
-        self.issueNumber = issueNumber
-        self.description = description
-        self.format = format
-        self.pageCount = pageCount
-        self.printPrice = printPrice
-        self. digitalPrice = digitalPrice
-        self.dateReleased = dateReleased
-        self.thumbnail = thumbnail
-        self.images = images
-        self.details = details
-        self.series = series
-        self.characters = relationship("Characters", secondary=characters_comics_table, back_populates="comics")
-        self.numCharacters = numCharacters
-        self.creators = relationship("Creators", secondary=comics_creators_table, back_populates="comics")
-        self.numCreators = numCreators
-
-    def getValues(self):
-        """
-        This method is used for unit tests in tests.py
-        @return: Return a Dictionary of the attribute values
-        for this Character object
-        """
-        result = {}
-        result['id'] = self.id
-        result['title'] = self.title
-        result['issueNumber'] = self.issueNumber
-        result['description'] = self.description
-        result['format'] = self.format
-        result['pageCount'] = self.pageCount
-        result['printPrice'] = self.printPrice
-        result['digitalPrice'] = self.digitalPrice
-        result['dateReleased'] = self.dateReleased
-        result['thumbnail'] = self.thumbnail
-        result['images'] = self.images
-        result['details'] = self.details
-        result['series'] = self.series
-        result['characters'] = self.series
-        result['numCharacters'] = self.numCharacters
-        result['creators'] = self.creators
-        result['numCreators'] = self.numCreators
-
-        return result
-
-# [END model]
-
-def create_comic(comic) : 
-    # get relationships needed to create to a comic
-    check_args(comic)
-    relationship_list = [characters_comics_table, comics_creators_table]
-    relationship_key_list = ["characters_comics_table", "comics_creators_table"]
-    relationship_list_index = 0
-    comic_init_dict = dict()
-    
-    for key, value in comic.items() :
-        if not isinstance(value, list) :
-            comic_init_dict[key] = value
-        else :
-            comic_init_dict[relationship_key_list[relationship_list_index]] = \
-            relationship_list[relationship_list_index]
-            relationship_list_index += 1
-
-    return Comic(**comic_init_dict)
-
-# [START model]
-class Creator(Base):
-    __tablename__ = 'creators'
-
-    id = Column(Integer, primary_key=True)
-    fullName = Column(String(255))
-    thumbnail = Column(String(255))
-    details =  Column(String(255))
-    numComics = Column(Integer)
-    numSeries = Column(Integer)
-
-    def __init__(self, id, fullName, thumbnail, details, comics_creators_table, creators_series_table, 
-                 numComics, numSeries):
-        self.id = id
-        self.fullName = fullName
-        self.thumbnail = thumbnail
-        self.details = details
-        self.comics = relationship("Comics", secondary=comics_creators_table, back_populates="creators")
-        self.numComics = numComics
-        self.series = relationship("Series", secondary=creators_series_table, back_populates="creators")
-        self.numSeries = numSeries
-
-    def getValues(self):
-        """
-        This method is used for unit tests in tests.py
-        @return: Return a Dictionary of the attribute values
-        for this Character object
-        """
-        result = {}
-        result['id'] = self.id
-        result['fullName'] = self.fullName
-        result['thumbnail'] = self.thumbnail
-        result['details'] = self.details
-        result['comics'] = self.comics
-        result['numComics'] = self.numComics
-        result['series'] = self.series
-        result['numSeries'] = self.numSeries
-
-        return result
-
-# [END model]
-
-def create_creator(creator) : 
-    # get relationships needed to create to a comic
-    check_args(creator)
-    relationship_list = [comics_creators_table, creators_series_table]
-    relationship_key_list = ["comics_creators_table", "creators_series_table"]
-    relationship_list_index = 0
-    creator_init_dict = dict()
-    
-    for key, value in creator.items() :
-        if not isinstance(value, list) :
-            creator_init_dict[key] = value
-        else :
-            creator_init_dict[relationship_key_list[relationship_list_index]] = \
-            relationship_list[relationship_list_index]
-            relationship_list_index += 1
-
-    return Creator(**creator_init_dict)
-
-# [START model]
-class Series(Base):
-    __tablename__ = 'series'
-
-    id = Column(Integer, primary_key=True)
-    title = Column(String(255))
-    description = Column(String(255))
-    startYear = Column(Integer)
-    endYear = Column(Integer)
-    thumbnail = Column(String(255))
-    details = Column(String(255))
-    predecessor = Column(Integer)
-    successor = Column(Integer)
-    numComics = Column(Integer)
-    numCharacters = Column(Integer)
-    numCreators = Column(Integer)
-
-    def __init__(self, id, title, description, startYear, endYear, rating, 
-        thumbnail, details, predecessor, successor, comics, numComics, 
-        characters_series_table, numCharacters, creators_series_table, numCreators):
-        self.id = id
-        self.title = title
-        self.description = description
-        self.startYear = startYear
-        self.endYear = endYear
-        self.rating = rating
-        self.thumbnail = thumbnail
-        self.details = details
-        self.predecessor = predecessor
-        self.successor = successor
-        self.comics = comics
-        self.numComics = numComics
-        self.characters = relationship("Characters", secondary=characters_series_table, back_populates="series")
-        self.numCharacters = numCharacters
-        self.creators = relationship("Creators", secondary=creators_series_table, back_populates="series")
-        self.numCreators = numCreators
-
-    def getValues(self):
-        """
-        This method is used for unit tests in tests.py
-        @return: Return a Dictionary of the attribute values
-        for this Character object
-        """
-        result = {}
-        result['id'] = self.id
-        result['title'] = self.title
-        result['description'] = self.description
-        result['startYear'] = self.startYear
-        result['endYear'] = self.endYear
-        result['rating'] = self.rating
-        result['thumbnail'] = self.thumbnail
-        result['details'] = self.details
-        result['predecessor'] = self.predecessor
-        result['successor'] = self.successor
-        result['comics'] = self.comics
-        result['numComics'] = self.numComics
-        result['characters'] = self.characters
-        result['numCharacters'] = self.numCharacters
-        result['creators'] = self.creators
-        result['numCreators'] = self.numCreators
-
-        return result
-
-def create_series(series) : 
-    # get relationships needed to create to a comic
-    check_args(series)
-    comics = relationship("Comic", backref="Series")
-    relationship_list = [comics, characters_series_table, creators_series_table]
-    relationship_key_list = ["comics", "characters_series_table", "creators_series_table"]
-    relationship_list_index = 0
-    series_init_dict = dict()
-    
-    for key, value in series.items() :
-        if not isinstance(value, list) :
-            series_init_dict[key] = value
-        else :
-            series_init_dict[relationship_key_list[relationship_list_index]] = \
-            relationship_list[relationship_list_index]
-            relationship_list_index += 1
-
-    return Series(**series_init_dict)
