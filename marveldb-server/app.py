@@ -28,7 +28,7 @@ def characters():
 
 @app.route('/api/characters/count', methods = ['GET'])
 def characters_count():
-	return count_chars()
+	return jsonify(count_chars())
 
 @app.route('/api/comics', methods = ['GET'])
 def comics():
