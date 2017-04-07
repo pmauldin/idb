@@ -212,7 +212,7 @@ def query_comics(where_args, order_by_args, limit_args):
 
 	count = 0
 	for row in comics_results:
-		count = row['count']
+		count = row['totalrows']
 
 		SQL = 'SELECT character_id \
 			FROM comics_characters cc \
@@ -259,11 +259,11 @@ def query_comics(where_args, order_by_args, limit_args):
 		response_data.append(comic_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
-	return response_data
+	return response_json
 
 def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
@@ -334,7 +334,7 @@ def query_creators(where_args, order_by_args, limit_args):
 
 	count = 0
 	for row in creator_results:
-		count = row['count']
+		count = row['totalrows']
 
 		SQL = 'SELECT comic_id \
 			FROM creators_comics cc \
@@ -372,11 +372,11 @@ def query_creators(where_args, order_by_args, limit_args):
 		response_data.append(creator_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
-	return response_data
+	return response_json
 
 def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
@@ -523,7 +523,7 @@ def query_series(where_args, order_by_args, limit_args):
 		response_data.append(series_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
@@ -575,3 +575,12 @@ def build_where_clause(filters):
 
 	return clause
 
+if __name__ == '__main__':
+	pass
+	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
+	# count_chars()
+	# b = 'SELECT a FROM s WHERE '
+	# filters = [{'field': 'c1', 'comparator': '=', 'val': 'tree', 'type': 's'},
+	# 			{'field': 'c2', 'comparator': '<=', 'val': 'foo', 'type': 's'},
+	# 			{'field': 'c3', 'comparator': '>', 'val': '5', 'type': 'n'}]
+	# print(build_where_clause(b, filters))
