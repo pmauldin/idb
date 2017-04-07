@@ -1,3 +1,266 @@
+commit ad506ab22d2543f6e7c96e0fe26e25710353cca6
+Merge: 3c1e1a2 88f796c
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Apr 6 21:56:20 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit 3c1e1a27415e60ad511f85f4ca6251037e00a40f
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Apr 6 21:56:16 2017 -0500
+
+    Updated About page with new commit #s
+
+commit 88f796c8e249f0d0df930662f0d0bf8e4421709a
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 21:53:32 2017 -0500
+
+    Implemented /tests/ endpoint
+
+commit 109afd18239654abb1726c1a181eebdf7306702a
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Apr 6 21:52:19 2017 -0500
+
+    Added updated Technical Report
+
+commit 9a8e52b43ca75dc571c3776509f4cfc7f8a00514
+Author: Charles Gong <chlsgong@gmail.com>
+Date:   Thu Apr 6 21:46:30 2017 -0500
+
+    Delete apiary.apib
+
+commit 1e21ee8998fe98d2d5a7cc570941e7cf434eae4a
+Author: nano5 <nanomay94@utexas.edu>
+Date:   Thu Apr 6 21:33:23 2017 -0500
+
+    Delete character_scraper.py
+
+commit a197bc6c6431fc815842617a6d5435a6484e96c3
+Merge: 47882a3 740604d
+Author: zapien256 <zapien256@users.noreply.github.com>
+Date:   Thu Apr 6 20:56:00 2017 -0500
+
+    Merge pull request #41 from pmauldin/scraper_idb
+    
+    Scraper idb
+
+commit 740604df6f0d865bdfde57a98cdfadc5a9d13758
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Thu Apr 6 20:54:39 2017 -0500
+
+    Updated Unit Tests
+
+commit 47882a39e17ac86cf033e455b6d76e2da2f225f4
+Merge: f23861b fef126f
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 20:48:04 2017 -0500
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       marveldb-server/query.py
+
+commit f23861b2b4955cc0ec28177ec61c11ae14393fbe
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 20:47:38 2017 -0500
+
+    Fixed bugs with sorting/filtering/pagination
+
+commit fef126fe9a70f29d2523f6743186515e11763acd
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 20:43:45 2017 -0500
+
+    fixed query bug
+
+commit 065a593a750fb26540b71644269a53878eb53f81
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 20:35:51 2017 -0500
+
+    fixed count bug
+
+commit 92adbb004ed9f8e24241641873960de1d72324e1
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 20:21:41 2017 -0500
+
+    fixed bug
+
+commit 727ff6cbe8bd9a3dbc75e8adc645f885137194b5
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Thu Apr 6 20:20:56 2017 -0500
+
+    Unit Tests Redone
+
+commit 9cef8c535989ef5b61c99550261cc71d8b5b6cec
+Merge: 6c8c5bc 490a9e8
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 20:11:50 2017 -0500
+
+    added count to filters
+
+commit 6c8c5bc0d0d03492217716c75c81a6c8916608f9
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 20:10:44 2017 -0500
+
+    added counts to filter
+
+commit 490a9e800c6160745f1cd7fde5442ef08a15de89
+Author: Ty Morris <tireymorris@gmail.com>
+Date:   Thu Apr 6 19:41:38 2017 -0500
+
+    Added loading spinner to grid pages
+
+commit 76fea651cf8d3751c9c0cfe1910822b3a32b14cb
+Merge: c593428 5c6769e
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 19:25:05 2017 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+commit c59342866c9cdb91a581dad633608470e7da489c
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 19:24:45 2017 -0500
+
+    Hooked up frontend sorting/filtering/pagination to backend (resolves #38)
+
+commit 5c6769e742730896ec1a1b3b2db7cf6dd0c4874a
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 18:58:39 2017 -0500
+
+    added jsonify to count api
+
+commit c7460b1e8570a3061da67ce94072eec94f413082
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 18:52:31 2017 -0500
+
+    fixed count api
+
+commit cd5ab24f9a7a57c49c665b7af604af7094526c17
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 18:33:10 2017 -0500
+
+    Fixed count endpoints
+
+commit 2b0394d9c250ae7a7b0e6e03a06235b2331b4edf
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 17:45:07 2017 -0500
+
+    fixing api params
+
+commit 3e018554dc2cdcaf3710bc4c4881c8aecd9a2de8
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Apr 6 17:28:50 2017 -0500
+
+    added functions to get tables from database to use for querying
+
+commit 2f5336e95f3e7d3c8ae0e9fbc7aeb39331eab4f0
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Thu Apr 6 16:33:49 2017 -0500
+
+    updated the models
+
+commit b7a1e5de4ea9b6111099b4fd9ff59a8ec84bbc50
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 14:41:40 2017 -0500
+
+    deleted scripts
+
+commit fcf0362411fc70dd447bedfe52a62d377e3759fd
+Merge: 3db74e3 84ff8f7
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 14:40:32 2017 -0500
+
+    merge charles branch
+
+commit 3db74e30dd048811433b4b3224c44e57d2320686
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 14:38:56 2017 -0500
+
+    finished api
+
+commit 84ff8f73d9ca1cadb58d3a29879f2a8049a30c56
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 00:55:22 2017 -0500
+
+    Minor fixes.
+
+commit 5ea33cc752dc75da12db037d6ffa4b4b3127ecda
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 00:43:24 2017 -0500
+
+    Minor styling enhancements to Grid and Details pages.
+
+commit e9cda749a0ccf69152e7f1e891e46bccd5263f04
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 00:33:15 2017 -0500
+
+    Added button for running unit tests (Resolves #32).
+
+commit 77b320ebdd98cf451e0965aedc1b25a7d70f2925
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 6 00:30:06 2017 -0500
+
+    working on api params
+
+commit e91c3513d11e90566987434fe34836c8e91d336c
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 00:03:11 2017 -0500
+
+    Added pagination menu and pagination support. (Resolves #34)
+
+commit a67a4debea434d32db528a52a60fbed4f0df4510
+Author: Charles <chlsgong@gmail.com>
+Date:   Wed Apr 5 23:53:07 2017 -0500
+
+    finished writing queries
+
+commit 83a46b876b21b19029b4a4b75c66e7aed3821f0d
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Wed Apr 5 23:10:31 2017 -0500
+
+    Added filtering options for all types and added filter popover.
+
+commit 471d11c71a073f86a1d4b4226191d6758c0f5d9f
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Wed Apr 5 22:05:20 2017 -0500
+
+    Removed and redid filtering from the ground up.
+
+commit 3fb74dfe789e3d5413bea9e0c402561cc5399aed
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Wed Apr 5 17:34:18 2017 -0500
+
+    Refactored sorting, moved data manipulation logic to dataService.
+
+commit 690fb384e626247de5ca668957c203f71a19ab31
+Author: Charles <chlsgong@gmail.com>
+Date:   Wed Apr 5 06:05:36 2017 -0500
+
+    working on series scraper
+
+commit a1d652606be9e7afe5cb4a347f0acc84ffd5d0ae
+Author: Charles <chlsgong@gmail.com>
+Date:   Wed Apr 5 04:30:19 2017 -0500
+
+    working on scrapers
+
+commit 6dc2f87482504b5c90b6d2752e34984b68e3c47c
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Mon Apr 3 13:12:59 2017 -0500
+
+    changed name of scraper and deleted my private key
+
+commit 3546bc2e50269f13b841cb39debaa8733eda4bd4
+Author: Christiano Contreas <nanomay94@utexas.edu>
+Date:   Fri Mar 31 09:59:18 2017 -0500
+
+    adding scraper for characters model
+
+commit c8cea04a1d14a9479d7603f029c0199ba6783d06
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Thu Mar 23 21:51:27 2017 -0500
+
+    Added git log
+
 commit e2d4863bdb016ffeab36e063e32b35de6f1a2e30
 Merge: 9798cb0 3409631
 Author: Peter Mauldin <petermauldin@utexas.edu>
