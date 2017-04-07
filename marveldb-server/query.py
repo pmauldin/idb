@@ -259,11 +259,11 @@ def query_comics(where_args, order_by_args, limit_args):
 		response_data.append(comic_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
-	return response_data
+	return response_json
 
 def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
@@ -372,11 +372,11 @@ def query_creators(where_args, order_by_args, limit_args):
 		response_data.append(creator_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
-	return response_data
+	return response_json
 
 def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
 	response_data = []
@@ -523,7 +523,7 @@ def query_series(where_args, order_by_args, limit_args):
 		response_data.append(series_data)
 
 	response_json = {
-		'countReturned': count,
+		'count': count,
 		'data': response_data 
 	}
 
