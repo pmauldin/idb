@@ -3,13 +3,42 @@ import dataService from '../../utils/dataService';
 export default class detailsService {
 
 	static loadDetails(type, id, relatedTypes, dataLoadedCallback)  {
-		dataService.getData(type, null, [id])
-			.then(data => {
+
+		let requestOptions = {
+			pagination: {
+				page: 0,
+				pageSize: 200
+			},
+			sortOptions: {
+				field: "id",
+				order: "asc"
+			},
+			filters: [
+				{
+					field: "id",
+					operator: "=",
+					value: String(id)
+				}
+			]
+		};
+
+		dataService.getData(type, requestOptions)
+			.then(response => {
+				let data = response.data;
 				if (data.length > 0) {
 					dataLoadedCallback(data, type);
 					relatedTypes.forEach(relatedType => {
-						dataService.getData(relatedType, null, data[0][relatedType])
-							.then(relatedData => {
+						requestOptions.filters = [
+							{
+								field: "id",
+								operator: "in",
+								value: `(${data[0][relatedType]})`
+							}
+						];
+
+						dataService.getData(relatedType, requestOptions)
+							.then(relatedResponse => {
+								let relatedData = relatedResponse.data;
 								dataLoadedCallback(relatedData, relatedType);
 							})
 							.catch(error => {

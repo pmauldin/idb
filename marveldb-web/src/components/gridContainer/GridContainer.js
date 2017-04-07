@@ -8,15 +8,9 @@ export default class GridContainer extends Component {
 		const GridItem = this.props.gridItem;
 		let data = this.props.data;
 
-		if (!data) {
+		if (this.props.dataLoading) {
 			return <Image className="loadingSpinner" responsive src={loadingSpinner} />;
 		}
-
-		const gridItems = data.map(item =>
-			<Col key={item.id} xs={12} sm={4} md={4} lg={4}>
-				<GridItem inGrid={true} {...item} />
-			</Col>
-		);
 
 		if (data.length === 0) {
 			return (
@@ -25,6 +19,12 @@ export default class GridContainer extends Component {
 				</div>
 			)
 		}
+
+		const gridItems = data.map(item =>
+			<Col key={item.id} xs={12} sm={4} md={4} lg={4}>
+				<GridItem inGrid={true} {...item} />
+			</Col>
+		);
 
 		return (
 			<Grid className="marginlessGrid">

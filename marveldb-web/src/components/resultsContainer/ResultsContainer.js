@@ -36,22 +36,29 @@ class ResultsContainer extends Component {
 
 		dataService.getCount(this.props.resultsType)
 			.then(count => {
-				state.count = count;
+				this.setState({ count });
 			})
 			.catch(error => console.error(error));
+
+		state.dataLoading = true;
 
 		this.state = state;
 		this.props.resetState();
 		this.props.sortOptionsUpdated({field: this.state.sortingFields[0].fieldName, order: 'asc'});
-		this.loadData();
+		// this.loadData({ sortOptions:});
 	}
 
 	componentWillReceiveProps(nextProps) {
-		let shouldReload = !(isEqual(this.props.sortOptions, nextProps.sortOptions) &&
-			isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters) &&
-			isEqual(this.props.pagination, nextProps.pagination));
+		let shouldReload = !isEqual(this.props.pagination, nextProps.pagination);
+
+		if (!(isEqual(this.props.sortOptions, nextProps.sortOptions) &&
+			isEqual(this.props.filterOptions.filters, nextProps.filterOptions.filters))) {
+			shouldReload = true;
+			nextProps.pagination.page = 0;
+		}
 
 		if (shouldReload) {
+			this.setState({ dataLoading: true });
 			this.loadData({
 				sortOptions: nextProps.sortOptions,
 				filters: nextProps.filterOptions.filters,
@@ -64,7 +71,7 @@ class ResultsContainer extends Component {
 		return (
 			<div>
 				<Toolbar {...this.props} count={this.state.count} sortingFields={this.state.sortingFields} filters={this.state.filters} />
-				<GridContainer data={this.props.data[this.props.resultsType]} gridItem={this.state.GridItem} />
+				<GridContainer data={this.props.data[this.props.resultsType]} dataLoading={this.state.dataLoading} gridItem={this.state.GridItem} />
 			</div>
 		);
 	}
@@ -72,7 +79,14 @@ class ResultsContainer extends Component {
 	loadData(requestOptions) {
 		dataService.getData(this.props.resultsType, requestOptions)
 			.then(data => {
-				this.props.dataLoaded(data, this.props.resultsType);
+				this.setState({ dataLoading: false });
+				if (data.count) {
+					// this.props.paginationUpdated({ ...this.props.pagination, page: 0 });
+					this.setState({ count: data.count });
+					this.props.dataLoaded(data.data, this.props.resultsType);
+				} else {
+					this.props.dataLoaded(data, this.props.resultsType);
+				}
 			})
 			.catch(error => {
 				console.error(error);

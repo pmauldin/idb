@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const root = "http://104.197.34.212/api";
 
-function getData(path, requestOptions, ids) {
+function getData(path, requestOptions) {
 	let params;
 	if (requestOptions) {
 		let filters;

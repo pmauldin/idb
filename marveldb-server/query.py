@@ -575,12 +575,3 @@ def build_where_clause(filters):
 
 	return clause
 
-if __name__ == '__main__':
-	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
-	# count_chars()
-	# b = 'SELECT a FROM s WHERE '
-	# filters = [{'field': 'c1', 'comparator': '=', 'val': 'tree', 'type': 's'},
-	# 			{'field': 'c2', 'comparator': '<=', 'val': 'foo', 'type': 's'},
-	# 			{'field': 'c3', 'comparator': '>', 'val': '5', 'type': 'n'}]
-	# print(build_where_clause(b, filters))
-
