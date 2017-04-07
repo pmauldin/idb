@@ -18,7 +18,7 @@ export default class PaginationMenu extends Component {
 		return (
 			<Pagination className="paginationMenu" prev next first last ellipsis boundaryLinks
 						maxButtons={3} onSelect={this.handleSelect} activePage={this.props.pagination.page}
-						items={this.props.count / this.props.pagination.pageSize} />
+						items={Math.ceil(this.props.count / this.props.pagination.pageSize)} />
 		);
 	}
 };
