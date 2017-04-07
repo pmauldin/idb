@@ -67,7 +67,7 @@ export default class FilteringMenu extends Component {
 
 	render() {
 		return (
-			<OverlayTrigger trigger="focus" placement="bottom" overlay={this.state.popover}>
+			<OverlayTrigger trigger="click" placement="bottom" overlay={this.state.popover}>
 				<Button className="filterButton">Filter</Button>
 			</OverlayTrigger>
 		);
