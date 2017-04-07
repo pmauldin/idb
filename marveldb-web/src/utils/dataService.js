@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-const root = "http://developer.marveldbs.me/api";
+const root = "http://104.197.34.212/api";
 
 function getData(path, requestOptions, ids) {
 	let params;
@@ -23,8 +23,6 @@ function getData(path, requestOptions, ids) {
 			sortOptions: JSON.stringify(requestOptions.sortOptions),
 			filterOptions: filters
 		};
-
-		console.log(params);
 	}
 
 	return new Promise((resolve, reject) => {

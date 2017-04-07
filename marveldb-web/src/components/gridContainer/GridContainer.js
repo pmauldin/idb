@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Grid, Col, Row } from 'react-bootstrap';
+import { Grid, Col, Row, Image } from 'react-bootstrap';
+import loadingSpinner from '../../../assets/ring-alt.gif';
+import './styles/GridContainer.css';
 
 export default class GridContainer extends Component {
 	render() {
@@ -7,11 +9,7 @@ export default class GridContainer extends Component {
 		let data = this.props.data;
 
 		if (!data) {
-			return (
-				<div>
-					No Results Found
-				</div>
-			)
+			return <Image className="loadingSpinner" responsive src={loadingSpinner} />;
 		}
 
 		const gridItems = data.map(item =>
