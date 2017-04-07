@@ -5,7 +5,7 @@ import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, PAGINATION_UPDATED, DATA_LO
 
 function data(state, action) {
 	if (!state) {
-		return {comics: [], creators: [], characters: [], series: []};
+		return {comics: null, creators: null, characters: null, series: null};
 	}
 
 	switch (action.type) {
