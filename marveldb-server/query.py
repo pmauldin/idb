@@ -212,7 +212,7 @@ def query_comics(where_args, order_by_args, limit_args):
 
 	count = 0
 	for row in comics_results:
-		count = row['count']
+		count = row['totalrows']
 
 		SQL = 'SELECT character_id \
 			FROM comics_characters cc \
@@ -334,7 +334,7 @@ def query_creators(where_args, order_by_args, limit_args):
 
 	count = 0
 	for row in creator_results:
-		count = row['count']
+		count = row['totalrows']
 
 		SQL = 'SELECT comic_id \
 			FROM creators_comics cc \
