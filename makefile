@@ -45,6 +45,7 @@ endif
 IDB1.log:
 	git log > IDB1.log
 
+.PHONY: tests.tmp
 tests.tmp: app/models.py app/tests.py .pylintrc
 	-$(PYLINT) app/tests.py
 	-$(COVERAGE) run    --branch app/tests.py >  tests.tmp 2>&1
