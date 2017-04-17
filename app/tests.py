@@ -19,7 +19,7 @@
 from unittest import main, TestCase
 
 from models import connect, get_characters_table, get_comics_table, get_creators_table, \
-    get_series_table, get_series_comics_table
+    get_series_table, get_series_comics_table, get_comics_characters_table
 from data import characters, comics, creators, series
 
 
@@ -262,6 +262,30 @@ class TestModels(TestCase):
         rowDict = {}
         for column in series_table.columns:
             rowDict[column.name] = str(getattr(row, column.name))
+
+        # print ("ROWDICT", rowDict)
+
+        for key in realData:
+            if not isinstance(realData[key], list):
+                self.assertEqual(str(realData[key]), rowDict[key])
+
+    # ----
+    # Comics_Characters
+    # ----
+
+    def test_comics_characters_1(self):
+        realData = {'id': '1', 'character_id': '1009359', 'comic_id': '62725'}
+        assert len(realData) == 3
+
+        table = get_comics_characters_table(meta, con)
+        select_clause = table.select(table.c.id == realData["id"])
+        rows = select_clause.execute()
+        row = rows.fetchone()
+        rowDict = {}
+        for column in table.columns:
+            rowDict[column.name] = str(getattr(row, column.name))
+
+        # print ("ROWDICT:\n", rowDict)
 
         for key in realData:
             if not isinstance(realData[key], list):
