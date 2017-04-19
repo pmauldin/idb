@@ -553,6 +553,10 @@ def count_series():
 	results = con.execute(query).fetchall()
 	return results[0][0]
 
+def search_terms(terms):
+	SQL = 'SELECT * FROM characters' \
+			'WHERE'
+
 def build_where_clause(filters):
 	clause = ''
 
