@@ -12,7 +12,7 @@ export default class GridContainer extends Component {
 			return <Image className="loadingSpinner" responsive src={loadingSpinner} />;
 		}
 
-		if (data.length === 0) {
+		if (!data || data.length === 0) {
 			return (
 				<div>
 					No Results Found

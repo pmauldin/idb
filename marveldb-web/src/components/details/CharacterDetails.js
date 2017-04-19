@@ -13,7 +13,7 @@ class CharacterDetails extends Component {
 	}
 
 	render() {
-		if (this.props.data.characters.length === 0) {
+		if (!this.props.data || !this.props.data.characters || this.props.data.characters.length === 0) {
 			return (
 				<div>
 					404 Character Not Found

@@ -13,7 +13,7 @@ class SeriesDetails extends Component {
 	}
 
 	render() {
-		if (this.props.data.series.length === 0) {
+		if (!this.props.data || !this.props.data.series || this.props.data.series.length === 0) {
 			return (
 				<div>
 					404 Series Not Found
