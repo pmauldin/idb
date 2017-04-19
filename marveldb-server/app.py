@@ -98,13 +98,21 @@ def series():
 def series_count():
 	return jsonify(count_series())
 
+@app.route('/api/search', methods = ['GET'])
+def search():
+	search_terms = json.loads(request.args['searchTerms'])
+
+	
+
 @app.route('/api/tests', methods = ['GET'])
 def run_tests():
-	from subprocess import PIPE, run
+	# from subprocess import PIPE, run
 
-	command = ['make', 'tests.tmp']
-	result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, cwd="/home/chlsgong/idb")
-	output = str(result.stdout)
+	# command = ['make', 'tests.tmp']
+	# result = run(command, stdout=PIPE, stderr=PIPE, universal_newlines=True, cwd="/home/chlsgong/idb")
+	# output = str(result.stdout)
+
+	
 
 	return jsonify(output)
 
