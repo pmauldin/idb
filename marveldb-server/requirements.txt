@@ -1,4 +1,4 @@
-Flask==0.12
+Flask==0.12.1
 flask-cors==3.0.2
-sqlalchemy==1.1.9
+sqlalchemy==1.1.6
 psycopg2==2.7.1
