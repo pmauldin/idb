@@ -19,10 +19,16 @@ function getData(path, requestOptions) {
 			filters = "[]";
 		}
 
+		let searchOptions;
+		if (!requestOptions.searchOptions) {
+			searchOptions = "[]";
+		}
+
 		params = {
 			pagination: JSON.stringify(requestOptions.pagination),
 			sortOptions: JSON.stringify(requestOptions.sortOptions),
-			filterOptions: filters
+			filterOptions: filters,
+			searchOptions: searchOptions
 		};
 	}
 

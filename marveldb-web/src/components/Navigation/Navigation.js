@@ -3,6 +3,7 @@ import { Navbar, Nav, NavItem, } from 'react-bootstrap';
 import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 import './styles/Navigation.css';
+import SearchingMenu from './menus/searching/SearchingMenu';
 
 class Navigation extends Component {
 	render() {
@@ -32,6 +33,7 @@ class Navigation extends Component {
 							<NavItem>About</NavItem>
 						</LinkContainer>
 					</Nav>
+					<SearchingMenu />
 				</Navbar.Collapse>
 			</Navbar>
 		);

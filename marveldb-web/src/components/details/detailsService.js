@@ -19,16 +19,17 @@ export default class detailsService {
 					operator: "=",
 					value: String(id)
 				}
-			]
+			],
+			searchOptions: []
 		};
 
 		dataService.getData(type, requestOptions)
 			.then(response => {
 				let data = response.data;
-				if (data.length > 0) {
+				if (data && data.length > 0) {
 					dataLoadedCallback(data, type);
 					relatedTypes.forEach(relatedType => {
-						if (data[0][relatedType].length === 0) return;					
+						if (data[0][relatedType] && data[0][relatedType].length === 0) return;					
 	
 						requestOptions.filters = [
 							{

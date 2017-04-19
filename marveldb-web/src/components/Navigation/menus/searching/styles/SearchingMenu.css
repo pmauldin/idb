@@ -1,0 +1,12 @@
+.searchingFormGroup {
+	margin-top: 0px !important;
+}
+
+.searchingFormGroup input {
+	margin-right: 10px;
+	border-radius: 1px;
+}
+
+.searchingFormGroup button {
+	border-radius: 1px;
+}

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import map from 'lodash/map';
 import clone from 'lodash/clone';
-import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, PAGINATION_UPDATED, DATA_LOADED, RESET_STATE } from './actions';
+import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, UPDATE_SEARCH_OPTIONS, PAGINATION_UPDATED, DATA_LOADED, RESET_STATE } from './actions';
 
 function data(state, action) {
 	if (!state) {
@@ -47,6 +47,21 @@ function filter(state, action) {
 	}
 }
 
+function search(state, action) {
+	if (!state) {
+		return {searchText: ""};
+	}
+
+	switch (action.type) {
+		case UPDATE_SEARCH_OPTIONS:
+			return { ...state, ...action.value};
+		case RESET_STATE:
+			return {};
+		default:
+			return state;
+	}
+}
+
 function pagination(state, action) {
 	if (!state) {
 		return { page: 0, pageSize: 20 };
@@ -61,4 +76,4 @@ function pagination(state, action) {
 }
 
 
-export default combineReducers({ data, sort, filter, pagination });
+export default combineReducers({ data, sort, filter, search, pagination });
