@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sqlalchemy
+from models import *
 from sqlalchemy.sql import text
 
 def connect(user, password, db, host='104.155.158.51', port=5432):
@@ -23,7 +24,7 @@ def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \
+	SQL = 'SELECT * \ 
 			FROM characters c \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
@@ -554,8 +555,22 @@ def count_series():
 	return results[0][0]
 
 def search_terms(terms):
-	SQL = 'SELECT * FROM characters' \
-			'WHERE'
+	SQL = 'SELECT * FROM characters \
+		WHERE ' + build_search_clause(terms[0])
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+	return results
+
+def build_search_clause(term):
+	characters = get_characters_table(meta, con)
+	char_attrs = [c.name for c in characters]
+	clause = ' {} LIKE \'%{}%\''
+	clause = clause.format(char_attrs[0], term)
+	for attr in char_attrs[1:]:
+		search = ' OR {} LIKE \'%{}%\''
+		search = search.format(attr, term)
+		clause += search
+	return clause
 
 def build_where_clause(filters):
 	clause = ''
