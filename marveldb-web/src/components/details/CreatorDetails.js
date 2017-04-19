@@ -13,7 +13,7 @@ class CreatorDetails extends Component {
 	}
 
 	render() {
-		if (this.props.data.creators.length === 0) {
+		if (!this.props.data || !this.props.data.creators || this.props.data.creators.length === 0) {
 			return (
 				<div>
 					404 Creator Not Found

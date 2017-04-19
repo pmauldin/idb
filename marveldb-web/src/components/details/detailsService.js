@@ -28,6 +28,8 @@ export default class detailsService {
 				if (data.length > 0) {
 					dataLoadedCallback(data, type);
 					relatedTypes.forEach(relatedType => {
+						if (data[0][relatedType].length === 0) return;					
+	
 						requestOptions.filters = [
 							{
 								field: "id",

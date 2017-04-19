@@ -14,7 +14,7 @@ class ComicDetails extends Component {
 	}
 
 	render() {
-		if (this.props.data.comics.length === 0) {
+		if (!this.props.data || !this.props.data.comics || this.props.data.comics.length === 0) {
 			return (
 				<div style={{ textAlign: "center" }}>
 					404 Comic Not Found

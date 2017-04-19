@@ -7,7 +7,7 @@ export default class LinkedGrid extends Component {
 	render() {
 		let innerHtml;
 
-		if (this.props.data !== undefined && this.props.data.length > 0) {
+		if (this.props.data && this.props.data.length > 0) {
 			innerHtml = this.props.data.map(item => {
 				const link = `/${this.props.linkType.toLowerCase()}/${item.id}`;
 
