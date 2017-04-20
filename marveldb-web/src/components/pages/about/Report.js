@@ -19,7 +19,8 @@ export default class Report extends Component {
 					<li><a href="#design">Design</a></li>
 					<ul>
 						<li><a href="#app">app.py</a></li>
-						<li><a href="#dataSource">The Data Source</a></li>
+						<li><a href="#oldDataSource">The Old Data Source</a></li>
+						<li><a href="#dataSource">The New Data Source</a></li>
 						<li><a href="#http">The HTTP Methods</a></li>
 						<li><a href="#deploymeny">The Deployment</a></li>
 					</ul>
@@ -42,6 +43,7 @@ export default class Report extends Component {
 								<ul>
 									<li><a href="#backOverview">Overview</a></li>
 									<li><a href="#backStructure">Database Models/Structure</a></li>
+									<li><a href="#backPostgres">PostgreSQL</a></li>
 									<ul>
 										<li><a href="#character">Character</a></li>
 										<li><a href="#comic">Comic</a></li>
@@ -66,24 +68,38 @@ export default class Report extends Component {
 						</ul>
 				</ul>
 				<h2 id="intro">Introduction</h2>
-				This Marvel database exists to provide more detailed information for comic readers. Readers of Marvel comics can explore this database to learn more about the series the comic is apart of, the characters in the comic, and the creators of the series/comic. For those new to Marvel comics, this database can provide a way for people to learn more about the characters in their favorite comic or other comics that the character shows up in.
+				MarvelDB is a responsive web application for exploring all things Marvel. This internet database provides detailed information for comic readers by presenting comics, characters, creators, and series all in one site. Readers of Marvel comics can explore this database to learn more about the series the comic is apart of, the characters in the comic, and the creators of the series/comic. For those new to Marvel comics, this database can provide a way for people to learn more about the characters in their favorite comic or other comics that the character shows up in. Because the application was designed with various kinds of users in mind, it is easy to use from any screen size and is simple to navigate.
 				<h2 id="design">Design</h2>
+				The RESTful API for MarvelDB is written in Python using the Flask framework. The data, provided by the Interactive Marvel API, consists of character info, comic info, creator info, and series info. It is supplied through HTTP GET calls to our API. There is a model of the database used to store the data, but for this phase the database is not used. The API is hosted on Google Cloud Platform using the App Engine.
 					<h3 id="app">app.py</h3>
 					The meat of the RESTful API. This is where the API methods are declared, defined, and routed to their URLs so each request can be mapped to the correct method. This is fully implemented with the Flask framework.
-					<h3 id="dataSource">The Data Source</h3>
-					For this phase of the project, a fully working database is not required but the data must come from somewhere. First the data for characters, comics, creators, and series are scraped from the official Marvel API. Then that data is stored inside data.py. To get this data to app.py, a helper is used. Data_machine.py takes the data from data.py and provides them to app.py to use. App.py turns the data into JSON form and returns them as the response to the respective callers.
+					<h3 id="oldDataSource">The Old Data Source</h3>
+					For the first phase of the project, a fully working database was not required but the data needed to come from somewhere. First the data for characters, comics, creators, and series were scraped from the official Marvel API. Then that data was stored inside data.py. To get this data to app.py, a helper was used. Data_machine.py took the data from data.py and provided them to app.py to use. App.py turned the data into JSON form and returned them as the response to the respective callers.
+					<h3 id="dataSource">The New Data Source</h3>
+					For the past data source, dummy data was used to give users a demo of the website. The new data source uses a fully functioning PostgreSQL database to store its data and query data from. The data from the interactive Marvel API is scraped and only a few data is stored into the new database. The API then queries the database and returns that data to the request caller.
 					<h3 id="http">The HTTP Methods</h3>
 					The hostname for the API is developer.marveldbs.me and the resources can be requested at the endpoint /api/*, where */ can be character, comics, creators, or series. Right now there are a total of four GET methods:
 					<ul>
 						<li><a href="http://developer.marveldbs.me/api/characters">http://developer.marveldbs.me/api/characters</a></li>
 						<ul><li>Returns the character resource, giving the callers the data for all characters in the database.</li></ul>
+						<li><a href="http://developer.marveldbs.me/api/characters/count">http://developer.marveldbs.me/api/characters/count</a></li>
+						<ul><li>This returns the character resource count, giving the total number of characters in the database.</li></ul>
 						<li><a href="http://developer.marveldbs.me/api/comics">http://developer.marveldbs.me/api/comics</a></li>
 						<ul><li>Returns the comics resource, giving the callers the data for all comics in the database.</li></ul>
+						<li><a href="http://developer.marveldbs.me/api/comics/count">http://developer.marveldbs.me/api/comics/count</a></li>
+						<ul><li>This returns the comic resource count, giving the total number of comics in the database.</li></ul>
 						<li><a href="http://developer.marveldbs.me/api/creators">http://developer.marveldbs.me/api/creators</a></li>
 						<ul><li>Returns the creators resource, giving the callers the data for all creators in the database.</li></ul>
+						<li><a href="http://developer.marveldbs.me/api/creators/count">http://developer.marveldbs.me/api/creators/count</a></li>
+						<ul><li>This returns the creator resource count, giving the total number of creators in the database.</li></ul>
 						<li><a href="http://developer.marveldbs.me/api/series">http://developer.marveldbs.me/api/series</a></li>
 						<ul><li>Returns the series resource, giving the callers the data for all series in the database.</li></ul>
+						<li><a href="http://developer.marveldbs.me/api/series/count">http://developer.marveldbs.me/api/series/count</a></li>
+						<ul><li>This returns the series resource count, giving the total number of series in the database.</li></ul>
+						<li><a href="http://developer.marveldbs.me/api/test">http://developer.marveldbs.me/api/test</a></li>
+						<ul><li>This endpoint is used to run the unit tests for the database models. It takes no parameters and returns a string response of the test outputs.</li></ul>
 					</ul>
+					The endpoints that do not end in ‘/count’ can take the following parameters: page size, page number, sorting field, sort order, filter field, comparator, and filter value. When these methods are called, the database should be queried. These are implemented along with filtering, sorting, and pagination for customization of data returned, so only the required data from the given parameters will be returned. All of the data is returned in JSON for ease of parsing for information.
 					<h3 id="deployment">The Deployment</h3>
 					To get the API up and running, the application must be deployed on a public server. The public server used for this API is hosted on the App Engine in Google Cloud Platform. Configurations were defined in the app.yaml file and dependencies are defined in the requirements.txt file.
 				<h2 id="tools">Tools</h2>
@@ -97,9 +113,9 @@ export default class Report extends Component {
 							<li id="pageTypes">Page Types</li>
 							<ul><li>All pages on the site except the Home and About page can be categorized as either a Grid Page or Details Page. The Home page simply renders a carousel that fills the entire content pane, and cycles between three static images. The About page contains two tabs: the left opens a project summary with a thumbnail and biographic/logistic information for each contributor to the project; the right renders this technical report. Each Grid Page contains a responsive grid of items, each of which contains a.) a summary of the information available for each item, and b.) a link to a Details page. Each Details page contains an expanded summary for an individual item, and links to other Details pages (e.g. linking to a comic's creator.)</li></ul>
 								<ul>
-									<li><strong>Grid Pages: Comics, Characters, Creators, Series</strong></li>
-									<li><strong>Details Pages: Comics, Characters, Creators, Series</strong></li>
-									<li><strong>Other: Home, About (About Us and Technical Report)Home, About (About Us and Technical Report)</strong></li>
+									<li><strong>Grid Pages:</strong> Comics, Characters, Creators, Series</li>
+									<li><strong>Details Pages:</strong> Comics, Characters, Creators, Series</li>
+									<li><strong>Other:</strong> Home, About (About Us and Technical Report), Visualization</li>
 								</ul>
 							<li id="navigation">Navigation</li>
 							<ul><li>To switch between pages, a user must click on its corresponding link in the top navigation bar. Because full-fledged routing was also implemented, any of the Grid Pages can also be accessed by appending its corresponding route to the page URL. Additionally, Details Pages can be accessed by appending the corresponding ID to a Grid Page's route.</li></ul>
@@ -117,15 +133,20 @@ export default class Report extends Component {
 								<ul><li>An HTTP request library that implements JavaScript Promises for its asynchronous requests. Any request library would be sufficient for accessing our backend API, but the addition of Promises makes code written with Axios much more readable than the nested callbacks typical of old-school asynchronous requests.</li></ul>
 								<li>React-Router</li>
 								<ul><li>React-Router is a React-specific JavaScript framework for handling client-side routing. Although client-side routing wasn't an explicit part of the specification for this application, its inclusion allows for viewing the frontend and backend of the site as two entirely different entities - this is in contrast to the typical approach of rendering the entry point to the frontend on the server side (e.g. via Flask's render_template method).</li></ul>
+								<li>React-d3-basic</li>
+								<ul><li>React-d3-basic is a library that simplifies the use of d3 charts with React components. This library abstracted away a lot the implementation details behind writing charts in vanilla d3.js; instead, we could define the data for our chart in a javascript object and pass it down to the provided "PieChart" react component.</li></ul>
+							</ul>
 							<li id="pagination">Pagination</li>
 							<ul><li>Phase 2 required our group to think more strategically about displaying and manipulating large amounts of data. Although it would be technically feasible to load thousands of resources (comics, characters, etc) at once from the backend, this would impact the user experience in multiple ways: first, the user shouldn't be expected to scroll through thousands of comics in order to browse the full gamut of results; second, waiting multiple seconds for the entire collection of results to come back from the API and render on the page creates an uncomfortable delay for the user. The solution to this issue was to implement pagination (on the frontend as well as the backend), which allows the user to view a subset - 10 items, by default - of the entire dataset. React-bootstrap conveniently provides a Pagination component, which we hooked into our dataflow relatively easy, with only minor customization. Navigating among the pages is intuitive and follows the pattern typical of pagination in most websites - the user simply needs to click left or right to navigate forward or backward among the pages. For convenience, we also included two buttons for quickly accessing the first and last pages</li></ul>
 							<li id="sortingfiltering">Sorting/Filtering</li>
 							<ul><li>As in the case of pagination, Phase 2 required us to adopt a more engineering-centric view on a problem - in this case, the sorting and filtering of results. In Phase 1, all sorting and filtering was done on the frontend, directly prior to the render() call in the results page container component. This solution is fine when operating on small data sets. As a result, it was never apparent during Phase 1 that sorting/filtering of data needed to be implemented differently. However, once we scraped the full Marvel API data set into our database, it was immediately obvious that sorting/filtering would have to be done on the backend to be performant. Once we moved these operations out of the frontend, implementing sorting and filtering became a relatively simple matter of implementing the needed UI components and making the appropriate backend calls.</li></ul>
-							</ul>
 						</ul>
 					<h3 id="back">Back-End</h3>
 						<h4 id="backOverview">Overview</h4>
-						The backend is implemented using Flask and SQLAlchemy in python 3.4. For the first phase of this project, the database remains only partially implemented. That is, only the database models have been created. Unit tests have also been written to test each model. The data being used for this project is pulled from Marvel’s database using their developer API/tools, also known as Marvel Comics API (<a href="https://developer.marvel.com/">https://developer.marvel.com/</a>).
+						The backend is implemented using Flask and SQLAlchemy in python 3.4. For the first phase of this project, the database remains only partially implemented. That is, only the database models have been created. Unit tests have also been written to test each model. The data being used for this project is pulled from Marvel’s database using their developer API/tools, also known as Marvel Comics API (<a href="https://developer.marvel.com/">https://developer.marvel.com/</a>).<br/>
+						For phase two the database models are represented as table schemas that live within our postgresql database. Each row is an instance of each model, and can be queried, and used for testing purposes.
+						<h4 id="backPostgres">PostgreSQL</h4>
+				The database used to store all the data is PostgreSQL. PostgreSQL complemented well with the sqlalchemy framework we used to insert and query data from our database. There were good tutorials on how to use sqlalchemy to connect and work with our postgreSQL database.
 						<h4 id="backStructure">Database Models/Structure</h4>
 						There are four models:
 						<ul>
@@ -149,25 +170,25 @@ export default class Report extends Component {
 						<h4 id="scraping">Scraping the Marvel API</h4>
 						<ul><li>To correctly create and set up our API for phase two, we had to scrape data off from a Marvel API and store it into a postgresql database located remotely on our hosting server. The Marvel API is a free to use API with a limit of three thousand requests per day. In all we had to write nine scrapers, four for our models, and five for the association tables that represent the many to many relationships. This scraping was done on a local machine then the database was transported from the local machine to the remote machine hosting the site.
 						<br /><strong>Scraping for Models</strong><br />
-						Each scraper is a python script that sends a HTTP GET request to the Marvel API. The Marvel API lets us specify what piece of data we want. For example if we wanted a json object that contains a list of characters I can send a json request like this. 
+						Each scraper is a python script that sends a HTTP GET request to the Marvel API. The Marvel API lets us specify what piece of data we want. For example if we wanted a json object that contains a list of characters I can send a json request like this.
 						https://gateway.marvel.com:443/v1/public/comics?apikey=d7ddd341e81cf87ce24ba23e95706a62
-						If the request is valid, We get a json object that is always in the same schema form. The data that we are interested in, is inside json_object[“data”][“results”], which contains a list of dictionaries containing information we need for each model. 
+						If the request is valid, We get a json object that is always in the same schema form. The data that we are interested in, is inside json_object[“data”][“results”], which contains a list of dictionaries containing information we need for each model.
 						<br /><strong>Scraping for association tables</strong><br />
-						Before we could scrape for the association tables, we had to scrape out data for every model Because every foreign key in the association tables have to exist somewhere else as a primary key. 
+						Before we could scrape for the association tables, we had to scrape out data for every model Because every foreign key in the association tables have to exist somewhere else as a primary key.
 						Now to create an association table we had to scrape again for a particular model involved in a many to many relationship, but this time collect a list from the json of the models located in json_object[“data”][“results”][“some list name”] .
 						Afterwards we Look at a particular model, and get a list of some other model instances, and insert into the association table (primary_id, primary_model_id from root of json object, other_model_id from list json_object[“data”][“results”][“some list name”]).</li></ul>
 						<h4 id="unit">Unit Testing</h4>
-						<ul><li>For phase 1 of this project, since the database wasn’t fully implemented, the unit tests couldn’t effectively test for querying a database. However it was still possible to test for correctness of model instantiation. This was done by instantiating a model object (e.g. Character, Comic, etc.) with sampled data as arguments. Then, each attribute value in the newly created object was compared to the actual data that was used to instantiate the object; this is excluding data that would form relationships between models. This procedure was followed for each model. The sample data used for testing was pulled from the Marvel Developer website and is stored as a list of python dictionaries in a separate file (data.py).
-						For phase two of the project we can now query out of our database and test it against some sample data stored inside data.py. This was done by grabbing a table object for each model that exists within our database, and using those objects to query out rows from the tables, then the row values were tested against the sample data for correctness.</li></ul>
+						<ul><li>For phase 1 of this project, since the database wasn't fully implemented, the unit tests couldn’t effectively test for querying a database. However it was still possible to test for correctness of model instantiation. This was done by instantiating a model object (e.g. Character, Comic, etc.) with sampled data as arguments. Then, each attribute value in the newly created object was compared to the actual data that was used to instantiate the object; this is excluding data that would form relationships between models. This procedure was followed for each model. The sample data used for testing was pulled from the Marvel Developer website and is stored as a list of python dictionaries in a separate file (data.py).</li></ul>
+						<ul><li>For phase two of the project we can now query out of our database and test it against some sample data stored inside data.py. This was done by grabbing a table object for each model that exists within our database, and using those objects to query out rows from the tables, then the row values were tested against the sample data for correctness.</li></ul>
 						<h4 id="googleSDK">Google Cloud SDK</h4>
 						<ul><li>This necessary tool makes the use of deploying and using Google Cloud Platform easy and quick. It was used to deploy code directly from local environments through the command line. It was also used to initialize and manage projects, create virtual machines, and switch access from user to user.</li></ul>
 						<h4 id="npm">NPM and Forever</h4>
-						<ul><li>The node package manager is necessary to run, manage, and deploy Node.js applications. This tool made it possible to get the front end application running. Forever is a tool to keep the application running continuously even when the shell is no longer in use. As long as the machine is up and running so will the application. Forever was also configured to restart the application when the machine is restarted or the application goes down unexpectedly.
-						</li></ul>
+						<ul><li>The node package manager (or npm, as the development community refers to it) is necessary to run, manage, and deploy Node.js applications. Since the frontend is hosted via an embedded lightweight node server, npm is needed to jointly upgrade and install packages, manage package dependencies, and run scripts (e.g. for deployment or running the development server).</li></ul>
+						<ul><li>Forever is a tool to keep the application running continuously even when the shell is no longer in use. As long as the machine is up and running so will the application. This tool made it possible to get the front end application running. Forever was also configured to restart the application when the machine is restarted or the application goes down unexpectedly. Essentially, Forever allows treating the npm script that runs the frontend as a long-running daemon rather than a traditional process.</li></ul>
 				<h2 id="hosting">Hosting</h2>
 					<h3 id="gcp">Google Cloud Platform</h3>
 					<ul>
-						<li>MarvelDB is completely hosted on Google Cloud Platform. It was chosen for its reliability, flexibility, and good documentation on how to go about setting up an application host. MarvelDB is comprised of two entities: the front end and the back end. The front end is run completely in Google App Engine and the back end is run completely in Google Compute Engine.</li>
+						<li>MMarvelDB is completely hosted on Google Cloud Platform. It was chosen for its reliability, flexibility, and good documentation on how to go about setting up an application host. MarvelDB is comprised of two entities: the front end and the back end. The front end is run completely in Google App Engine and the back end is run completely in Google Compute Engine.</li>
 						<ul>
 							<li id="appEngine">App Engine</li>
 								<ul><li>The App Engine hosts the API and requires a few files to work. These files include app.yaml, appengine_config.py, and requirements.txt. In order to set up the App Engine, a few things has to happen. First, the app.yaml file must be created to let the machine know what type of code is running. It specifies the language as Python and the startup script as app.py. There are much more options available but these are the most necessary ones. Next, the dependencies must be included. The requirements.txt file lists all the tools used in the application. Then, the Google Cloud SDK (gcloud) is used to install all the tools inside a lib directory. The appengine_config.py file is used by Google App Engine to determine where the dependencies are so they can be included in the build. After that the application can be deployed through the command line with gcloud and it becomes up and running through a domain name. When a new change is made, it can be deployed locally using the gcloud command, overriding the previous version of the App Engine.</li></ul>

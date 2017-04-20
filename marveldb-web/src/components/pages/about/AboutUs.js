@@ -130,6 +130,7 @@ export default class AboutUs extends Component {
 				<strong>Apiary API: </strong><a href="http://docs.marveldb.apiary.io/#reference/0/characters/list-all-characters">http://docs.marveldb.apiary.io/#reference/0/characters/list-all-characters</a><br/>
 				<strong>Github Issue Tracker: </strong><a href="https://github.com/pmauldin/idb/issues">https://github.com/pmauldin/idb/issues</a><br/>
 				<strong>Github Repo: </strong><a href="https://github.com/pmauldin/idb">https://github.com/pmauldin/idb</a><br/>
+				<strong>Presentation: </strong><a href="http://prezi.com/icpi8twyg5vx/?utm_campaign=share&utm_medium=copy">http://prezi.com/icpi8twyg5vx/?utm_campaign=share&utm_medium=copy</a><br/>
 				<div className="aboutHeader">
 					Data
 				</div>

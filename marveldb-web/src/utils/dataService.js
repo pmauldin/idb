@@ -1,7 +1,6 @@
 import axios from 'axios'; 
 
 const root = "http://developer.marveldbs.me/api";
-// const root = "http://localhost:8080/api";
 
 function getData(path, requestOptions) {
 	let params;
