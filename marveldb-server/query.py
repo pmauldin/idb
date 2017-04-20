@@ -18,13 +18,13 @@ def connect(user, password, db, host='104.155.158.51', port=5432):
 
 con, meta = connect('charlesgong', 'Charles', 'marveldb')
 
-def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
+def query_all_chars(order_by_args = ('id', 'ASC'), limit_args = (10, 0)):	
 	response_data = []
 
 	att, seq = order_by_args
 	lim, off = limit_args
 
-	SQL = 'SELECT * \ 
+	SQL = 'SELECT * \
 			FROM characters c \
 			ORDER BY "{}" {} \
 			LIMIT {} OFFSET {}'
@@ -135,7 +135,7 @@ def query_chars(where_args, order_by_args, limit_args):
 
 	return response_json
 
-def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
+def query_all_comics(order_by_args = ('id', 'ASC'), limit_args = (10, 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -266,7 +266,7 @@ def query_comics(where_args, order_by_args, limit_args):
 
 	return response_json
 
-def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
+def query_all_creators(order_by_args = ('id', 'ASC'), limit_args = (10, 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -379,7 +379,7 @@ def query_creators(where_args, order_by_args, limit_args):
 
 	return response_json
 
-def query_all_series(order_by_args = ('id', 'ASC'), limit_args = ('10', 0)):	
+def query_all_series(order_by_args = ('id', 'ASC'), limit_args = (10, 0)):	
 	response_data = []
 
 	att, seq = order_by_args
@@ -554,23 +554,167 @@ def count_series():
 	results = con.execute(query).fetchall()
 	return results[0][0]
 
-def search_terms(terms):
-	SQL = 'SELECT * FROM characters \
-		WHERE ' + build_search_clause(terms[0])
-	query = text(SQL)
-	results = con.execute(query).fetchall()
+def search_term(term, limit_args):
+	char_results = search_characters(term, limit_args)
+	comics_results = search_comics(term, limit_args)
+	creator_results = search_creators(term, limit_args)
+	series_results = search_series(term, limit_args)
+
+	results = {
+		'characterResults': char_results,
+		'comicsResults': comics_results,
+		'creatorResults': creator_results,
+		'seriesResults': series_results
+	}
+
 	return results
 
-def build_search_clause(term):
-	characters = get_characters_table(meta, con)
-	char_attrs = [c.name for c in characters]
-	clause = ' {} LIKE \'%{}%\''
-	clause = clause.format(char_attrs[0], term)
-	for attr in char_attrs[1:]:
-		search = ' OR {} LIKE \'%{}%\''
-		search = search.format(attr, term)
-		clause += search
-	return clause
+def search_characters(term, limit_args = (10, 0)):
+	lim, off = limit_args
+	
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
+		FROM characters \
+		WHERE name ILIKE \'%{}%\' OR description ILIKE \'%{}%\' \
+		LIMIT {} OFFSET {}'
+	SQL = SQL.format(term, term, lim, off * lim)
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+
+	response_data = []
+	count = 0
+	for row in results:
+		count = row['totalrows']
+		char_data = {
+			'id': row['id'],
+			'name': row['name'],
+			'description': row['description'],
+			'thumbnail': row['thumbnail'],
+			'details': row['details'],
+			'comicsUrl': row['comicsUrl'],
+			'numComics': row['numComics'],
+			'numSeries': row['numSeries']
+		}
+		response_data.append(char_data)
+
+	response_json = {
+		'count': count,
+		'data': response_data 
+	}
+
+	return response_json
+
+def search_comics(term, limit_args = (10, 0)):
+	lim, off = limit_args
+	
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
+		FROM comics \
+		WHERE title ILIKE \'%{}%\' OR description ILIKE \'%{}%\' \
+		LIMIT {} OFFSET {}'
+	SQL = SQL.format(term, term, lim, off * lim)
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+
+	response_data = []
+	count = 0
+	for row in results:
+		count = row['totalrows']
+		comic_data = {
+			'id': row['id'],
+			'title': row['title'],
+			'issueNumber': row['issueNumber'],
+			'description': row['description'],
+			'format': row['format'],
+			'pageCount': row['pageCount'],
+			'printPrice': row['printPrice'],
+			'digitalPrice': row['digitalPrice'],
+			'dateReleased': row['dateReleased'],
+			'thumbnail': row['thumbnail'],
+			'images': row['images'],
+			'details': row['details'],
+			'series': row['series_id'],
+			'numCharacters': row['numCharacters'],
+			'numCreators': row['numCreators']
+		}
+		response_data.append(comic_data)
+
+	response_json = {
+		'count': count,
+		'data': response_data 
+	}
+
+	return response_json
+
+def search_creators(term, limit_args = (10, 0)):
+	lim, off = limit_args
+	
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
+		FROM creators \
+		WHERE "fullName" ILIKE \'%{}%\' \
+		LIMIT {} OFFSET {}'
+	SQL = SQL.format(term, lim, off * lim)
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+
+	response_data = []
+	count = 0
+	for row in results:
+		count = row['totalrows']
+		creator_data = {
+			'id': row['id'],
+			'fullName': row['fullName'],
+			'thumbnail': row['thumbnail'],
+			'details': row['details'],
+			'numComics': row['numComics'],
+			'numSeries': row['numSeries']
+		}
+		response_data.append(creator_data)
+
+	response_json = {
+		'count': count,
+		'data': response_data 
+	}
+
+	return response_json
+
+def search_series(term, limit_args = (10, 0)):
+	lim, off = limit_args
+	
+	SQL = 'SELECT *, COUNT(*) OVER () totalRows \
+		FROM series \
+		WHERE title ILIKE \'%{}%\' OR description ILIKE \'%{}%\' \
+		LIMIT {} OFFSET {}'
+	SQL = SQL.format(term, term, lim, off * lim)
+	query = text(SQL)
+	results = con.execute(query).fetchall()
+
+	response_data = []
+	count = 0
+	for row in results:
+		count = row['totalrows']
+		series_data = {
+			'id': row['id'],
+			'title': row['title'],
+			'description': row['description'],
+			'startYear': row['startYear'],
+			'endYear': row['endYear'],
+			'rating': row['rating'],
+ 			'thumbnail': row['thumbnail'],
+			'details': row['details'],
+			'predecessor': row['predecessor'],
+			'successor': row['successor'],
+			'numComics': row['numComics'],
+			'numCharacters': row['numCharacters'],
+			'numCreators': row['numCreators']
+		}
+
+		response_data.append(series_data)
+
+	response_json = {
+		'count': count,
+		'data': response_data 
+	}
+
+	return response_json
 
 def build_where_clause(filters):
 	clause = ''
@@ -595,7 +739,8 @@ def build_where_clause(filters):
 	return clause
 
 if __name__ == '__main__':
-	pass
+	results = search_term(['Hulk'], (10, 0))
+	print(results)
 	# result = query_chars(('c.id', '1009262'), ('c.id', 'DESC'), ('10', '0'))
 	# count_chars()
 	# b = 'SELECT a FROM s WHERE '

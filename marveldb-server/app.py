@@ -77,6 +77,7 @@ def creators_count():
 
 @app.route('/api/series', methods = ['GET'])
 def series():
+	print(request.args)
 	series_json = {}
 
 	pagination = json.loads(request.args['pagination'])
@@ -100,9 +101,14 @@ def series_count():
 
 @app.route('/api/search', methods = ['GET'])
 def search():
-	search_terms = json.loads(request.args['searchTerms'])
+	print(request.args.keys())
+	term = json.loads(request.args['searchTerm'])
+	pagination = json.loads(request.args['pagination'])
+	lim = pagination['pageSize']
+	off = pagination['page']
 
-	
+	search_results = search_term(term, (lim, off))
+	return jsonify(search_results)
 
 @app.route('/api/tests', methods = ['GET'])
 def run_tests():
