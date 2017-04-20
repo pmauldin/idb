@@ -9,48 +9,35 @@ export default class Visualization extends Component {
     constructor(props) {
         super(props);
 
-        // dataService.getVisualizationData()
-        //     .then(response => {
-        //        console.log(response);
-        //     });
-        //
-        // this.state = {
-        //     dataLoading: true
-        // };
+        dataService.getVisualizationData()
+            .then(response => {
+                let data = response.objects.map(item => { return {company: item.name, funding: item.funding }});
 
-        let data = [
-            {
-                company: "Company 1",
-                funding: 99997
-            },
-            {
-                company: "Company 2",
-                funding: 1000000
-            },
-            {
-                company: "Company 3",
-                funding: 453534
-            }
-        ];
+                this.setState({
+                    dataLoading: false,
+                    data: data,
+                    width: 800,
+                        height: 400,
+                    showLegend: false,
+                    chartSeries: data.map(item => {
+                    return {
+                        field: item.company,
+                        name: item.company + ": $" + item.funding
+                        }
+                    }),
+                    name: function (data) {
+                    return data.company
+                    },
+                    value: function (data) {
+                        return data.funding
+                    }
+                });
+            });
 
         this.state = {
-            width: 800,
-            height: 400,
-            data: data,
-            showLegend: false,
-            chartSeries: data.map(item => {
-                return {
-                    field: item.company,
-                    name: item.company + ": $" + item.funding
-                }
-            }),
-            name: function (data) {
-                return data.company
-            },
-            value: function (data) {
-                return data.funding
-            }
+            dataLoading: true
         };
+
     }
 
     render() {
