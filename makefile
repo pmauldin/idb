@@ -1,11 +1,12 @@
 .DEFAULT_GOAL := test
 
 FILES :=                              \
-    IDB1.html                         \
-    IDB1.log                          \
-    IDB1.pdf                          \
+    IDB3.html                         \
+    IDB3.log                          \
+    IDB3.pdf                          \
     app/models.py                     \
     app/tests.py                      \
+    app/tests.out					  \
     .gitignore                        \
     .travis.yml                       \
 
@@ -42,8 +43,8 @@ endif
 .pylintrc:
 	$(PYLINT) --disable=locally-disabled --reports=no --generate-rcfile > $@
 
-IDB1.log:
-	git log > IDB1.log
+IDB3.log:
+	git log > IDB3.log
 
 .PHONY: tests.tmp
 tests.tmp: app/models.py app/tests.py .pylintrc
@@ -76,7 +77,7 @@ clean:
 	rm -f  .pylintrc
 	rm -f  *.pyc
 	# rm -f  IDB1.html 
-	rm -f  IDB1.log
+	rm -f  IDB3.log
 	rm -f  app/tests.tmp
 	rm -rf __pycache__
 
@@ -94,7 +95,7 @@ status:
 	git remote -v
 	git status
 
-test: IDB1.html IDB1.log tests.tmp
+test: IDB3.html IDB3.log tests.tmp
 	ls -al
 	make check
 
