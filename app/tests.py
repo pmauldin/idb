@@ -263,8 +263,6 @@ class TestModels(TestCase):
         for column in series_table.columns:
             rowDict[column.name] = str(getattr(row, column.name))
 
-        # print ("ROWDICT", rowDict)
-
         for key in realData:
             if not isinstance(realData[key], list):
                 self.assertEqual(str(realData[key]), rowDict[key])
@@ -273,6 +271,6 @@ class TestModels(TestCase):
 # main
 # ----
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     con, meta = connect("charlesgong", "Charles")
     main()
