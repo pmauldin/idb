@@ -32,6 +32,9 @@ class Navigation extends Component {
 						<LinkContainer to="/about">
 							<NavItem>About</NavItem>
 						</LinkContainer>
+						<LinkContainer to="/visualization">
+							<NavItem>Visualization</NavItem>
+						</LinkContainer>
 					</Nav>
 					<SearchingMenu />
 				</Navbar.Collapse>

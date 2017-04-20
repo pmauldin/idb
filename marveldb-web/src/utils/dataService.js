@@ -58,4 +58,8 @@ export default class DataService {
 	static getData(type, requestOptions, ids) {
 		return getData(root + '/' + type.toLowerCase(), requestOptions, ids);
 	}
+
+	static getVisualizationData() {
+		return getData('http://www.sweatshop.tech/api/company?q={"filters":[{"name":"funding","op":"is_not_null"}],"order_by":[{"field":"funding","direction":"desc"}],"limit":10}')
+	}
 }

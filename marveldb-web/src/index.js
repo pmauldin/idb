@@ -10,6 +10,7 @@ import Comics from './components/pages/Comics';
 import Series from './components/pages/Series';
 import Creators from './components/pages/Creators';
 import About from './components/pages/About';
+import Visualization from './components/pages/Visualization';
 import UnitTestOutput from './components/pages/UnitTestOutput';
 import CharacterDetails from './components/details/CharacterDetails';
 import ComicDetails from './components/details/ComicDetails';
@@ -34,6 +35,7 @@ ReactDOM.render ((
 				<Route path="/creators" component={Creators} />
 				<Route path="/creators/:id" component={CreatorDetails} />
 				<Route path="/about" component={About} />
+				<Route path="/visualization" component={Visualization} />
 				<Route path="/tests" component={UnitTestOutput} />
 			</Route>
 		</Router>

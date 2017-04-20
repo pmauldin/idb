@@ -1,0 +1,19 @@
+.loadingSpinner {
+    margin: auto;
+}
+
+.chartWrapper {
+    width: 60%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+.chartExplanation {
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.visChart {
+    width: 50%;
+    margin: auto;
+}
