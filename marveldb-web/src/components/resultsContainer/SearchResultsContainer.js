@@ -8,10 +8,6 @@ import SearchGridContainer from '../gridContainer/SearchGridContainer';
 import PaginationBar from './menus/PaginationBar';
 import { PAGINATION_UPDATED, RESET_STATE, UPDATE_SEARCH_OPTIONS } from '../../redux/actions';
 
-
-// TODO: Searching from Details Page is broken
-// TODO: For some reason, SearchResultsContainer always sees searchText from 1 search ago, if multiple searches are initiated
-
 class SearchResultsContainer extends Component {
 	componentWillMount() {
 		this.state = {
@@ -26,8 +22,6 @@ class SearchResultsContainer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		let shouldReload = !isEqual(this.props.pagination, nextProps.pagination);
-		console.log('Pagination changed = ' + shouldReload);
-		console.log('Search text = ' + this.props.search.searchText);
 
 		if (!isEqual(this.props.search.searchText, nextProps.search.searchText)) {
 			shouldReload = true;
@@ -48,9 +42,7 @@ class SearchResultsContainer extends Component {
 				let count = 0;
 				let resultsTypes = Object.keys(data);
 				resultsTypes.forEach(resultsType => {
-					if (data[resultsType].count) {
-						count += data[resultsType].count
-					}
+					count += data[resultsType].count
 				});
 
 				this.setState({ count, dataLoading: false, data });
@@ -69,7 +61,7 @@ class SearchResultsContainer extends Component {
 		} else {
 			return (
 				<div>
-					<PaginationBar count={this.state.count} {...this.props} />
+					<PaginationBar searchActive={true} count={this.state.count} {...this.props} />
 					<SearchGridContainer data={this.state.data}/>
 				</div>
 			);
