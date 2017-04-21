@@ -49,7 +49,7 @@ export default class SearchGridContainer extends Component {
 			const gridItems = allResults.map(item => {
 				const GridItem = this.getGridItem(item.type);
 				return (
-					<Col key={item.id} xs={12} sm={4} md={4} lg={4}>
+					<Col key={item.id} xs={12} sm={12} md={12} lg={12}>
 						<GridItem inGrid={true} {...item} />
 					</Col>
 				);
