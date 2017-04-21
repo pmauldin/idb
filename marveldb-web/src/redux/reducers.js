@@ -5,7 +5,7 @@ import { UPDATE_FILTER_OPTIONS, UPDATE_SORT_OPTIONS, UPDATE_SEARCH_OPTIONS, PAGI
 
 function data(state, action) {
 	if (!state) {
-		return {comics: null, creators: null, characters: null, series: null};
+		return {comics: null, creators: null, characters: null, series: null, search: null};
 	}
 
 	switch (action.type) {

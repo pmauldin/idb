@@ -41,7 +41,6 @@ export default class Visualization extends Component {
     }
 
     render() {
-        console.log(this.state.dataLoading);
         if (this.state.dataLoading) {
             return <Image className="loadingSpinner" responsive src={loadingSpinner} />;
         }
