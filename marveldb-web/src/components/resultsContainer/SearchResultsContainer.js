@@ -26,6 +26,8 @@ class SearchResultsContainer extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		let shouldReload = !isEqual(this.props.pagination, nextProps.pagination);
+		console.log('Pagination changed = ' + shouldReload);
+		console.log('Search text = ' + this.props.search.searchText);
 
 		if (!isEqual(this.props.search.searchText, nextProps.search.searchText)) {
 			shouldReload = true;
@@ -34,8 +36,8 @@ class SearchResultsContainer extends Component {
 
 		if (shouldReload) {
 			this.loadData({
-				searchTerm: JSON.stringify(this.props.search.searchText),
-				pagination: this.props.pagination
+				searchTerm: JSON.stringify(nextProps.search.searchText),
+				pagination: nextProps.pagination
 			});
 		}
 	}
