@@ -36,3 +36,11 @@
 .aboutContainer {
 	padding: 0 0 10px 10px;
 }
+
+.reportContainer {
+	padding: 5px 30px 15px 30px;
+}
+
+.userStory {
+	font-size: 1.4em;
+}
