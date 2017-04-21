@@ -1,3 +1,28 @@
+commit 6b13ee0de8d159bf1b07787ef78b69275f0f97d9
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Apr 20 21:53:37 2017 -0500
+
+    Minor display fixes
+
+commit b6fd3b774ab426cae0695edb9986b18c1fcac8a7
+Merge: e374e9f 0dcb76b
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Apr 20 21:53:00 2017 -0500
+
+    Merge branch 'master' of github.com:pmauldin/idb
+
+commit e374e9f6f31bc61fcbf189033328f19f518a3201
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Apr 20 21:52:49 2017 -0500
+
+    Can now search from any page, and pagination works for both search results and grid results.
+
+commit 0dcb76b798df9f9a7aa240c2f6f713329eef3d89
+Author: Peter Mauldin <petermauldin1@gmail.com>
+Date:   Thu Apr 20 21:38:50 2017 -0500
+
+    Updated git log
+
 commit 890fc3d032b8830e74b096c9c06955523d0cb7cb
 Merge: 8a2de48 ef92e26
 Author: Peter Mauldin <petermauldin1@gmail.com>
