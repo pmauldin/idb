@@ -1,3 +1,133 @@
+commit 890fc3d032b8830e74b096c9c06955523d0cb7cb
+Merge: 8a2de48 ef92e26
+Author: Peter Mauldin <petermauldin1@gmail.com>
+Date:   Thu Apr 20 21:34:03 2017 -0500
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 8a2de4813d234b33895d6f8bc4196599aa30700e
+Author: Peter Mauldin <petermauldin1@gmail.com>
+Date:   Thu Apr 20 21:33:50 2017 -0500
+
+    Got technical report above 5000 words, and redid the styling of the page.
+
+commit ef92e26614b2eeebb795f6533889da995a0585fd
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Apr 20 20:42:08 2017 -0500
+
+    Fixed bug in SearchResultsContainer that was causing dataflow errors
+
+commit ac4350097478914d6b1d5f6926e6e2710b91af4f
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Thu Apr 20 20:33:39 2017 -0500
+
+    Search now hooked up to the backend and working, with quirks - pagination not working quite right, and dataflow is slightly buggy.
+
+commit ecdcf425da6f1c44a900f916a5c1f86a3c5220e5
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 20 17:54:28 2017 -0500
+
+    updated makefile
+
+commit 0a3148b85596a4be29f73ba9a461f33c96a0f055
+Author: Charles <chlsgong@gmail.com>
+Date:   Thu Apr 20 17:41:42 2017 -0500
+
+    added search api
+
+commit 0340c3845b112bb84c146f33adf9b5d8bfa2a5db
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 20 17:33:26 2017 -0500
+
+    Updated technical report and added link to presentation (resolves #47)
+
+commit d6faefd404884b337cf3090315d690fcbfdbb490
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Thu Apr 20 17:15:35 2017 -0500
+
+    Updated models.py and tests.out
+
+commit c59d9d9ee11e6fc183be3bce541d292eb0fcbf9c
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Thu Apr 20 16:44:43 2017 -0500
+
+    Added tests.out
+
+commit 7dc3309957e561c5e4aa10ad8f3c1e0790a22b5b
+Author: Peter Mauldin <petermauldin1@gmail.com>
+Date:   Thu Apr 20 11:58:07 2017 -0500
+
+    Hooked in team 6's API into the data visualization (resolves #44)
+
+commit b3ad70d1d92ca0b74d288023235c2d253e57028e
+Author: Peter Mauldin <petermauldin1@gmail.com>
+Date:   Thu Apr 20 01:24:34 2017 -0500
+
+    d3 visualization almost complete. Need to fix CORS issue with other group.
+
+commit 00054eb7a12c3e9a45cd951d542746d263b97361
+Author: tireymorris <tireymorris@gmail.com>
+Date:   Wed Apr 19 18:58:17 2017 -0500
+
+    Implemented searching components and prototyped dataflow. TODO: Hook up search to backend and improve searching from details pages.
+
+commit c8592afb8b9a50f68c2422ded39dbcffda004ae7
+Merge: 24ab4e8 dc97066
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Wed Apr 19 15:00:56 2017 -0500
+
+    Merge branch 'master' of https://github.com/pmauldin/idb
+
+commit 24ab4e82cd26d5007c1844bab4ace845d0e08830
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Wed Apr 19 15:00:42 2017 -0500
+
+    Added Search query
+
+commit dc970661650936d9ea83eddb5ca04141797e0c22
+Merge: b9ae5a9 2b157c1
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Apr 19 19:28:01 2017 +0000
+
+    Merge branch 'master' of https://github.com/pmauldin/idb
+
+commit b9ae5a9a9ff8d18bddfa7f26cf8b1de1c04b4f43
+Author: Peter Mauldin <petermauldin@utexas.edu>
+Date:   Wed Apr 19 19:27:11 2017 +0000
+
+    Preliminary bug fixes for front-end
+
+commit 3fce9996799e46c6ffc5cd01814d97d778357936
+Merge: c175337 2b157c1
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Wed Apr 19 14:13:40 2017 -0500
+
+    Merge branch 'master' of https://github.com/pmauldin/idb
+
+commit 2b157c12e4eda51b6fc707015cbf7757f3e88b2c
+Author: Charles <chlsgong@gmail.com>
+Date:   Wed Apr 19 14:10:53 2017 -0500
+
+    working on search api
+
+commit c17533741050b6ebc2a055535ba81e0c4dcb733a
+Author: Jorge Zapien <zapien256@gmail.com>
+Date:   Mon Apr 17 15:26:10 2017 -0500
+
+    Began adding more unit tests
+
+commit 3437f44df805d726e0e81083f133468e8e566225
+Author: Charles <chlsgong@gmail.com>
+Date:   Mon Apr 10 19:20:49 2017 -0500
+
+    changed yaml file
+
+commit 7c471676e3cbb03a5942f54a2ff947af5e1cdf6d
+Author: pmauldin <petermauldin@utexas.edu>
+Date:   Thu Apr 6 21:58:42 2017 -0500
+
+    added git log:
+
 commit ad506ab22d2543f6e7c96e0fe26e25710353cca6
 Merge: 3c1e1a2 88f796c
 Author: Ty Morris <tireymorris@gmail.com>
