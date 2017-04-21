@@ -3,8 +3,8 @@ import axios from 'axios';
 const root = "http://developer.marveldbs.me/api";
 
 function getData(path, requestOptions) {
-	let params;
-	if (requestOptions) {
+	let params = requestOptions;
+	if (requestOptions && requestOptions.sortOptions) {
 		let filters;
 		if (requestOptions.filters) {
 			filters = requestOptions.filters.map(filter => { return {

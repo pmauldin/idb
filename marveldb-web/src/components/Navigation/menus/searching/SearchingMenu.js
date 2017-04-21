@@ -18,7 +18,7 @@ class SearchingMenu extends Component {
 		var text = ("" + event.target.value).trim();
 		this.setState({searchText: text});
 
-		if (!text || text === "") {
+		if (text === "") {
 			this.props.resetState();
 		}
 	}

@@ -6,9 +6,9 @@ import { UPDATE_SEARCH_OPTIONS } from '../../redux/actions';
 
 class ResultsContainer extends Component {
 	render() {
-		const search = this.props.search;
+		const {search, ...otherProps} = this.props; 
 		let ResultsComponent = (search.searchText && search.searchText.trim().length > 0) ? SearchResultsContainer : GridResultsContainer;
-		return <ResultsComponent {...this.props} />;
+		return <ResultsComponent {...otherProps} />;
 	}
 }
 
